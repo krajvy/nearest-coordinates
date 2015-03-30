@@ -7,7 +7,89 @@
 		<meta name="author" content="Jan 'krajvy' Krivohlavek">
 		<script>
 			/* Global object for working with all coordinates */
-			var NearestObject = {};
+			var NearestObject = {
+				config: {
+					idElOutput: 'data_out',
+					idElInputCoord: 'coord_in'
+				},
+				coordIn: null,
+				testData: [
+					{ 'lat': 50.083333, 'lon': 14.416667, 'desc': 'Prague' },
+					{ 'lat': 50.45, 'lon': 30.523333, 'desc': 'Kiev' },
+					{ 'lat': 52.366667, 'lon': 4.9, 'desc': 'Amsterdam' },
+					{ 'lat': 59.329444, 'lon': 18.068611, 'desc': 'Stockholm' },
+					{ 'lat': 41.326, 'lon': 19.816, 'desc': 'Tirana' },
+					{ 'lat': 53.347778, 'lon': -6.259722, 'desc': 'Dublin' },
+					{ 'lat': -34.603333, 'lon': -58.381667, 'desc': 'Buenos Aires' },
+					{ 'lat': -33.865, 'lon': 151.209444, 'desc': 'Sydney' },
+					{ 'lat': 45.416667, 'lon': -75.683333, 'desc': 'Ottawa' },
+					{ 'lat': 43.133333, 'lon': 131.9, 'desc': 'Vladivostok' },
+					{ 'lat': 0.016667, 'lon': 37.066667, 'desc': 'Nanyuki' },
+					{ 'lat': 65.584167, 'lon': -170.988889, 'desc': 'Lavrentiya' },
+					{ 'lat': 90, 'lon': 0, 'desc': 'North Pole' },
+					{ 'lat': -90, 'lon': 0, 'desc': 'South Pole' },
+					{ 'lat': -64.497, 'lon': 137.684, 'desc': 'South Magnetic Pole' },
+					{ 'lat': 83.95, 'lon': -120.72, 'desc': 'North Magnetic Pole' }
+				],
+				/**
+				* Process nearest search
+				*/
+				findNearest: function() {
+					return this.testData;
+				},
+				/**
+				* Format output coordinates
+				*/
+				getOutputCoords: function(lat, lon) {
+					return lat + ',' + lon;
+				},
+				/**
+				* Output data to table below
+				*/
+				renderTable: function(outputData) {
+					var outputEl = document.getElementById(this.config.idElOutput);
+					if(!outputEl) {
+						return false;
+					}
+					
+					// emtpty workspace
+					outputEl.innerHTML = '';
+
+					// fill it with data
+					for(var i in outputData) {
+
+						var _tr = document.createElement('tr');
+						
+						var coord = document.createElement('td');
+						coord.textContent = this.getOutputCoords(outputData[i].lat, outputData[i].lon);
+						_tr.appendChild(coord);
+						
+						var dist = document.createElement('td');
+						_tr.appendChild(dist);
+						
+						var orient = document.createElement('td');
+						_tr.appendChild(orient);
+						
+						var desc = document.createElement('td');
+						desc.textContent = outputData[i].desc;
+						_tr.appendChild(desc);
+						
+						// and finally append it to output element
+						outputEl.appendChild(_tr);
+					}
+					return true;
+				},
+				/**
+				* Read data from form and find nearest objects
+				*/
+				process: function() {
+					// TODO: better handling input
+					this.coordIn = document.getElementById(this.config.idElInputCoord).value;
+					var nearest = this.findNearest();
+					this.renderTable(nearest);
+					return false;
+				}
+			};
 		</script>
 		<style type="text/css">
 			table {
@@ -21,7 +103,7 @@
 		</style>
 	</head>
 	<body>
-		<form id="data_in" action="#" method="post">
+		<form id="data_in" action="#" onsubmit="return NearestObject.process();" method="post">
 			<fieldset>
 				<legend>Input</legend>
 				<div>
@@ -33,7 +115,7 @@
 				</div>
 			</fieldset>
 		</form>
-		<table id="data_out">
+		<table>
 			<thead>
 				<tr>
 					<th>Coordinates</th>
@@ -42,7 +124,7 @@
 					<th>Description</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody id="data_out">
 			</tbody>
 		</table>
 	</body>
