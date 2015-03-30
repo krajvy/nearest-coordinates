@@ -1,49 +1,49 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Nearest Object</title>
-    <meta name="description" content="Find nearest object by coordinates">
-    <meta name="author" content="Jan 'krajvy' Krivohlavek">
-    <script>
-      /* Global object for working with all coordinates */
-      var NearestObject = {};
-    </script>
-    <style type="text/css">
-      table {
-        border-collapse: collapse;
-        border-spacing: 0px;
-      }
-      table, th, td {
-        padding: 5px;
-        border: 1px solid black;
-      }
-    </style>
-  </head>
-  <body>
-    <form id="data_in" action="#" method="post">
-      <fieldset>
-        <legend>Input</legend>
-        <div>
-          <label for="coord_in">Coordinates</label>
-          <input type="text" name="coordinates_in" id="coord_in" />
-        </div>
-        <div>
-          <input type="submit" id="submit" value="Process" />
-        </div>
-      </fieldset>
-    </form>
-    <table id="data_out">
-      <thead>
-        <tr>
-          <th>Coordinates</th>
-          <th>Distance</th>
-          <th>Orientation</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-      </tbody>
-    </table>
-  </body>
+	<head>
+		<meta charset="utf-8">
+		<title>Nearest Object</title>
+		<meta name="description" content="Find nearest object by coordinates">
+		<meta name="author" content="Jan 'krajvy' Krivohlavek">
+		<script>
+			/* Global object for working with all coordinates */
+			var NearestObject = {};
+		</script>
+		<style type="text/css">
+			table {
+				border-collapse: collapse;
+				border-spacing: 0px;
+			}
+			table, th, td {
+				padding: 5px;
+				border: 1px solid black;
+			}
+		</style>
+	</head>
+	<body>
+		<form id="data_in" action="#" method="post">
+			<fieldset>
+				<legend>Input</legend>
+				<div>
+					<label for="coord_in">Coordinates:</label>
+					<input type="text" name="coordinates_in" id="coord_in" />
+				</div>
+				<div>
+					<input type="submit" id="submit" value="Process" />
+				</div>
+			</fieldset>
+		</form>
+		<table id="data_out">
+			<thead>
+				<tr>
+					<th>Coordinates</th>
+					<th>Distance</th>
+					<th>Orientation</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</body>
 </html>
