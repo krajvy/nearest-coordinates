@@ -33,20 +33,33 @@
 					{ 'lat': -64.497, 'lon': 137.684, 'desc': 'South Magnetic Pole' },
 					{ 'lat': 83.95, 'lon': -120.72, 'desc': 'North Magnetic Pole' }
 				],
+				testInputCoordinates: { 'lat': 49.8117486, 'lon': 13.9886431, 'desc': 'Plesivec (test start point)'},
 				/**
 				* Process nearest search
+				* @param int lat latitude coordinate for searching start point
+				* @param int lon longitude coordinate for searching start point
+				* @return object sorted output data with nearest points
 				*/
-				findNearest: function() {
-					return this.testData;
+				findNearest: function(lat, lon) {
+					var outputData = [];
+					for(var i in this.testData) {
+						outputData.push(this.testData[i]);
+					}
+					return outputData;
 				},
 				/**
 				* Format output coordinates
+				* @param int lat latitude coordinate
+				* @param int lon longitude coordinate
+				* @return string formatted coordinates
 				*/
 				getOutputCoords: function(lat, lon) {
 					return lat + ',' + lon;
 				},
 				/**
-				* Output data to table below
+				* Output data to table
+				* @param object outputData data for output to table
+				* @return bool true if success, false elsewhere
 				*/
 				renderTable: function(outputData) {
 					var outputEl = document.getElementById(this.config.idElOutput);
@@ -57,9 +70,8 @@
 					// emtpty workspace
 					outputEl.innerHTML = '';
 
-					// fill it with data
+					// fill output with formatted output
 					for(var i in outputData) {
-
 						var _tr = document.createElement('tr');
 						
 						var coord = document.createElement('td');
@@ -67,9 +79,11 @@
 						_tr.appendChild(coord);
 						
 						var dist = document.createElement('td');
+						dist.textContent = '-';
 						_tr.appendChild(dist);
 						
 						var orient = document.createElement('td');
+						orient.textContent = '?';
 						_tr.appendChild(orient);
 						
 						var desc = document.createElement('td');
@@ -86,9 +100,13 @@
 				*/
 				process: function() {
 					// TODO: better handling input
-					this.coordIn = document.getElementById(this.config.idElInputCoord).value;
-					var nearest = this.findNearest();
+					//this.coordIn = document.getElementById(this.config.idElInputCoord).value;
+					// TODO: read lat and lon from input
+					var lat = this.testInputCoordinates.lat;
+					var lon = this.testInputCoordinates.lon;
+					var nearest = this.findNearest(lat, lon);
 					this.renderTable(nearest);
+					// TODO: return false is not quite correct...will use preventDefault instead in future
 					return false;
 				}
 			};
