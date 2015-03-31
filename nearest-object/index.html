@@ -14,9 +14,18 @@
 			Math.deg2rad = function(deg) {
 				return (deg / 180) * Math.PI;
 			};
+			/**
+			* Extend JS Math object with radian to degrees converter
+			* @param float rad input radians
+			* @return float degrees
+			*/
+			Math.rad2deg = function(rad) {
+				return (rad / Math.PI) * 180;
+			};
 			/* Global object for working with all coordinates */
 			var NearestObject = {
 				config: {
+					alghorithm: 'ortodroma',
 					idElOutput: 'data_out',
 					idElInputCoord: 'coord_in'
 				},
@@ -54,28 +63,40 @@
 				* @return float distance of those two points in km
 				*/
 				getDistance: function(lat1, lon1, lat2, lon2) {
+					var ret = 0;
 					if(
 						typeof lat1 == 'undefined'
 						|| typeof lon1 == 'undefined'
 						|| typeof lat2 == 'undefined'
 						|| typeof lon2 == 'undefined'
 					) {
-						return 0;
+						return ret;
 					}
-					// averidge radius of great circle
+					// averidge radius of Earth
 					var greatCircleRadius = 6372.795;
-					return Math.acos(
-						Math.cos(Math.deg2rad(lat1))
-						* Math.cos(Math.deg2rad(lon1))
-						* Math.cos(Math.deg2rad(lat2))
-						* Math.cos(Math.deg2rad(lon2))
-						+ Math.cos(Math.deg2rad(lat1))
-						* Math.sin(Math.deg2rad(lon1))
-						* Math.cos(Math.deg2rad(lat2))
-						* Math.sin(Math.deg2rad(lon2))
-						+ Math.sin(Math.deg2rad(lat1))
-						* Math.sin(Math.deg2rad(lat2))
-					) * greatCircleRadius;
+					
+					// alghorithms based on:
+					// http://is.muni.cz/el/1431/podzim2006/Z0135/2528871/Cviceni1_Vypocet_vzdalenosti_na_Zemi.pdf
+					switch(this.config.alghorithm) {
+						case 'loxodroma':
+							// TODO: loxodroma alghorithm
+							break;
+						case 'ortodroma':
+						default:
+							// ortodroma alghorithm
+							var centralAngle = Math.rad2deg(
+								Math.acos(
+									Math.cos(Math.deg2rad(90 - lat2))
+									* Math.cos(Math.deg2rad(90 - lat1))
+									+ Math.sin(Math.deg2rad(90 - lat2))
+									* Math.sin(Math.deg2rad(90 - lat1))
+									* Math.cos(Math.deg2rad(lon2 - lon1))
+								)
+							);
+							ret = centralAngle * (2 * Math.PI * greatCircleRadius / 360);
+							break;
+					}
+					return ret;
 				},
 				/**
 				* Process nearest search
