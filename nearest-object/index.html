@@ -6,6 +6,14 @@
 		<meta name="description" content="Find nearest object by coordinates">
 		<meta name="author" content="Jan 'krajvy' Krivohlavek">
 		<script>
+			/**
+			* Extend JS Math object with degrees to radian converter
+			* @param float deg input degree
+			* @return float radians
+			*/
+			Math.deg2rad = function(deg) {
+				return (deg / 180) * Math.PI;
+			};
 			/* Global object for working with all coordinates */
 			var NearestObject = {
 				config: {
@@ -35,26 +43,95 @@
 				],
 				testInputCoordinates: { 'lat': 49.8117486, 'lon': 13.9886431, 'desc': 'Plesivec (test start point)'},
 				/**
+				* Calculate distance of two points on sphere
+				* I know this alghorithm based on sphere isn't accurate for Earth,
+				* but this should be only hint where to look for interesting places near
+				* selected point, and for this it is good enough.
+				* @param float lat1 latitude of start point
+				* @param float lon1 longitude of start point
+				* @param float lat2 latitude of end point
+				* @param float lon2 longitude of end point
+				* @return float distance of those two points in km
+				*/
+				getDistance: function(lat1, lon1, lat2, lon2) {
+					if(
+						typeof lat1 == 'undefined'
+						|| typeof lon1 == 'undefined'
+						|| typeof lat2 == 'undefined'
+						|| typeof lon2 == 'undefined'
+					) {
+						return 0;
+					}
+					// averidge radius of great circle
+					var greatCircleRadius = 6372.795;
+					return Math.acos(
+						Math.cos(Math.deg2rad(lat1))
+						* Math.cos(Math.deg2rad(lon1))
+						* Math.cos(Math.deg2rad(lat2))
+						* Math.cos(Math.deg2rad(lon2))
+						+ Math.cos(Math.deg2rad(lat1))
+						* Math.sin(Math.deg2rad(lon1))
+						* Math.cos(Math.deg2rad(lat2))
+						* Math.sin(Math.deg2rad(lon2))
+						+ Math.sin(Math.deg2rad(lat1))
+						* Math.sin(Math.deg2rad(lat2))
+					) * greatCircleRadius;
+				},
+				/**
 				* Process nearest search
-				* @param int lat latitude coordinate for searching start point
-				* @param int lon longitude coordinate for searching start point
+				* @param float lat latitude coordinate for searching start point
+				* @param float lon longitude coordinate for searching start point
 				* @return object sorted output data with nearest points
 				*/
 				findNearest: function(lat, lon) {
+					if(
+						typeof lat == 'undefined'
+						|| typeof lon == 'undefined'
+					) {
+						return [];
+					}
 					var outputData = [];
 					for(var i in this.testData) {
-						outputData.push(this.testData[i]);
+						var calcul = this.testData[i];
+						calcul['dist'] = this.getDistance(lat, lon, calcul.lat, calcul.lon);
+						// TODO: calculate orientation
+						calcul['orient'] = '?';
+						outputData.push(calcul);
 					}
+					// TODO: sort data by distance
 					return outputData;
 				},
 				/**
 				* Format output coordinates
-				* @param int lat latitude coordinate
-				* @param int lon longitude coordinate
+				* @param float lat latitude coordinate
+				* @param float lon longitude coordinate
 				* @return string formatted coordinates
 				*/
-				getOutputCoords: function(lat, lon) {
+				formatCoords: function(lat, lon) {
 					return lat + ',' + lon;
+				},
+				/**
+				* Format output distance
+				* @param float distance
+				* @return string formatted distance with units
+				*/
+				formatDistance: function(distance) {
+					if(distance > 50) {
+						// roud values to integers
+						distance = parseInt(distance);
+					} else {
+						// round values to last two digits
+						distance = Math.round(distance * 100) / 100;
+					}
+					return distance + ' km';
+				},
+				/**
+				* Format output orientation in degrees
+				* @param int orientation degrees
+				* @return string formatted orientation with units
+				*/
+				formatOrientation: function(orientation) {
+					return orientation + ' °';
 				},
 				/**
 				* Output data to table
@@ -75,15 +152,15 @@
 						var _tr = document.createElement('tr');
 						
 						var coord = document.createElement('td');
-						coord.textContent = this.getOutputCoords(outputData[i].lat, outputData[i].lon);
+						coord.textContent = this.formatCoords(outputData[i].lat, outputData[i].lon);
 						_tr.appendChild(coord);
 						
 						var dist = document.createElement('td');
-						dist.textContent = '-';
+						dist.textContent = this.formatDistance(outputData[i].dist);
 						_tr.appendChild(dist);
 						
 						var orient = document.createElement('td');
-						orient.textContent = '?';
+						orient.textContent = this.formatOrientation(outputData[i].orient);
 						_tr.appendChild(orient);
 						
 						var desc = document.createElement('td');
@@ -104,8 +181,7 @@
 					// TODO: read lat and lon from input
 					var lat = this.testInputCoordinates.lat;
 					var lon = this.testInputCoordinates.lon;
-					var nearest = this.findNearest(lat, lon);
-					this.renderTable(nearest);
+					this.renderTable(this.findNearest(lat, lon));
 					// TODO: return false is not quite correct...will use preventDefault instead in future
 					return false;
 				}
