@@ -48,6 +48,7 @@
 					{ 'lat': 90, 'lon': 0, 'desc': 'North Pole' },
 					{ 'lat': -90, 'lon': 0, 'desc': 'South Pole' },
 					{ 'lat': -64.497, 'lon': 137.684, 'desc': 'South Magnetic Pole' },
+					{ 'lat': -76, 'lon': -157, 'desc': 'Control checksum' },
 					{ 'lat': 83.95, 'lon': -120.72, 'desc': 'North Magnetic Pole' }
 				],
 				testInputCoordinates: { 'lat': 49.8117486, 'lon': 13.9886431, 'desc': 'Plesivec (test start point)'},
@@ -74,26 +75,29 @@
 					}
 					// averidge radius of Earth
 					var greatCircleRadius = 6372.795;
+					// compute correct delta of longitudes
+					var deltaLon = (lon2 - lon1);
+					if(Math.abs(deltaLon) > 180) {
+						deltaLon = 360 - deltaLon;
+					}
 					
 					// alghorithms based on:
-					// http://is.muni.cz/el/1431/podzim2006/Z0135/2528871/Cviceni1_Vypocet_vzdalenosti_na_Zemi.pdf
+					// http://cs.wikipedia.org/wiki/Loxodroma
+					// http://cs.wikipedia.org/wiki/Ortodroma
 					switch(this.config.alghorithm) {
 						case 'loxodroma':
 							// TODO: loxodroma alghorithm
 							break;
 						case 'ortodroma':
 						default:
-							// ortodroma alghorithm
-							var centralAngle = Math.rad2deg(
-								Math.acos(
-									Math.cos(Math.deg2rad(90 - lat2))
-									* Math.cos(Math.deg2rad(90 - lat1))
-									+ Math.sin(Math.deg2rad(90 - lat2))
-									* Math.sin(Math.deg2rad(90 - lat1))
-									* Math.cos(Math.deg2rad(lon2 - lon1))
-								)
+							var centralAngle = Math.acos(
+								Math.cos(Math.deg2rad(90 - lat2))
+								* Math.cos(Math.deg2rad(90 - lat1))
+								+ Math.sin(Math.deg2rad(90 - lat2))
+								* Math.sin(Math.deg2rad(90 - lat1))
+								* Math.cos(Math.deg2rad(deltaLon))
 							);
-							ret = centralAngle * (2 * Math.PI * greatCircleRadius / 360);
+							ret = centralAngle * greatCircleRadius;
 							break;
 					}
 					return ret;
