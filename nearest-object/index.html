@@ -46,6 +46,10 @@
 					{ 'lat': 0, 'lon': 109.333333, 'desc': 'Pontianak' },
 					{ 'lat': 0, 'lon': 0, 'desc': 'Middleearth' },
 					{ 'lat': 90, 'lon': 0, 'desc': 'North Pole' },
+					{ 'lat': 80, 'lon': 14, 'desc': 'Azimuth point 1' },
+					{ 'lat': -80, 'lon': 14, 'desc': 'Azimuth point 2' },
+					{ 'lat': 80, 'lon': -14, 'desc': 'Azimuth point 3' },
+					{ 'lat': -80, 'lon': -14, 'desc': 'Azimuth point 4' },
 					{ 'lat': -90, 'lon': 0, 'desc': 'South Pole' },
 					{ 'lat': -64.497, 'lon': 137.684, 'desc': 'South Magnetic Pole' },
 					{ 'lat': -76, 'lon': -157, 'desc': 'Control checksum' },
@@ -65,7 +69,7 @@
 				*/
 				getMutualPosition: function(lat1, lon1, lat2, lon2) {
 					// distance will be in km
-					var ret = { 'distance': 0 };
+					var ret = { 'distance': 0, 'azimuth': 0 };
 					if(
 						typeof lat1 == 'undefined'
 						|| typeof lon1 == 'undefined'
@@ -76,11 +80,10 @@
 					}
 					// averidge radius of Earth
 					var greatCircleRadius = 6372.795;
-					// compute correct delta of longitudes
-					var deltaLon = (lon2 - lon1);
-					if(Math.abs(deltaLon) > 180) {
-						deltaLon = 360 - deltaLon;
-					}
+					// convert coordinates do radians
+					var radLat1 = Math.deg2rad(lat1);
+					var radLat2 = Math.deg2rad(lat2);
+					var radDeltaLon = Math.deg2rad(lon2 - lon1);
 					
 					// alghorithms based on:
 					// http://cs.wikipedia.org/wiki/Loxodroma
@@ -91,16 +94,24 @@
 							break;
 						case 'ortodroma':
 						default:
-							var centralAngle = Math.acos(
-								Math.cos(Math.deg2rad(90 - lat2))
-								* Math.cos(Math.deg2rad(90 - lat1))
-								+ Math.sin(Math.deg2rad(90 - lat2))
-								* Math.sin(Math.deg2rad(90 - lat1))
-								* Math.cos(Math.deg2rad(deltaLon))
-							);
-							ret.distance = centralAngle * greatCircleRadius;
+							ret.distance = Math.acos(
+								Math.sin(radLat1)
+								* Math.sin(radLat2)
+								+ Math.cos(radLat1)
+								* Math.cos(radLat2)
+								* Math.cos(radDeltaLon)
+							) * greatCircleRadius;
 							break;
 					}
+					ret.azimuth = Math.rad2deg(Math.atan2(
+						Math.sin(radDeltaLon) * Math.cos(radLat2)
+						,
+						Math.cos(radLat1)
+						* Math.sin(radLat2)
+						- Math.sin(radLat1)
+						* Math.cos(radLat2)
+						* Math.cos(radDeltaLon)
+					));
 					return ret;
 				},
 				/**
@@ -121,8 +132,7 @@
 						var calcul = this.testData[i];
 						var mutual = this.getMutualPosition(lat, lon, calcul.lat, calcul.lon);
 						calcul['distance'] = mutual.distance;
-						// TODO: calculate orientation
-						calcul['azimuth'] = '?';
+						calcul['azimuth'] = mutual.azimuth;
 						outputData.push(calcul);
 					}
 					// TODO: sort data by distance
@@ -158,7 +168,7 @@
 				* @return string formatted azimuth with units
 				*/
 				formatAzimuth: function(azimuth) {
-					return azimuth + ' °';
+					return Math.round(azimuth) + ' °';
 				},
 				/**
 				* Output data to table
