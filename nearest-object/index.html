@@ -120,9 +120,9 @@
 					for(var i in this.testData) {
 						var calcul = this.testData[i];
 						var mutual = this.getMutualPosition(lat, lon, calcul.lat, calcul.lon);
-						calcul['dist'] = mutual.distance;
+						calcul['distance'] = mutual.distance;
 						// TODO: calculate orientation
-						calcul['orient'] = '?';
+						calcul['azimuth'] = '?';
 						outputData.push(calcul);
 					}
 					// TODO: sort data by distance
@@ -134,7 +134,7 @@
 				* @param float lon longitude coordinate
 				* @return string formatted coordinates
 				*/
-				formatCoords: function(lat, lon) {
+				formatCoordinates: function(lat, lon) {
 					return lat + ',' + lon;
 				},
 				/**
@@ -153,12 +153,12 @@
 					return distance + ' km';
 				},
 				/**
-				* Format output orientation in degrees
-				* @param int orientation degrees
-				* @return string formatted orientation with units
+				* Format output azimuth in degrees
+				* @param int azimuth degrees
+				* @return string formatted azimuth with units
 				*/
-				formatOrientation: function(orientation) {
-					return orientation + ' °';
+				formatAzimuth: function(azimuth) {
+					return azimuth + ' °';
 				},
 				/**
 				* Output data to table
@@ -178,21 +178,21 @@
 					for(var i in outputData) {
 						var _tr = document.createElement('tr');
 						
-						var coord = document.createElement('td');
-						coord.textContent = this.formatCoords(outputData[i].lat, outputData[i].lon);
-						_tr.appendChild(coord);
+						var _tdCoord = document.createElement('td');
+						_tdCoord.textContent = this.formatCoordinates(outputData[i].lat, outputData[i].lon);
+						_tr.appendChild(_tdCoord);
 						
-						var dist = document.createElement('td');
-						dist.textContent = this.formatDistance(outputData[i].dist);
-						_tr.appendChild(dist);
+						var _tdDist = document.createElement('td');
+						_tdDist.textContent = this.formatDistance(outputData[i].distance);
+						_tr.appendChild(_tdDist);
 						
-						var orient = document.createElement('td');
-						orient.textContent = this.formatOrientation(outputData[i].orient);
-						_tr.appendChild(orient);
+						var _tdAzimuth = document.createElement('td');
+						_tdAzimuth.textContent = this.formatAzimuth(outputData[i].azimuth);
+						_tr.appendChild(_tdAzimuth);
 						
-						var desc = document.createElement('td');
-						desc.textContent = outputData[i].desc;
-						_tr.appendChild(desc);
+						var _tdDesc = document.createElement('td');
+						_tdDesc.textContent = outputData[i].desc;
+						_tr.appendChild(_tdDesc);
 						
 						// and finally append it to output element
 						outputEl.appendChild(_tr);
@@ -243,7 +243,7 @@
 				<tr>
 					<th>Coordinates</th>
 					<th>Distance</th>
-					<th>Orientation</th>
+					<th>Azimuth</th>
 					<th>Description</th>
 				</tr>
 			</thead>
