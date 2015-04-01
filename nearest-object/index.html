@@ -25,7 +25,6 @@
 			/* Global object for working with all coordinates */
 			var NearestObject = {
 				config: {
-					alghorithm: 'ortodroma',
 					idElOutput: 'data_out',
 					idElInputCoord: 'coord_in'
 				},
@@ -88,21 +87,14 @@
 					// alghorithms based on:
 					// http://cs.wikipedia.org/wiki/Loxodroma
 					// http://cs.wikipedia.org/wiki/Ortodroma
-					switch(this.config.alghorithm) {
-						case 'loxodroma':
-							// TODO: loxodroma alghorithm
-							break;
-						case 'ortodroma':
-						default:
-							ret.distance = Math.acos(
-								Math.sin(radLat1)
-								* Math.sin(radLat2)
-								+ Math.cos(radLat1)
-								* Math.cos(radLat2)
-								* Math.cos(radDeltaLon)
-							) * greatCircleRadius;
-							break;
-					}
+					ret.distance = Math.acos(
+						Math.sin(radLat1)
+						* Math.sin(radLat2)
+						+ Math.cos(radLat1)
+						* Math.cos(radLat2)
+						* Math.cos(radDeltaLon)
+					) * greatCircleRadius;
+					
 					ret.azimuth = Math.rad2deg(Math.atan2(
 						Math.sin(radDeltaLon) * Math.cos(radLat2)
 						,
