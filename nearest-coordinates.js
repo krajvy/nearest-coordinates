@@ -1,3 +1,8 @@
+/**
+* Library for computing nearest earth coordinates
+* @author Jan 'krajvy' Krivohlavek <krajvy@gmail.com>
+*/
+
 /* Usefull functions -------- */
 
 /**

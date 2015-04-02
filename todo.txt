@@ -1,19 +1,9 @@
-1) Search by static coordinates (just test data)
-- (OK) Output to table in page
-- Input coordinates by input (for first testing can be hardcoded like testData)
-1a) (OK) sphere alghorithm will be good for this time (for small distances will be minimal distortion)
-1b) add input for distance filtering
-1c) (OK) improve inline comments
-1d) filter by distance can prefilter data
-- will return data only in range from input coordinates, then calculate their distance
-1e) show azimuth
-1f) show azimuth arrow
-
-2) Coordinades format converter (still just test data)
-
-3) File parsing capability
+1) File parsing capability
 - Read file by input
 
-4) better search alghorithm for earth
-- http://geography.upol.cz/soubory/lide/jurek/PLG/cviceni/PLG_2009_Samostatny_ukol_5.pdf
-- http://is.muni.cz/el/1431/podzim2006/Z0135/2528871/Cviceni1_Vypocet_vzdalenosti_na_Zemi.pdf
+2) Coordinades multi-format converter
+
+3) Show azimuth arrow
+
+4) Prefilter data by its distance range
+- input in km
