@@ -27,7 +27,6 @@ var NearestCoordinates = {
     idElOutput: 'data_out',
     idElInputCoord: 'coord_in'
   },
-  coordIn: null,
   testData: [
     { 'lat': 50.083333, 'lon': 14.416667, 'desc': 'Prague' },
     { 'lat': 50.45, 'lon': 30.523333, 'desc': 'Kiev' },
@@ -112,13 +111,13 @@ var NearestCoordinates = {
   * @return object sorted output data with nearest points
   */
   findNearest: function(lat, lon) {
+    var outputData = [];
     if(
       typeof lat == 'undefined'
       || typeof lon == 'undefined'
     ) {
-      return [];
+      return outputData;
     }
-    var outputData = [];
     for(var i in this.testData) {
       var calcul = this.testData[i];
       var mutual = this.getMutualPosition(lat, lon, calcul.lat, calcul.lon);
@@ -133,6 +132,28 @@ var NearestCoordinates = {
       return 0;
     });
     return outputData;
+  },
+  /**
+  * Parse input string and try to find coordinates there
+  * @param string input
+  * @return object parsed coordinates or error info
+  */
+  parseCoordinates: function(input) {
+    var output = { 'lat': undefined, 'lon': undefined, 'desc': '' };
+    // find out that input is filled with anything
+    input = input.trim();
+    if(!input) {
+      return output;
+    }
+    // set full string to description
+    output.desc = input;
+    // lets parse some coordinates
+    var search = '';
+    if(search = input.match(/[^\d-]*(-?\d+(\.\d+)?)\s?,\s?(-?\d+(\.\d+)?)\D*/i)) {
+      output.lat = search[1];
+      output.lon = search[3];
+    }
+    return output;
   },
   /**
   * Format output coordinates
@@ -209,12 +230,12 @@ var NearestCoordinates = {
   * Read data from form and find nearest objects
   */
   process: function() {
-    // TODO: better handling input
-    //this.coordIn = document.getElementById(this.config.idElInputCoord).value;
-    // TODO: read lat and lon from input
-    var lat = this.testInputCoordinates.lat;
-    var lon = this.testInputCoordinates.lon;
-    this.renderTable(this.findNearest(lat, lon));
+    var coordIn = this.parseCoordinates(document.getElementById(this.config.idElInputCoord).value);
+    if(typeof coordIn.lat == 'undefined' || typeof coordIn.lon == 'undefined') {
+      // TODO: error handling - display error box
+    } else {
+      this.renderTable(this.findNearest(coordIn.lat, coordIn.lon));
+    }
     // TODO: return false is not quite correct...will use preventDefault instead in future
     return false;
   }
