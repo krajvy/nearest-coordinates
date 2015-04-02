@@ -24,6 +24,9 @@ Math.rad2deg = function(rad) {
 */
 var NearestCoordinates = {
   config: {
+    // Authalic radius - hypothetical perfect sphere which has the same surface
+    // area as the reference ellipsoid
+    earthRadius: 6371.0072,
     classElError: 'box-error',
     classElInputError: 'input-error',
     idElOutput: 'data_out',
@@ -77,8 +80,6 @@ var NearestCoordinates = {
     ) {
       return ret;
     }
-    // averidge radius of Earth
-    var greatCircleRadius = 6372.795;
     // convert coordinates do radians
     var radLat1 = Math.deg2rad(lat1);
     var radLat2 = Math.deg2rad(lat2);
@@ -93,7 +94,7 @@ var NearestCoordinates = {
       + Math.cos(radLat1)
       * Math.cos(radLat2)
       * Math.cos(radDeltaLon)
-    ) * greatCircleRadius;
+    ) * this.config.earthRadius;
     
     ret.azimuth = Math.rad2deg(Math.atan2(
       Math.sin(radDeltaLon) * Math.cos(radLat2)
