@@ -24,6 +24,8 @@ Math.rad2deg = function(rad) {
 */
 var NearestCoordinates = {
   config: {
+    classElError: 'box-error',
+    classElInputError: 'input-error',
     idElOutput: 'data_out',
     idElInputCoord: 'coord_in'
   },
@@ -153,6 +155,7 @@ var NearestCoordinates = {
       output.lat = search[1];
       output.lon = search[3];
     }
+    // TODO: more coordinate formats
     return output;
   },
   /**
@@ -227,13 +230,53 @@ var NearestCoordinates = {
     return true;
   },
   /**
+  * Render error messages around element
+  * @param string elId element ID where to display error
+  * @param string message what will appear after element
+  */
+  renderErrorBox: function(elId, message) {
+    var el = document.getElementById(elId);
+    if(el) {
+      // set input element error class
+      el.className += (el.className ? ' ' : '') + this.config.classElInputError;
+      // insert error message box
+      if(message) {
+        var _err = document.createElement('span');
+        _err.className = this.config.classElError;
+        _err.textContent = message;
+        // insert after
+        el.parentNode.insertBefore(_err, el.nextSibling);
+      }
+    }
+  },
+  /**
+  * Clear all error boxes from page
+  */
+  clearErrorBoxes: function() {
+    var errorMsgBox = document.getElementsByClassName(this.config.classElError);
+    while(errorMsgBox[0]) {
+      // remove error message box element
+      errorMsgBox[0].parentNode.removeChild(errorMsgBox[0]);
+    }
+    var errorInput = document.getElementsByClassName(this.config.classElInputError);
+    while(errorInput[0]) {
+      // remove input element error class
+      errorInput[0].classList.remove(this.config.classElInputError);
+    }
+  },
+  /**
   * Read data from form and find nearest objects
   */
   process: function() {
+    // clear all previous errors
+    this.clearErrorBoxes();
+    // read data from input
     var coordIn = this.parseCoordinates(document.getElementById(this.config.idElInputCoord).value);
+    // check input
     if(typeof coordIn.lat == 'undefined' || typeof coordIn.lon == 'undefined') {
-      // TODO: error handling - display error box
+      this.renderErrorBox(this.config.idElInputCoord, 'Unsupported input coordinates!');
     } else {
+      // render computed data to table
       this.renderTable(this.findNearest(coordIn.lat, coordIn.lon));
     }
     // TODO: return false is not quite correct...will use preventDefault instead in future
