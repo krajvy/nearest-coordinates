@@ -126,7 +126,12 @@ var NearestCoordinates = {
       calcul['azimuth'] = mutual.azimuth;
       outputData.push(calcul);
     }
-    // TODO: sort data by distance
+    // sort data by distance
+    outputData.sort(function(a, b) {
+      if(a.distance > b.distance) { return 1; }
+      else if(a.distance < b.distance) { return -1; }
+      return 0;
+    });
     return outputData;
   },
   /**
