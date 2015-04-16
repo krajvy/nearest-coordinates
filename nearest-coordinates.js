@@ -35,8 +35,13 @@ var NearestCoordinates = {
     classElError: 'box-error',
     classElInputError: 'input-error',
     idElOutput: 'data_out',
-    idElInputCoord: 'coord_in'
+    idElInputCoord: 'coord_in',
+    idElInputFile: 'file_in',
+    idElFileProgress: 'file_progressbar'
   },
+  locationContainer: [],
+  dataReady: false,
+  fileReader: null,
   testData: [
     { 'lat': 50.083333, 'lon': 14.416667, 'desc': 'Prague' },
     { 'lat': 50.45, 'lon': 30.523333, 'desc': 'Kiev' },
@@ -165,6 +170,76 @@ var NearestCoordinates = {
     return output;
   },
   /**
+  * Parse input file with targets coordinates for output table
+  * Function will set data to locationContainer array
+  * @param FileList filelist input files
+  * @return bool true if success, false otherwise
+  */
+  parseFile: function(fileList) {
+    // reset locationContainer
+    this.locationContainer = [];
+    // reset ready flag
+    this.dataReady = false;
+    // check if we have FileReader global object
+    if(!FileReader) {
+      // TODO: nice error log
+      return false;
+    }
+    // just use first file
+    var file = fileList[0];
+    // allow to read only txt files
+    if(!file.type.match('text.*')) {
+      // TODO: nice error log
+      return false;
+    }
+    // prepare file reading
+    this.fileReader = new FileReader();
+    // reset progressbar
+    this.renderProgressBar(0);
+    // log progress of file read
+    this.fileReader.onprogress = function(evt) {
+      if(evt.lengthComputable) {
+        // set percent to progressbar
+        this.renderProgressBar(Math.round((evt.loaded / evt.total) * 100));
+      }
+    }.bind(this);
+    // file reading completed, process it
+    this.fileReader.onload = function(evt) {
+      // cut by newlines
+      var lines = evt.target.result.split(/\n/);
+      for(var i in lines) {
+        var line = lines[i].trim();
+        // parse only notempty lines
+        if(line) {
+          var parsed = this.parseCoordinates(line);
+          // get only valid coordinates data
+          if(typeof parsed.lat != 'undefined' || typeof parsed.lon != 'undefined') {
+            this.locationContainer.push(parsed);
+          }
+        }
+      }
+      // set ready flag
+      this.dataReady = true;
+      this.fileReader = null;
+    }.bind(this);
+    // read the file content
+    this.fileReader.readAsText(file);
+    // well, everything seems to be OK
+    return true;
+  },
+  /**
+  * Cancel reading and parsing file
+  * @param void
+  * @return void
+  */
+  abortParseFile: function() {
+    if(!!this.fileReader) {
+      // abort fileReader and reset object
+      this.fileReader.abort();
+      this.fileReader = null;
+    }
+  },
+  /**
   * Format output coordinates
   * @param float lat latitude coordinate
   * @param float lon longitude coordinate
@@ -195,6 +270,16 @@ var NearestCoordinates = {
   */
   formatAzimuth: function(azimuth) {
     return Math.round(azimuth) + ' °';
+  },
+  /**
+  * Will update status of progress bar
+  * @param int percent of progress
+  * @return void
+  */
+  renderProgressBar: function(percent) {
+    var progress = document.getElementById(this.config.idElFileProgress);
+    progress.style.width = percent + '%';
+    progress.textContent = percent + '%';
   },
   /**
   * Output data to table
@@ -278,6 +363,10 @@ var NearestCoordinates = {
     this.clearErrorBoxes();
     // read data from input
     var coordIn = this.parseCoordinates(document.getElementById(this.config.idElInputCoord).value);
+    // read file from form
+    if(this.parseFile(document.getElementById(this.config.idElInputFile).files)) {
+      // TODO: file readed, wait for data and then parse them
+    }
     // check input
     if(typeof coordIn.lat == 'undefined' || typeof coordIn.lon == 'undefined') {
       this.renderErrorBox(this.config.idElInputCoord, 'Unsupported input coordinates!');
