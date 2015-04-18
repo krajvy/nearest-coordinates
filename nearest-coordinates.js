@@ -182,14 +182,14 @@ var NearestCoordinates = {
     this.dataReady = false;
     // check if we have FileReader global object
     if(!FileReader) {
-      // TODO: nice error log
+      this.renderErrorBox(this.config.idElInputFile, 'FileReader object does not exists!');
       return false;
     }
     // just use first file
     var file = fileList[0];
     // allow to read only txt files
     if(!file.type.match('text.*')) {
-      // TODO: nice error log
+      this.renderErrorBox(this.config.idElInputFile, 'Cannot parse this file as text!');
       return false;
     }
     // prepare file reading
