@@ -131,8 +131,8 @@ var NearestCoordinates = {
     ) {
       return outputData;
     }
-    for(var i in this.testData) {
-      var calcul = this.testData[i];
+    for(var i in this.locationContainer) {
+      var calcul = this.locationContainer[i];
       var mutual = this.getMutualPosition(lat, lon, calcul.lat, calcul.lon);
       calcul['distance'] = mutual.distance;
       calcul['azimuth'] = mutual.azimuth;
@@ -175,7 +175,7 @@ var NearestCoordinates = {
   * @param FileList filelist input files
   * @return bool true if success, false otherwise
   */
-  parseFile: function(fileList) {
+  readFile: function(fileList) {
     // reset locationContainer
     this.locationContainer = [];
     // reset ready flag
@@ -232,7 +232,7 @@ var NearestCoordinates = {
   * @param void
   * @return void
   */
-  abortParseFile: function() {
+  abortReadFile: function() {
     if(!!this.fileReader) {
       // abort fileReader and reset object
       this.fileReader.abort();
@@ -364,7 +364,7 @@ var NearestCoordinates = {
     // read data from input
     var coordIn = this.parseCoordinates(document.getElementById(this.config.idElInputCoord).value);
     // read file from form
-    if(this.parseFile(document.getElementById(this.config.idElInputFile).files)) {
+    if(this.readFile(document.getElementById(this.config.idElInputFile).files)) {
       // TODO: file readed, wait for data and then parse them
     }
     // check input
