@@ -195,7 +195,7 @@ var NearestCoordinates = {
           output.lat = -search[4];
           break;
       }
-    } else if(search = input.match(/[^\d-]*((\d+)°?((\d+)'?)?((\d+\.\d+)"?)?)([ewns])\s?,\s?((\d+)°?((\d+)'?)?((\d+\.\d+)"?)?)([ewns])\D*/i)) {
+    } else if(search = input.match(/[^\d-]*((\d+)°?((\d+)'?)?((\d+\.\d+)"?)?)([ewns])\s?[,\/]?\s?((\d+)°?((\d+)'?)?((\d+\.\d+)"?)?)([ewns])\D*/i)) {
       // 49°33'46.745"N, 16°54'28.788"E
       if(search[7] == 'e' || search[7] == 'w') {
         output.lat = this.gps2float(search[9], search[11], search[13]);
