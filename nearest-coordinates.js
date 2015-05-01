@@ -209,7 +209,6 @@ var NearestCoordinates = {
       // set full string to description
       output.desc = input;
     }
-    // TODO: more coordinate formats
     return output;
   },
   /**
