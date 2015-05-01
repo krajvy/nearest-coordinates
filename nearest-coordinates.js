@@ -137,7 +137,7 @@ var NearestCoordinates = {
   * @return float converted coordinates
   */
   gps2float: function(degrees, minutes, seconds) {
-    return parseInt(degrees) + parseInt(minutes) / 60 + parseInt(seconds) / 60 / 60;
+    return parseFloat(degrees) + parseFloat(minutes) / 60 + parseFloat(seconds) / 60 / 60;
   },
   /**
   * Parse input string and try to find coordinates there
@@ -203,6 +203,15 @@ var NearestCoordinates = {
       } else {
         output.lat = this.gps2float(search[2], search[4], search[6]);
         output.lon = this.gps2float(search[9], search[11], search[13]);
+      }
+    } else if(search = input.match(/[^\d-]*([ewns])\s+((\d+)°?((\d+\.\d+)'?)?)\s?[,\/]?\s?([ewns])\s+((\d+)°?((\d+\.\d+)'?)?)\D*/i)) {
+      // N 50°45.65197', E 15°3.19075'
+      if(search[1] == 'e' || search[1] == 'w') {
+        output.lat = this.gps2float(search[8], search[10], 0);
+        output.lon = this.gps2float(search[3], search[5], 0);
+      } else {
+        output.lat = this.gps2float(search[3], search[5], 0);
+        output.lon = this.gps2float(search[8], search[10], 0);
       }
     }
     if(typeof output.lat != 'undefined' && typeof output.lon != 'undefined') {
