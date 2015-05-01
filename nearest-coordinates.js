@@ -21,6 +21,15 @@ Math.deg2rad = function(deg) {
 Math.rad2deg = function(rad) {
   return (rad / Math.PI) * 180;
 };
+/**
+* Better rounding
+* @param float what
+* @param int accuracy
+*/
+Math.precisionRound = function(what, accuracy) {
+  accuracy = Math.pow(10, accuracy);
+  return Math.round(what * accuracy) / accuracy;
+};
 
 /* -------------------------- */
 
@@ -306,7 +315,7 @@ var NearestCoordinates = {
   * @return string formatted coordinates
   */
   formatCoordinates: function(lat, lon) {
-    return lat + ',' + lon;
+    return Math.precisionRound(lat, 5) + ',' + Math.precisionRound(lon, 5);
   },
   /**
   * Format output distance
@@ -319,7 +328,7 @@ var NearestCoordinates = {
       distance = parseInt(distance);
     } else {
       // round values to last two digits
-      distance = Math.round(distance * 100) / 100;
+      distance = Math.precisionRound(distance, 2);
     }
     return distance + ' km';
   },
