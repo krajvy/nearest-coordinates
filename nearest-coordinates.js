@@ -272,6 +272,20 @@ var NearestCoordinates = {
     return Math.round(azimuth) + ' °';
   },
   /**
+  * Wait for data, parse them finally and render table
+  * @param void
+  * @return void
+  */
+  renderData: function(inLat, inLon) {
+    if(!this.dataReady) {
+      // set timeout - wait till file is readed
+      window.setTimeout(function() { this.renderData(inLat, inLon); }.bind(this), 500);
+    } else {
+      // find nearest
+      this.renderTable(this.findNearest(inLat, inLon));
+    }
+  },
+  /**
   * Will update status of progress bar
   * @param int percent of progress
   * @return void
@@ -357,6 +371,8 @@ var NearestCoordinates = {
   },
   /**
   * Read data from form and find nearest objects
+  * @param void
+  * @return void
   */
   process: function() {
     // clear all previous errors
@@ -365,14 +381,15 @@ var NearestCoordinates = {
     var coordIn = this.parseCoordinates(document.getElementById(this.config.idElInputCoord).value);
     // read file from form
     if(this.readFile(document.getElementById(this.config.idElInputFile).files)) {
-      // TODO: file readed, wait for data and then parse them
-    }
-    // check input
-    if(typeof coordIn.lat == 'undefined' || typeof coordIn.lon == 'undefined') {
-      this.renderErrorBox(this.config.idElInputCoord, 'Unsupported input coordinates!');
+      // check input
+      if(typeof coordIn.lat == 'undefined' || typeof coordIn.lon == 'undefined') {
+        this.renderErrorBox(this.config.idElInputCoord, 'Unsupported input coordinates!');
+      } else {
+        // render computed data to table
+        this.renderData(coordIn.lat, coordIn.lon);
+      }
     } else {
-      // render computed data to table
-      this.renderTable(this.findNearest(coordIn.lat, coordIn.lon));
+      this.renderErrorBox(this.config.idElInputFile, 'Cannot read input file!');
     }
     // TODO: return false is not quite correct...will use preventDefault instead in future
     return false;
