@@ -374,7 +374,7 @@ var NearestCoordinates = {
   * @param void
   * @return void
   */
-  process: function() {
+  process: function(evt) {
     // clear all previous errors
     this.clearErrorBoxes();
     // read data from input
@@ -391,7 +391,6 @@ var NearestCoordinates = {
     } else {
       this.renderErrorBox(this.config.idElInputFile, 'Cannot read input file!');
     }
-    // TODO: return false is not quite correct...will use preventDefault instead in future
-    return false;
+    evt.preventDefault();
   }
 };
