@@ -7,8 +7,16 @@ table, th, td {
   border: 1px solid black;
 }
 span.box-error {
-  color:red;
+  color: red;
 }
 input.input-error {
   border: 1px solid red;
+}
+
+span.rotation {
+  position: absolute;
+}
+
+span.azimuth {
+  margin-left: 1.2em;
 }

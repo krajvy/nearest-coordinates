@@ -320,7 +320,22 @@ var NearestCoordinates = {
   * @return string formatted azimuth with units
   */
   formatAzimuth: function(azimuth) {
-    return Math.round(azimuth) + ' °';
+    azimuth = Math.round(azimuth);
+    if(azimuth < 0) {
+      azimuth += 360;
+    }
+    var arrow = {
+      'entity': '&#10140;',
+      'degree': azimuth - 90
+    };
+    var css = [
+      '-webkit-transform: rotate(' + arrow.degree + 'deg);',
+      '-moz-transform: rotate(' + arrow.degree + 'deg);',
+      '-o-transform: rotate(' + arrow.degree + 'deg);',
+      '-ms-transform: rotate(' + arrow.degree + 'deg);',
+      'transform: rotate(' + arrow.degree + 'deg);'
+    ];
+    return '<span class="rotation" style="' + css.join(' ') + '">' + arrow.entity + '</span> <span class="azimuth">' + azimuth + ' °</span>';
   },
   /**
   * Wait for data, parse them finally and render table
@@ -373,7 +388,7 @@ var NearestCoordinates = {
       _tr.appendChild(_tdDist);
       
       var _tdAzimuth = document.createElement('td');
-      _tdAzimuth.textContent = this.formatAzimuth(outputData[i].azimuth);
+      _tdAzimuth.innerHTML = this.formatAzimuth(outputData[i].azimuth);
       _tr.appendChild(_tdAzimuth);
       
       var _tdDesc = document.createElement('td');
