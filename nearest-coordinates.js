@@ -160,12 +160,11 @@ var NearestCoordinates = {
     }
     // lets parse some coordinates
     var search = [];
-    if(search = input.match(/[^\d-]*(-?\d+(\.\d+)?)\s?,\s?(-?\d+(\.\d+)?)\D*/i)) {
+    if(search = input.match(/[^\d-]*(-?\d+(\.\d+)?)[^ewns]\s?,\s?(-?\d+(\.\d+)?)[^ewns]\D*/i)) {
       // 27.449486,-13.050728
       output.lat = search[1];
       output.lon = search[3];
-    }
-    if(search = input.match(/[^\d-]*(\d+(\.\d+)?)°?([ewns])\s?,\s?(\d+(\.\d+)?)°?([ewns])\D*/i)) {
+    } else if(search = input.match(/[^\d-]*(\d+(\.\d+)?)°?([ewns])\s?,\s?(\d+(\.\d+)?)°?([ewns])\D*/i)) {
       // 17.15451°E,50.33167°N ; 50.0950228N, 16.5538242E
       var first = search[6].toLowerCase();
       var second = search[3].toLowerCase();
