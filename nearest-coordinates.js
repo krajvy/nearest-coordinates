@@ -158,13 +158,55 @@ var NearestCoordinates = {
     if(!input) {
       return output;
     }
-    // set full string to description
-    output.desc = input;
     // lets parse some coordinates
-    var search = '';
+    var search = [];
     if(search = input.match(/[^\d-]*(-?\d+(\.\d+)?)\s?,\s?(-?\d+(\.\d+)?)\D*/i)) {
+      // 27.449486,-13.050728
       output.lat = search[1];
       output.lon = search[3];
+    }
+    if(search = input.match(/[^\d-]*(\d+(\.\d+)?)°?([ewns])\s?,\s?(\d+(\.\d+)?)°?([ewns])\D*/i)) {
+      // 17.15451°E,50.33167°N ; 50.0950228N, 16.5538242E
+      var first = search[6].toLowerCase();
+      var second = search[3].toLowerCase();
+      switch(first + second) {
+        case 'en':
+          output.lon = search[4];
+          output.lat = search[1];
+          break;
+        case 'es':
+          output.lon = search[4];
+          output.lat = -search[1];
+          break;
+        case 'wn':
+          output.lon = -search[4];
+          output.lat = search[1];
+          break;
+        case 'ws':
+          output.lon = -search[4];
+          output.lat = -search[1];
+          break;
+        case 'ne':
+          output.lon = search[1];
+          output.lat = search[4];
+          break;
+        case 'nw':
+          output.lon = search[1];
+          output.lat = -search[4];
+          break;
+        case 'se':
+          output.lon = -search[1];
+          output.lat = search[4];
+          break;
+        case 'sw':
+          output.lon = -search[1];
+          output.lat = -search[4];
+          break;
+      }
+    }
+    if(typeof output.lat != 'undefined' && typeof output.lon != 'undefined') {
+      // set full string to description
+      output.desc = input;
     }
     // TODO: more coordinate formats
     return output;
