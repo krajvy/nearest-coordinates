@@ -153,11 +153,7 @@ var NearestCoordinates = {
     }
     // lets parse some coordinates
     var search = [];
-    if(search = input.match(/[^\d-]*(-?\d+(\.\d+)?)[^ewns]\s?,\s?(-?\d+(\.\d+)?)[^ewns]\D*/i)) {
-      // 27.449486,-13.050728
-      output.lat = search[1];
-      output.lon = search[3];
-    } else if(search = input.match(/[^\d-]*(\d+(\.\d+)?)°?([ewns])\s?,\s?(\d+(\.\d+)?)°?([ewns])\D*/i)) {
+    if(search = input.match(/[^\d-]*(\d+(\.\d+)?)°?([ewns])\s?,\s?(\d+(\.\d+)?)°?([ewns])\D*/i)) {
       // 17.15451°E,50.33167°N ; 50.0950228N, 16.5538242E
       var first = search[6].toLowerCase();
       var second = search[3].toLowerCase();
@@ -213,6 +209,10 @@ var NearestCoordinates = {
         output.lat = this.gps2float(search[3], search[5], 0);
         output.lon = this.gps2float(search[8], search[10], 0);
       }
+    } else if(search = input.match(/[^\d-]*(-?\d+(\.\d+)?)[^ewns]\s?,\s?(-?\d+(\.\d+)?)[^ewns]\D*/i)) {
+      // 27.449486,-13.050728
+      output.lat = search[1];
+      output.lon = search[3];
     }
     if(typeof output.lat != 'undefined' && typeof output.lon != 'undefined') {
       // set full string to description
