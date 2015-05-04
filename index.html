@@ -21,9 +21,15 @@
 					<input type="file" name="file_in" id="file_in" />
 					<button onclick="NearestCoordinates.abortReadFile();">Cancel read</button>
 				</div>
-				<div>Readed:&nbsp;<span id="file_progressbar">0%</span></div>
 				<div>
-					<input type="submit" id="submit" value="Process" />
+					<label for="file_progressbar">Readed:</label>
+					<span class="file_progressbar_wrapper">
+						<span class="file_progressbar" id="file_progressbar">&nbsp;</span>
+					</span>
+					<span class="file_progressbar_counter" id="file_progressbar_counter">0%</span>
+				</div>
+				<div>
+					<input class="submit" type="submit" id="submit" value="Process" />
 				</div>
 			</fieldset>
 		</form>

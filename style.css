@@ -1,3 +1,6 @@
+body {
+  font-family: sans-serif;
+}
 table {
   border-collapse: collapse;
   border-spacing: 0px;
@@ -6,17 +9,46 @@ table, th, td {
   padding: 5px;
   border: 1px solid black;
 }
-span.box-error {
-  color: red;
+form {
+  width: 35em;
+}
+form div {
+  margin-bottom: 1em;
 }
 input.input-error {
   border: 1px solid red;
 }
-
+input {
+  width: 23em;
+}
+fieldset {
+  margin-bottom: 1em;
+}
+label {
+  display: inline-block;
+  width: 7em;
+}
+input.submit {
+  width: 95%;
+  margin: 0.7em 0.7em 0 0.7em;
+}
+span.box-error {
+  color: red;
+}
 span.rotation {
   position: absolute;
 }
-
+span.file_progressbar {
+  display: inline-block;
+  padding: 0.2em 0 0.1em;
+  background: green;
+  color: white;
+}
+span.file_progressbar_wrapper {
+  display: inline-block;
+  width: 19.4em;
+  border: 1px solid darkgray;
+}
 span.azimuth {
   margin-left: 1.2em;
 }

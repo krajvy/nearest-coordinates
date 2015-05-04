@@ -46,7 +46,8 @@ var NearestCoordinates = {
     idElOutput: 'data_out',
     idElInputCoord: 'coord_in',
     idElInputFile: 'file_in',
-    idElFileProgress: 'file_progressbar'
+    idElFileProgress: 'file_progressbar',
+    idElFileProgressCounter: 'file_progressbar_counter'
   },
   locationContainer: [],
   dataReady: false,
@@ -357,9 +358,8 @@ var NearestCoordinates = {
   * @return void
   */
   renderProgressBar: function(percent) {
-    var progress = document.getElementById(this.config.idElFileProgress);
-    progress.style.width = percent + '%';
-    progress.textContent = percent + '%';
+    document.getElementById(this.config.idElFileProgress).style.width = percent + '%';
+    document.getElementById(this.config.idElFileProgressCounter).textContent = percent + '%';
   },
   /**
   * Output data to table
