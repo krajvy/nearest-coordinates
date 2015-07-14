@@ -1,0 +1,11 @@
+This is example file for Nearest-Coordinates.
+
+You can have plenty of text with no coordinates. Those one will be ignored in output.
+
+Basic, no indentation:
+Galdhøpiggen - 2469 m (N 61°38.18333', E 8°18.75000')
+Hoverla - 2061 m (N 48°9.60000', E 24°30.01667')
+
+With indentation:
+  Sněžka - 1602 m (N 50°44.16667', E 15°44.41667')
+  Monte Titano - 756 m (N 43°55.70000', E 12°27.13333')
