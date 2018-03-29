@@ -29,6 +29,9 @@ label {
   display: inline-block;
   width: 7em;
 }
+.hidden {
+  display: none;
+}
 .input-error {
   border: 1px solid red;
 }
@@ -55,4 +58,9 @@ label {
 }
 .azimuth {
   margin-left: 1.2em;
+}
+.map--canvas {
+  height: 30em;
+  margin-bottom: 1em;
+  width: 100%;
 }

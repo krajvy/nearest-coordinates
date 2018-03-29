@@ -3,7 +3,7 @@
 * @author Jan 'krajvy' Krivohlavek <krajvy@gmail.com>
 */
 
-/* global FileReader */
+/* global FileReader, OpenLayers */
 
 /* Usefull functions -------- */
 
@@ -45,15 +45,20 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
     earthRadius: 6371.0072,
     classElError: 'box-error',
     classElInputError: 'input-error',
+    classHidden: 'hidden',
     idElOutput: 'data_out',
     idElInputCoord: 'coord_in',
     idElInputFile: 'file_in',
     idElFileProgress: 'file_progressbar',
-    idElFileProgressCounter: 'file_progressbar_counter'
+    idElFileProgressCounter: 'file_progressbar_counter',
+    idElBtnLoadMap: 'loadmap',
+    idElMapCanvas: 'map--canvas'
   },
+  coordIn: {},
   locationContainer: [],
   dataReady: false,
   fileReader: null,
+  mapLoaded: false,
   /**
   * Calculate mutual position data of two points on sphere
   * I know this alghorithm based on sphere isn't accurate for Earth,
@@ -402,6 +407,9 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
 
       var _tdCoord = document.createElement('td')
       _tdCoord.textContent = this.formatCoordinates(outputData[i].lat, outputData[i].lon)
+      _tdCoord.id = 'latlon' + i
+      _tdCoord.setAttribute('data-lat', outputData[i].lat)
+      _tdCoord.setAttribute('data-lon', outputData[i].lon)
       _tr.appendChild(_tdCoord)
 
       var _tdDist = document.createElement('td')
@@ -414,7 +422,18 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
 
       var _tdDesc = document.createElement('td')
       _tdDesc.textContent = outputData[i].desc
+      _tdDesc.id = 'desc' + i
       _tr.appendChild(_tdDesc)
+
+      var _tdMap = document.createElement('td')
+      var _inputCheckbox = document.createElement('input')
+      _inputCheckbox.type = 'checkbox'
+      _inputCheckbox.value = i
+      // TODO: read distance from form
+      _inputCheckbox.checked = outputData[i].distance < 51
+      // _inputCheckbox.checked = i < 5
+      _tdMap.appendChild(_inputCheckbox)
+      _tr.appendChild(_tdMap)
 
       // and finally append it to output element
       outputEl.appendChild(_tr)
@@ -457,27 +476,98 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
     }
   },
   /**
-  * Read data from form and find nearest objects
+  * Enables loadMap button
   * @param void
+  * @return void
+  */
+  enableLoadMapBtn: function () {
+    var btn = document.getElementById(this.config.idElBtnLoadMap)
+    btn.disabled = false
+  },
+  /**
+  * Load OSM map with given coordinates
+  * @param void
+  * @return void
+  */
+  loadMap: function () {
+    // load main JS for map rendering
+    if (!this.mapLoaded) {
+      this.mapLoaded = true
+      var head = document.getElementsByTagName('head')[0]
+      var api = document.createElement('script')
+      api.src = 'http://www.openlayers.org/api/OpenLayers.js'
+      api.onload = () => this.renderMap()
+      head.appendChild(api)
+    } else {
+      this.renderMap()
+    }
+  },
+  /**
+  * Rneders the OSM map
+  * @param void
+  * @return void
+  */
+  renderMap: function () {
+    // clear previous map
+    document.getElementById(this.config.idElMapCanvas).innerHTML = ''
+    // display wrapper
+    document.getElementById(this.config.idElMapCanvas).classList.remove(this.config.classHidden)
+    // render new map
+    var map = new OpenLayers.Map(this.config.idElMapCanvas)
+    map.addLayer(new OpenLayers.Layer.OSM())
+    var lonLat = new OpenLayers.LonLat(this.coordIn.lon, this.coordIn.lat)
+      .transform(
+        new OpenLayers.Projection('EPSG:4326'), // transform from WGS 1984
+        map.getProjectionObject() // to Spherical Mercator Projection
+      )
+    var markers = new OpenLayers.Layer.Markers('Markers')
+    map.addLayer(markers)
+    // set icon for marker
+    var size = new OpenLayers.Size(21, 25)
+    var offset = new OpenLayers.Pixel(-(size.w / 2), -size.h)
+    var icon = new OpenLayers.Icon('./marker.png', size, offset)
+    // get all checked locations
+    var checked = document.getElementById('data_out').querySelectorAll('input[type="checkbox"]:checked')
+    checked.forEach((check) => {
+      var pos = check.getAttribute('value')
+      var lat = document.getElementById('latlon' + pos).getAttribute('data-lat')
+      var lon = document.getElementById('latlon' + pos).getAttribute('data-lon')
+      // var desc = document.getElementById('desc' + pos).innerHTML
+      markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(lon, lat)
+        .transform(
+          new OpenLayers.Projection('EPSG:4326'), // transform from WGS 1984
+          map.getProjectionObject() // to Spherical Mercator Projection
+        ), icon.clone()))
+    })
+    // 16
+    map.setCenter(lonLat, 16)
+  },
+  /**
+  * Read data from form and find nearest objects
+  * @param evt Form submit event
   * @return void
   */
   process: function (evt) {
     // clear all previous errors
     this.clearErrorBoxes()
     // read data from input
-    var coordIn = this.parseCoordinates(document.getElementById(this.config.idElInputCoord).value)
+    this.coordIn = this.parseCoordinates(document.getElementById(this.config.idElInputCoord).value)
     // read file from form
     if (this.readFile(document.getElementById(this.config.idElInputFile).files)) {
       // check input
-      if (typeof coordIn.lat === 'undefined' || typeof coordIn.lon === 'undefined') {
+      if (typeof this.coordIn.lat === 'undefined' || typeof this.coordIn.lon === 'undefined') {
         this.renderErrorBox(this.config.idElInputCoord, 'Unsupported input coordinates!')
       } else {
         // render computed data to table
-        this.renderData(coordIn.lat, coordIn.lon)
+        this.renderData(this.coordIn.lat, this.coordIn.lon)
+        // enable loadMap button
+        this.enableLoadMapBtn()
       }
     } else {
       this.renderErrorBox(this.config.idElInputFile, 'Cannot read input file!')
     }
-    evt.preventDefault()
+    if (evt) {
+      evt.preventDefault()
+    }
   }
 }
