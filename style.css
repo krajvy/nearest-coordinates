@@ -3,11 +3,13 @@ body {
 }
 table {
   border-collapse: collapse;
-  border-spacing: 0px;
+  border-spacing: 0;
 }
-table, th, td {
-  padding: 5px;
+table,
+th,
+td {
   border: 1px solid black;
+  padding: 5px;
 }
 form {
   width: 35em;
@@ -15,10 +17,9 @@ form {
 form div {
   margin-bottom: 1em;
 }
-input.input-error {
-  border: 1px solid red;
-}
-input {
+input[type="file"],
+input[type="submit"],
+input[type="text"] {
   width: 23em;
 }
 fieldset {
@@ -28,27 +29,30 @@ label {
   display: inline-block;
   width: 7em;
 }
-input.submit {
-  width: 95%;
-  margin: 0.7em 0.7em 0 0.7em;
+.input-error {
+  border: 1px solid red;
 }
-span.box-error {
+.submit {
+  margin: 0.7em 0.7em 0 0.7em;
+  width: 95%;
+}
+.box-error {
   color: red;
 }
-span.rotation {
+.rotation {
   position: absolute;
 }
-span.file_progressbar {
-  display: inline-block;
-  padding: 0.2em 0 0.1em;
+.file_progressbar {
   background: green;
   color: white;
+  display: inline-block;
+  padding: 0.2em 0 0.1em;
 }
-span.file_progressbar_wrapper {
+.file_progressbar_wrapper {
+  border: 1px solid darkgray;
   display: inline-block;
   width: 19.4em;
-  border: 1px solid darkgray;
 }
-span.azimuth {
+.azimuth {
   margin-left: 1.2em;
 }

@@ -9,10 +9,10 @@ Can be runned in browser that supports ECMAScript 5 - usually all modern browser
 ## Output
 
 Output should be table with:
-- Parsed coordinates in one format for check if recognizig was OK
-- Distance from start coordinate in km
-- Direction from start coordinate (usually with small arrow)
-- Whole line from input file like description
+-   Parsed coordinates in one format for check if recognizig was OK
+-   Distance from start coordinate in km
+-   Direction from start coordinate (usually with small arrow)
+-   Whole line from input file like description
 
 As example:
 
@@ -43,10 +43,10 @@ For testing, you can use [example file](https://github.com/krajvy/nearest-coordi
 ## Coordinate format
 
 Coordinates can be written only in specific formats:
-- `50°2'33.819"N, 14°31'49.897"E`
-- `50.0427275N, 14.5305269E`
-- `N 50°2.56365', E 14°31.83162'`
-- `50.0427275,14.5305269`
+-   `50°2'33.819"N, 14°31'49.897"E`
+-   `50.0427275N, 14.5305269E`
+-   `N 50°2.56365', E 14°31.83162'`
+-   `50.0427275,14.5305269`
 
 ## Bug reports, feature requests and contact
 
