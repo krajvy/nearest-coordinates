@@ -59,8 +59,10 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
   locationContainer: [],
   dataReady: false,
   fileReader: null,
-  mapPopup: {},
-  mapLoaded: false,
+  map: {
+    popup: {},
+    loaded: false
+  },
   /**
   * Calculate mutual position data of two points on sphere
   * I know this alghorithm based on sphere isn't accurate for Earth,
@@ -517,8 +519,8 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
   */
   mapLoadAPI: function () {
     // load main JS for map rendering
-    if (!this.mapLoaded) {
-      this.mapLoaded = true
+    if (!this.map.loaded) {
+      this.map.loaded = true
       var head = document.getElementsByTagName('head')[0]
       var api = document.createElement('script')
       api.src = 'http://www.openlayers.org/api/OpenLayers.js'
@@ -570,13 +572,13 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
       var marker = feature.createMarker()
       // bind click
       marker.events.register('mousedown', feature, (evt) => {
-        if (this.mapPopup[feature.id] == null) {
-          this.mapPopup[feature.id] = feature.createPopup(true)
-          this.mapPopup[feature.id].setSize(new OpenLayers.Size(170, 100))
-          map.addPopup(this.mapPopup[feature.id])
-          this.mapPopup[feature.id].show()
+        if (this.map.popup[feature.id] == null) {
+          this.map.popup[feature.id] = feature.createPopup(true)
+          this.map.popup[feature.id].setSize(new OpenLayers.Size(170, 100))
+          map.addPopup(this.map.popup[feature.id])
+          this.map.popup[feature.id].show()
         } else {
-          this.mapPopup[feature.id].toggle()
+          this.map.popup[feature.id].toggle()
         }
         OpenLayers.Event.stop(evt)
       })
