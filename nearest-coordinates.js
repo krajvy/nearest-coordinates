@@ -583,7 +583,8 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
     // read data from input
     this.coordIn = this.parseCoordinates(document.getElementById(this.config.idElInputCoord).value)
     // read file from form
-    if (this.readFile(document.getElementById(this.config.idElInputFile).files)) {
+    var inputFile = document.getElementById(this.config.idElInputFile).files
+    if (inputFile.length && this.readFile(inputFile)) {
       // check input
       if (typeof this.coordIn.lat === 'undefined' || typeof this.coordIn.lon === 'undefined') {
         this.renderErrorBox(this.config.idElInputCoord, 'Unsupported input coordinates!')
