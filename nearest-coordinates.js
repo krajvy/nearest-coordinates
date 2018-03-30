@@ -438,7 +438,7 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
       // and finally append it to output element
       outputEl.appendChild(_tr)
     }
-    this.checkSelected()
+    this.mapCheckRange()
     return true
   },
   /**
@@ -481,7 +481,7 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
   * @param void
   * @return void
   */
-  checkSelected: function () {
+  mapCheckRange: function () {
     // read value from input
     var range = parseInt(document.getElementById(this.config.idElInputRange).value, 10) + 1
     // check checkboxes in that input
@@ -490,11 +490,11 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
     })
   },
   /**
-  * Load OSM map with given coordinates
+  * Renders OSM map - main function
   * @param void
   * @return void
   */
-  loadMap: function () {
+  mapRender: function () {
     this.clearErrorBoxes()
     // check if I have all data
     if (typeof this.coordIn.lon === 'undefined' ||
@@ -504,52 +504,65 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
       this.renderErrorBox(this.config.idElBtnLoadMap, 'Data not ready!')
       return
     }
+    // clear previous map
+    document.getElementById(this.config.idElMapCanvas).innerHTML = ''
+    // display wrapper
+    document.getElementById(this.config.idElMapCanvas).classList.remove(this.config.classHidden)
+    this.mapLoadAPI()
+  },
+  /**
+  * Load OSM map API and create
+  * @param void
+  * @return void
+  */
+  mapLoadAPI: function () {
     // load main JS for map rendering
     if (!this.mapLoaded) {
       this.mapLoaded = true
       var head = document.getElementsByTagName('head')[0]
       var api = document.createElement('script')
       api.src = 'http://www.openlayers.org/api/OpenLayers.js'
-      api.onload = () => this.renderMap()
+      api.onload = () => this.mapCreate()
       head.appendChild(api)
     } else {
-      this.renderMap()
+      this.mapCreate()
     }
   },
   /**
-  * Rneders the OSM map
-  * @param void
-  * @return void
+  * Transforms our coordinates to OpenLayers format
+  * @param int lon longitude
+  * @param int lat latitude
+  * @param object map OpenLayers.Map object
+  * @return int converted coodrinates
   */
-  renderMap: function () {
-    // clear previous map
-    document.getElementById(this.config.idElMapCanvas).innerHTML = ''
-    // display wrapper
-    document.getElementById(this.config.idElMapCanvas).classList.remove(this.config.classHidden)
-    // render new map
-    var map = new OpenLayers.Map(this.config.idElMapCanvas)
-    map.addLayer(new OpenLayers.Layer.OSM())
-    var lonLat = new OpenLayers.LonLat(this.coordIn.lon, this.coordIn.lat)
+  transformCoordinates: function (lon, lat, map) {
+    return new OpenLayers.LonLat(lon, lat)
       .transform(
         new OpenLayers.Projection('EPSG:4326'), // transform from WGS 1984
         map.getProjectionObject() // to Spherical Mercator Projection
       )
+  },
+  /**
+  * Creates the OSM map
+  * @param void
+  * @return void
+  */
+  mapCreate: function () {
+    // create new map
+    var map = new OpenLayers.Map(this.config.idElMapCanvas)
+    // add layers with OSM and POIs
+    map.addLayer(new OpenLayers.Layer.OSM())
     var markers = new OpenLayers.Layer.Markers('Markers')
     map.addLayer(markers)
     // get all checked locations
-    var checked = document.getElementById('data_out').querySelectorAll('input[type="checkbox"]:checked')
-    checked.forEach((check) => {
+    document.getElementById('data_out').querySelectorAll('input[type="checkbox"]:checked').forEach((check) => {
       var pos = check.getAttribute('value')
       var lat = document.getElementById('latlon' + pos).getAttribute('data-lat')
       var lon = document.getElementById('latlon' + pos).getAttribute('data-lon')
       var desc = document.getElementById('desc' + pos).innerHTML
       // add point - set feature
-      var feature = new OpenLayers.Feature(
-        markers,
-        new OpenLayers.LonLat(lon, lat).transform(
-          new OpenLayers.Projection('EPSG:4326'), // transform from WGS 1984
-          map.getProjectionObject() // to Spherical Mercator Projection
-        ), {
+      var feature = new OpenLayers.Feature(markers, this.transformCoordinates(lon, lat, map),
+        {
           popupContentHTML: desc
         }
       )
@@ -569,8 +582,7 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
       })
       markers.addMarker(marker)
     })
-    // 16
-    map.setCenter(lonLat, 11)
+    map.setCenter(this.transformCoordinates(this.coordIn.lon, this.coordIn.lat, map), 11)
   },
   /**
   * Read data from form and find nearest objects
