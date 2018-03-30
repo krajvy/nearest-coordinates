@@ -58,6 +58,7 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
   locationContainer: [],
   dataReady: false,
   fileReader: null,
+  mapPopup: {},
   mapLoaded: false,
   /**
   * Calculate mutual position data of two points on sphere
@@ -522,25 +523,41 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
       )
     var markers = new OpenLayers.Layer.Markers('Markers')
     map.addLayer(markers)
-    // set icon for marker
-    var size = new OpenLayers.Size(21, 25)
-    var offset = new OpenLayers.Pixel(-(size.w / 2), -size.h)
-    var icon = new OpenLayers.Icon('./marker.png', size, offset)
     // get all checked locations
     var checked = document.getElementById('data_out').querySelectorAll('input[type="checkbox"]:checked')
     checked.forEach((check) => {
       var pos = check.getAttribute('value')
       var lat = document.getElementById('latlon' + pos).getAttribute('data-lat')
       var lon = document.getElementById('latlon' + pos).getAttribute('data-lon')
-      // var desc = document.getElementById('desc' + pos).innerHTML
-      markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(lon, lat)
-        .transform(
+      var desc = document.getElementById('desc' + pos).innerHTML
+      // add point - set feature
+      var feature = new OpenLayers.Feature(
+        markers,
+        new OpenLayers.LonLat(lon, lat).transform(
           new OpenLayers.Projection('EPSG:4326'), // transform from WGS 1984
           map.getProjectionObject() // to Spherical Mercator Projection
-        ), icon.clone()))
+        ), {
+          popupContentHTML: desc
+        }
+      )
+      // create marker from feature
+      var marker = feature.createMarker()
+      // bind click
+      marker.events.register('mousedown', feature, (evt) => {
+        if (this.mapPopup[feature.id] == null) {
+          this.mapPopup[feature.id] = feature.createPopup(true)
+          this.mapPopup[feature.id].setSize(new OpenLayers.Size(170, 100))
+          map.addPopup(this.mapPopup[feature.id])
+          this.mapPopup[feature.id].show()
+        } else {
+          this.mapPopup[feature.id].toggle()
+        }
+        OpenLayers.Event.stop(evt)
+      })
+      markers.addMarker(marker)
     })
     // 16
-    map.setCenter(lonLat, 16)
+    map.setCenter(lonLat, 11)
   },
   /**
   * Read data from form and find nearest objects
