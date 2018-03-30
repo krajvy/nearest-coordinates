@@ -59,9 +59,23 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
   locationContainer: [],
   dataReady: false,
   fileReader: null,
+  datainput: {
+    coordIn: { 'lat': undefined, 'lon': undefined, 'desc': '' }
+  },
   map: {
     popup: {},
     loaded: false
+  },
+  /**
+  * Checks latitude and longitude is set
+  * @param object with lat and lon
+  * @return boolean true if it is OK, false otherwise
+  */
+  issetCoordinates: function (coord) {
+    return (
+      typeof coord.lat !== 'undefined' &&
+      typeof coord.lon !== 'undefined'
+    )
   },
   /**
   * Calculate mutual position data of two points on sphere
@@ -78,10 +92,8 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
     // distance will be in km
     var ret = { 'distance': 0, 'azimuth': 0 }
     if (
-      typeof lat1 === 'undefined' ||
-      typeof lon1 === 'undefined' ||
-      typeof lat2 === 'undefined' ||
-      typeof lon2 === 'undefined'
+      !this.issetCoordinates({lat: lat1, lon: lon1}) ||
+      !this.issetCoordinates({lat: lat2, lon: lon2})
     ) {
       return ret
     }
@@ -120,10 +132,7 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
   */
   findNearest: function (lat, lon) {
     var outputData = []
-    if (
-      typeof lat === 'undefined' ||
-      typeof lon === 'undefined'
-    ) {
+    if (!this.issetCoordinates({lat: lat, lon: lon})) {
       return outputData
     }
     for (var i in this.locationContainer) {
@@ -167,11 +176,11 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
       return output
     }
     var getDesc = function (output) {
-      if (typeof output.lat !== 'undefined' && typeof output.lon !== 'undefined') {
+      if (this.issetCoordinates(output)) {
         // set full string to description
         return input
       }
-    }
+    }.bind(this)
     // lets parse some coordinates
     // 17.15451°E,50.33167°N ; 50.0950228N, 16.5538242E
     var search = input.match(/[^\d-]*(\d+(\.\d+)?)°?([ewns])\s?,\s?(\d+(\.\d+)?)°?([ewns])\D*/i)
@@ -295,7 +304,7 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
         if (line) {
           var parsed = this.parseCoordinates(line)
           // get only valid coordinates data
-          if (typeof parsed.lat !== 'undefined' || typeof parsed.lon !== 'undefined') {
+          if (this.issetCoordinates(parsed)) {
             this.locationContainer.push(parsed)
           }
         }
@@ -499,10 +508,7 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
   mapRender: function () {
     this.clearErrorBoxes()
     // check if I have all data
-    if (typeof this.coordIn.lon === 'undefined' ||
-      typeof this.coordIn.lat === 'undefined' ||
-      !this.dataReady
-    ) {
+    if (!this.issetCoordinates(this.datainput.coordIn) || !this.dataReady) {
       this.renderErrorBox(this.config.idElBtnLoadMap, 'Data not ready!')
       return
     }
@@ -584,7 +590,7 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
       })
       markers.addMarker(marker)
     })
-    map.setCenter(this.transformCoordinates(this.coordIn.lon, this.coordIn.lat, map), 11)
+    map.setCenter(this.transformCoordinates(this.datainput.coordIn.lon, this.datainput.coordIn.lat, map), 11)
   },
   /**
   * Read data from form and find nearest objects
@@ -595,16 +601,16 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
     // clear all previous errors
     this.clearErrorBoxes()
     // read data from input
-    this.coordIn = this.parseCoordinates(document.getElementById(this.config.idElInputCoord).value)
+    this.datainput.coordIn = this.parseCoordinates(document.getElementById(this.config.idElInputCoord).value)
     // read file from form
     var inputFile = document.getElementById(this.config.idElInputFile).files
     if (inputFile.length && this.readFile(inputFile)) {
       // check input
-      if (typeof this.coordIn.lat === 'undefined' || typeof this.coordIn.lon === 'undefined') {
+      if (!this.issetCoordinates(this.datainput.coordIn)) {
         this.renderErrorBox(this.config.idElInputCoord, 'Unsupported input coordinates!')
       } else {
         // render computed data to table
-        this.renderData(this.coordIn.lat, this.coordIn.lon)
+        this.renderData(this.datainput.coordIn.lat, this.datainput.coordIn.lon)
       }
     } else {
       this.renderErrorBox(this.config.idElInputFile, 'Cannot read input file!')
