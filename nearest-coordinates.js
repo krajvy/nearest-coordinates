@@ -52,6 +52,7 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
     idElFileProgress: 'file_progressbar',
     idElFileProgressCounter: 'file_progressbar_counter',
     idElBtnLoadMap: 'map_load',
+    idElInputRange: 'map_range',
     idElMapCanvas: 'map--canvas'
   },
   coordIn: {},
@@ -430,15 +431,14 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
       var _inputCheckbox = document.createElement('input')
       _inputCheckbox.type = 'checkbox'
       _inputCheckbox.value = i
-      // TODO: read distance from form
-      _inputCheckbox.checked = outputData[i].distance < 51
-      // _inputCheckbox.checked = i < 5
+      _inputCheckbox.setAttribute('data-distance', outputData[i].distance)
       _tdMap.appendChild(_inputCheckbox)
       _tr.appendChild(_tdMap)
 
       // and finally append it to output element
       outputEl.appendChild(_tr)
     }
+    this.checkSelected()
     return true
   },
   /**
@@ -475,6 +475,19 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
       // remove input element error class
       errorInput[0].classList.remove(this.config.classElInputError)
     }
+  },
+  /**
+  * Checks boxes in selected range
+  * @param void
+  * @return void
+  */
+  checkSelected: function () {
+    // read value from input
+    var range = parseInt(document.getElementById(this.config.idElInputRange).value, 10) + 1
+    // check checkboxes in that input
+    document.getElementById('data_out').querySelectorAll('input[type="checkbox"]').forEach((line) => {
+      line.checked = line.getAttribute('data-distance') < range
+    })
   },
   /**
   * Load OSM map with given coordinates
