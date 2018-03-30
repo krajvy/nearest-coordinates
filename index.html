@@ -30,10 +30,13 @@
 				</div>
 				<div>
 					<input class="submit" type="submit" id="submit" value="Process" />
-					<button type="button" onclick="NearestCoordinates.loadMap();" id="loadmap" disabled="disabled" class="btn btn-loadmap">Load map with selected points</button>
 				</div>
 			</fieldset>
 		</form>
+		<fieldset>
+			<legend>Map operations</legend>
+			<button type="button" onclick="NearestCoordinates.loadMap();" id="map_load" class="btn btn-map_load">Load map with selected points</button>
+		</fieldset>
 		<div id="map--canvas" class="map--canvas hidden"></div>
 		<table>
 			<thead>

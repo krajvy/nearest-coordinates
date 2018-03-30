@@ -51,7 +51,7 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
     idElInputFile: 'file_in',
     idElFileProgress: 'file_progressbar',
     idElFileProgressCounter: 'file_progressbar_counter',
-    idElBtnLoadMap: 'loadmap',
+    idElBtnLoadMap: 'map_load',
     idElMapCanvas: 'map--canvas'
   },
   coordIn: {},
@@ -477,20 +477,20 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
     }
   },
   /**
-  * Enables loadMap button
-  * @param void
-  * @return void
-  */
-  enableLoadMapBtn: function () {
-    var btn = document.getElementById(this.config.idElBtnLoadMap)
-    btn.disabled = false
-  },
-  /**
   * Load OSM map with given coordinates
   * @param void
   * @return void
   */
   loadMap: function () {
+    this.clearErrorBoxes()
+    // check if I have all data
+    if (typeof this.coordIn.lon === 'undefined' ||
+      typeof this.coordIn.lat === 'undefined' ||
+      !this.dataReady
+    ) {
+      this.renderErrorBox(this.config.idElBtnLoadMap, 'Data not ready!')
+      return
+    }
     // load main JS for map rendering
     if (!this.mapLoaded) {
       this.mapLoaded = true
@@ -577,8 +577,6 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
       } else {
         // render computed data to table
         this.renderData(this.coordIn.lat, this.coordIn.lon)
-        // enable loadMap button
-        this.enableLoadMapBtn()
       }
     } else {
       this.renderErrorBox(this.config.idElInputFile, 'Cannot read input file!')
