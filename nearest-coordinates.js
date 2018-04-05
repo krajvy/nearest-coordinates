@@ -543,7 +543,7 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
   * @param object map OpenLayers.Map object
   * @return int converted coodrinates
   */
-  transformCoordinates: function (lon, lat, map) {
+  transformCoordinates: function (lat, lon, map) {
     return new OpenLayers.LonLat(lon, lat)
       .transform(
         new OpenLayers.Projection('EPSG:4326'), // transform from WGS 1984
@@ -569,7 +569,7 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
       var lon = document.getElementById('latlon' + pos).getAttribute('data-lon')
       var desc = document.getElementById('desc' + pos).innerHTML
       // add point - set feature
-      var feature = new OpenLayers.Feature(markers, this.transformCoordinates(lon, lat, map),
+      var feature = new OpenLayers.Feature(markers, this.transformCoordinates(lat, lon, map),
         {
           popupContentHTML: desc
         }
@@ -590,7 +590,7 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
       })
       markers.addMarker(marker)
     })
-    map.setCenter(this.transformCoordinates(this.datainput.coordIn.lon, this.datainput.coordIn.lat, map), 11)
+    map.setCenter(this.transformCoordinates(this.datainput.coordIn.lat, this.datainput.coordIn.lon, map), 11)
   },
   /**
   * Read data from form and find nearest objects
