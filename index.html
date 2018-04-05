@@ -38,9 +38,9 @@
 			<div>
 				<label for="map_distance">Distance to check (in km):</label>
 				<input type="text" name="map_range" id="map_range" class="input input--map_range" value="50" />
-				<button type="button" onclick="NearestCoordinates.checkSelected();" class="btn btn--map_range">Check</button>
+				<button type="button" onclick="NearestCoordinates.mapCheckRange();" class="btn btn--map_range">Check</button>
 			</div>
-			<button type="button" onclick="NearestCoordinates.loadMap();" id="map_load" class="btn btn-map_load">Load map with selected points</button>
+			<button type="button" onclick="NearestCoordinates.mapRender();" id="map_load" class="btn btn-map_load">Load map with selected points</button>
 		</fieldset>
 		<div id="map--canvas" class="map--canvas hidden"></div>
 		<table>
