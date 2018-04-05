@@ -9,3 +9,9 @@ Hoverla - 2061 m (N 48°9.60000', E 24°30.01667')
 With indentation:
   Sněžka - 1602 m (N 50°44.16667', E 15°44.41667')
   Monte Titano - 756 m (N 43°55.70000', E 12°27.13333')
+
+Other parts of the World:
+  Kilimanjaro - 5895 m (3.0764083S, 37.3539986E)
+  Mount Taranaki (39.2960789S, 174.0638503E)
+  Titicaca (15.9159111S, 69.2928119W)
+  Vatnajökull (64.3825969N, 16.9356697W)
