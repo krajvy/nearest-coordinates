@@ -420,9 +420,6 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
 
       var _tdCoord = document.createElement('td')
       _tdCoord.textContent = this.formatCoordinates(outputData[i].lat, outputData[i].lon)
-      _tdCoord.id = 'latlon' + i
-      _tdCoord.setAttribute('data-lat', outputData[i].lat)
-      _tdCoord.setAttribute('data-lon', outputData[i].lon)
       _tr.appendChild(_tdCoord)
 
       var _tdDist = document.createElement('td')
@@ -435,7 +432,6 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
 
       var _tdDesc = document.createElement('td')
       _tdDesc.textContent = outputData[i].desc
-      _tdDesc.id = 'desc' + i
       _tr.appendChild(_tdDesc)
 
       var _tdMap = document.createElement('td')
@@ -443,6 +439,9 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
       _inputCheckbox.type = 'checkbox'
       _inputCheckbox.value = i
       _inputCheckbox.setAttribute('data-distance', outputData[i].distance)
+      _inputCheckbox.setAttribute('data-lat', outputData[i].lat)
+      _inputCheckbox.setAttribute('data-lon', outputData[i].lon)
+      _inputCheckbox.setAttribute('data-desc', outputData[i].desc)
       _tdMap.appendChild(_inputCheckbox)
       _tr.appendChild(_tdMap)
 
@@ -565,9 +564,9 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
     // get all checked locations
     document.getElementById('data_out').querySelectorAll('input[type="checkbox"]:checked').forEach((check) => {
       var pos = check.getAttribute('value')
-      var lat = document.getElementById('latlon' + pos).getAttribute('data-lat')
-      var lon = document.getElementById('latlon' + pos).getAttribute('data-lon')
-      var desc = document.getElementById('desc' + pos).innerHTML
+      var lat = check.getAttribute('data-lat')
+      var lon = check.getAttribute('data-lon')
+      var desc = check.getAttribute('data-desc')
       // add point - set feature
       var feature = new OpenLayers.Feature(markers, this.transformCoordinates(lat, lon, map),
         {
