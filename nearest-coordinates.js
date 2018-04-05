@@ -568,11 +568,7 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
       var lon = check.getAttribute('data-lon')
       var desc = check.getAttribute('data-desc')
       // add point - set feature
-      var feature = new OpenLayers.Feature(markers, this.transformCoordinates(lat, lon, map),
-        {
-          popupContentHTML: desc
-        }
-      )
+      var feature = new OpenLayers.Feature(markers, this.transformCoordinates(lat, lon, map), { popupContentHTML: desc })
       // create marker from feature
       var marker = feature.createMarker()
       // bind click
