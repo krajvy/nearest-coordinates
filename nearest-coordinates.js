@@ -55,7 +55,6 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
     idElInputRange: 'map_range',
     idElMapCanvas: 'map--canvas'
   },
-  coordIn: {},
   locationContainer: [],
   dataReady: false,
   fileReader: null,
