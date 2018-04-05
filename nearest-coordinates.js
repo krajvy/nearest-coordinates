@@ -437,7 +437,6 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
       var _tdMap = document.createElement('td')
       var _inputCheckbox = document.createElement('input')
       _inputCheckbox.type = 'checkbox'
-      _inputCheckbox.value = i
       _inputCheckbox.setAttribute('data-distance', outputData[i].distance)
       _inputCheckbox.setAttribute('data-lat', outputData[i].lat)
       _inputCheckbox.setAttribute('data-lon', outputData[i].lon)
@@ -563,7 +562,6 @@ var NearestCoordinates = { // eslint-disable-line no-unused-vars
     map.addLayer(markers)
     // get all checked locations
     document.getElementById('data_out').querySelectorAll('input[type="checkbox"]:checked').forEach((check) => {
-      var pos = check.getAttribute('value')
       var lat = check.getAttribute('data-lat')
       var lon = check.getAttribute('data-lon')
       var desc = check.getAttribute('data-desc')
