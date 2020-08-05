@@ -1,11 +1,8 @@
 {
   "name": "nearest-coordinates",
   "version": "1.0.0",
-  "description": "Code for finding nearest given GPS coordinates on Earth from start point.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "private": true,
+  "description": "Find nearest given GPS coordinates on Earth from start point.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/krajvy/nearest-coordinates.git"
@@ -20,5 +17,33 @@
   "bugs": {
     "url": "https://github.com/krajvy/nearest-coordinates/issues"
   },
-  "homepage": "https://github.com/krajvy/nearest-coordinates#readme"
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-scripts": "3.4.1"
+  }
 }
