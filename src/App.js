@@ -5,10 +5,8 @@ import OutputTable from './components/OutputTable';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <InputForm />
-        <OutputTable />
-      </header>
+      <InputForm />
+      <OutputTable />
     </div>
   );
 }
