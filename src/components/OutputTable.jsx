@@ -19,7 +19,3 @@ function OutputTable() {
 }
 
 export default OutputTable;
-
-
-
-
