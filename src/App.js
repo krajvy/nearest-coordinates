@@ -1,11 +1,13 @@
 import React from 'react';
 import InputForm from './components/InputForm';
+import OutputTable from './components/OutputTable';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <InputForm />
+        <OutputTable />
       </header>
     </div>
   );
