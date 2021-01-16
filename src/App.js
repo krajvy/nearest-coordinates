@@ -3,7 +3,7 @@ import InputForm from './components/InputForm';
 import Map from './components/Map';
 import OutputTable from './components/OutputTable';
 
-function App() {
+function App () {
   return (
     <div className="App">
       <InputForm />

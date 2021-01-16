@@ -1,19 +1,25 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import Input from './Input';
 
-function InputText(props) {
-
-    let input =
+function InputText (props) {
+  const input =
         <Input
-            name={props.name}
-            type="text"
+          name={props.name}
+          type="text"
         />;
 
-    return (
-        <div>
-            {props.label ? <label>{props.label}:{input}</label> : {input}}
-        </div>
-    );
+  return (
+    <div>
+      {props.label ? <label>{props.label}:{input}</label> : { input }}
+    </div>
+  );
 }
+
+InputText.propTypes = {
+  name: PropTypes.string,
+  label: PropTypes.string,
+};
 
 export default InputText;

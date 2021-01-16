@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
+
 import Map from './Map';
 
 test('Map should contain Map legend', () => {
@@ -9,9 +10,9 @@ test('Map should contain Map legend', () => {
 });
 
 test('Map should contain Distance input', () => {
-    const { getByLabelText } = render(<Map />);
-    const label = getByLabelText('Distance to check (in km):');
-    expect(label).toBeInTheDocument();
+  const { getByLabelText } = render(<Map />);
+  const label = getByLabelText('Distance to check (in km):');
+  expect(label).toBeInTheDocument();
 });
 
 test('Map should contain Check butotn', () => {
@@ -21,8 +22,7 @@ test('Map should contain Check butotn', () => {
 });
 
 test('Map should contain Load map butotn', () => {
-    const { getByText } = render(<Map />);
-    const button = getByText('Load map with selected points');
-    expect(button).toBeInTheDocument();
+  const { getByText } = render(<Map />);
+  const button = getByText('Load map with selected points');
+  expect(button).toBeInTheDocument();
 });
-  
