@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Input from './Input';
-import Button from '../button/Button';
 
 function InputFile (props) {
   const input =
@@ -15,14 +14,10 @@ function InputFile (props) {
     <>
       <div>
         {props.label ? <label>{props.label}:{input}</label> : { input }}
-        <Button
-          name="abort"
-          value="Cancel read"
-        />
       </div>
       <div>
         <label>
-                    Readed:
+          Readed:
           <span className="file_progressbar_wrapper">
             <span className="file_progressbar">&nbsp;</span>
           </span>
