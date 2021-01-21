@@ -34,7 +34,7 @@ function InputFile (props) {
 }
 
 InputFile.propTypes = {
-  name: PropTypes.string,
+  name: PropTypes.string.isRequired,
   label: PropTypes.string,
 };
 

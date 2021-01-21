@@ -14,8 +14,8 @@ function Button (props) {
 }
 
 Button.propTypes = {
-  name: PropTypes.string,
-  value: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
 };
 
 export default Button;

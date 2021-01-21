@@ -18,7 +18,7 @@ function InputText (props) {
 }
 
 InputText.propTypes = {
-  name: PropTypes.string,
+  name: PropTypes.string.isRequired,
   label: PropTypes.string,
 };
 

@@ -13,8 +13,8 @@ function Input (props) {
 }
 
 Input.propTypes = {
-  name: PropTypes.string,
-  type: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.array,
