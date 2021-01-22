@@ -15,10 +15,14 @@ const InputForm = () => {
       <InputText
         label="Your coordinates"
         name="coord_in"
+        onChange={context.setCoordIn}
+        value={context.state.coordIn}
       />
       <InputFile
         label="Input file"
         name="file_in"
+        onChange={context.setFileIn}
+        value={context.state.fileIn}
       />
       <InputSubmit
         value="Process"

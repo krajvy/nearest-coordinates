@@ -7,7 +7,9 @@ const InputText = props => {
   const input =
         <Input
           name={props.name}
+          onChange={props.onChange}
           type="text"
+          value={props.value}
         />;
 
   return (
@@ -19,7 +21,13 @@ const InputText = props => {
 
 InputText.propTypes = {
   name: PropTypes.string.isRequired,
+  onChange: PropTypes.func,
   label: PropTypes.string,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.array,
+    PropTypes.number,
+  ]),
 };
 
 export default InputText;
