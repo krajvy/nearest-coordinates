@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function Input (props) {
+const Input = props => {
   return (
     <input
       className={`input input--${props.name}`}
@@ -10,7 +10,7 @@ function Input (props) {
       value={props.value}
     />
   );
-}
+};
 
 Input.propTypes = {
   name: PropTypes.string.isRequired,

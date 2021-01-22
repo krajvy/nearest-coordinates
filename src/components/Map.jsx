@@ -3,7 +3,7 @@ import React from 'react';
 import InputText from './input/InputText';
 import Button from './button/Button';
 
-function Map () {
+const Map = () => {
   return (
     <>
       <fieldset>
@@ -27,6 +27,6 @@ function Map () {
       <div className="map--canvas hidden"></div>
     </>
   );
-}
+};
 
 export default Map;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-function OutputTable () {
+const OutputTable = () => {
   return (
     <table>
       <thead>
@@ -16,6 +16,6 @@ function OutputTable () {
       </tbody>
     </table>
   );
-}
+};
 
 export default OutputTable;

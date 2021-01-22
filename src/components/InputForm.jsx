@@ -4,7 +4,7 @@ import InputText from './input/InputText';
 import InputFile from './input/InputFile';
 import InputSubmit from './input/InputSubmit';
 
-function InputForm () {
+const InputForm = () => {
   return (
     <fieldset>
       <legend>Input</legend>
@@ -21,6 +21,6 @@ function InputForm () {
       />
     </fieldset>
   );
-}
+};
 
 export default InputForm;

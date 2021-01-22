@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function Button (props) {
+const Button = props => {
   return (
     <button
       className={`btn btn--${props.name}`}
@@ -11,7 +11,7 @@ function Button (props) {
       {props.value}
     </button>
   );
-}
+};
 
 Button.propTypes = {
   name: PropTypes.string.isRequired,

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Input from './Input';
 
-function InputText (props) {
+const InputText = props => {
   const input =
         <Input
           name={props.name}
@@ -15,7 +15,7 @@ function InputText (props) {
       {props.label ? <label>{props.label}:{input}</label> : { input }}
     </div>
   );
-}
+};
 
 InputText.propTypes = {
   name: PropTypes.string.isRequired,

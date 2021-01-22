@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Input from './Input';
 
-function InputFile (props) {
+const InputFile = props => {
   const input =
         <Input
           name={props.name}
@@ -26,7 +26,7 @@ function InputFile (props) {
       </div>
     </>
   );
-}
+};
 
 InputFile.propTypes = {
   name: PropTypes.string.isRequired,

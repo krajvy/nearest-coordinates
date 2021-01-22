@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Input from './Input';
 
-function InputSubmit (props) {
+const InputSubmit = props => {
   return (
     <div>
       <Input
@@ -13,7 +13,7 @@ function InputSubmit (props) {
       />
     </div>
   );
-}
+};
 
 InputSubmit.propTypes = {
   value: PropTypes.string,

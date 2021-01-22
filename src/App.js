@@ -6,7 +6,7 @@ import InputForm from './components/InputForm';
 import Map from './components/Map';
 import OutputTable from './components/OutputTable';
 
-function App () {
+const App = () => {
   return (
     <div className="App">
       <NCState>
@@ -16,6 +16,6 @@ function App () {
       </NCState>
     </div>
   );
-}
+};
 
 export default App;
