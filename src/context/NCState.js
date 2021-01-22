@@ -6,14 +6,31 @@ import NCContext from './NCContext';
 
 const NCState = props => {
   const initialState = {
-    fileData: '',
+    coordIn: '',
+    fileIn: '',
   };
+
   const [state, dispatch] = useReducer(NCReducer, initialState);
+
+  const setCoordIn = event => {
+    dispatch({
+      type: 'SETCOORDIN',
+      value: event.target.value,
+    });
+  };
+  const setFileIn = event => {
+    dispatch({
+      type: 'SETFILEIN',
+      value: event.target.value,
+    });
+  };
 
   return (
     <NCContext.Provider
       value={{
         state: state,
+        setCoordIn: setCoordIn,
+        setFileIn: setFileIn,
       }}
     >
       {props.children}

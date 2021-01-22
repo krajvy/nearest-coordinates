@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import NCContext from './../context/NCContext';
 
 import InputText from './input/InputText';
 import InputFile from './input/InputFile';
 import InputSubmit from './input/InputSubmit';
 
 const InputForm = () => {
+  const context = useContext(NCContext);
+
   return (
     <fieldset>
       <legend>Input</legend>
