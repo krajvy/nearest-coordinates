@@ -8,6 +8,7 @@ const InputSubmit = props => {
     <div>
       <Input
         name="submit"
+        onClick={props.onClick}
         type="submit"
         value={props.value}
       />
@@ -16,6 +17,7 @@ const InputSubmit = props => {
 };
 
 InputSubmit.propTypes = {
+  onClick: PropTypes.func,
   value: PropTypes.string,
 };
 

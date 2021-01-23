@@ -25,7 +25,8 @@ const InputForm = () => {
         value={context.state.fileIn}
       />
       <InputSubmit
-        value="Process"
+        value="Read data"
+        onClick={context.readData}
       />
     </fieldset>
   );

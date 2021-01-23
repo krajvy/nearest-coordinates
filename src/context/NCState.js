@@ -8,6 +8,8 @@ const NCState = props => {
   const initialState = {
     coordIn: '',
     fileIn: '',
+    fileInList: {},
+    loading: false,
   };
 
   const [state, dispatch] = useReducer(NCReducer, initialState);
@@ -22,6 +24,12 @@ const NCState = props => {
     dispatch({
       type: 'SETFILEIN',
       value: event.target.value,
+      files: event.target.files,
+    });
+  };
+  const readData = () => {
+    dispatch({
+      type: 'READDATA',
     });
   };
 
@@ -31,6 +39,7 @@ const NCState = props => {
         state: state,
         setCoordIn: setCoordIn,
         setFileIn: setFileIn,
+        readData: readData,
       }}
     >
       {props.children}
