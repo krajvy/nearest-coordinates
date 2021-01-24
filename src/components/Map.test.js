@@ -3,6 +3,8 @@ import { render } from '@testing-library/react';
 
 import Map from './Map';
 
+/* globals test, expect */
+
 test('Map should contain Map legend', () => {
   const { getByText } = render(<Map />);
   const legend = getByText('Map operations');

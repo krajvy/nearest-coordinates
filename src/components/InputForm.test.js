@@ -3,6 +3,8 @@ import { render } from '@testing-library/react';
 
 import InputForm from './InputForm';
 
+/* globals test, expect */
+
 test('Form should contain Input legend', () => {
   const { getByText } = render(<InputForm />);
   const legend = getByText('Input');
