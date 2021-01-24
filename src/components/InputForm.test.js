@@ -25,6 +25,6 @@ test('Form should contain File input', () => {
 
 test('Form should contain Submit butotn', () => {
   const { getByText } = render(<InputForm />);
-  const button = getByText('Process');
+  const button = getByText('Read data');
   expect(button).toBeInTheDocument();
 });
