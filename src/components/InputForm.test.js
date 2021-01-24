@@ -31,7 +31,7 @@ test('Form should contain File input', () => {
   expect(label).toBeInTheDocument();
 });
 
-test('Form should contain Submit butotn', () => {
+test('Form should contain Submit button', () => {
   const { getByText } = renderForm();
   const button = getByText('Read data');
   expect(button).toBeInTheDocument();
