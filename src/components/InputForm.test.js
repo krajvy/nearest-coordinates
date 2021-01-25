@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import NCState from './../context/NCState';
 
@@ -14,25 +14,25 @@ const renderForm = () => render(
 );
 
 test('Form should contain Input legend', () => {
-  const { getByText } = renderForm();
-  const legend = getByText('Input');
+  renderForm();
+  const legend = screen.getByText('Input');
   expect(legend).toBeInTheDocument();
 });
 
 test('Form should contain Coordinates input', () => {
-  const { getByLabelText } = renderForm();
-  const label = getByLabelText('Your coordinates:');
+  renderForm();
+  const label = screen.getByLabelText('Your coordinates:');
   expect(label).toBeInTheDocument();
 });
 
 test('Form should contain File input', () => {
-  const { getByLabelText } = renderForm();
-  const label = getByLabelText('Input file:');
+  renderForm();
+  const label = screen.getByLabelText('Input file:');
   expect(label).toBeInTheDocument();
 });
 
 test('Form should contain Submit button', () => {
-  const { getByText } = renderForm();
-  const button = getByText('Read data');
+  renderForm();
+  const button = screen.getByText('Read data');
   expect(button).toBeInTheDocument();
 });

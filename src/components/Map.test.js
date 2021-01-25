@@ -1,30 +1,30 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import Map from './Map';
 
 /* globals test, expect */
 
 test('Map should contain Map legend', () => {
-  const { getByText } = render(<Map />);
-  const legend = getByText('Map operations');
+  render(<Map />);
+  const legend = screen.getByText('Map operations');
   expect(legend).toBeInTheDocument();
 });
 
 test('Map should contain Distance input', () => {
-  const { getByLabelText } = render(<Map />);
-  const label = getByLabelText('Distance to check (in km):');
+  render(<Map />);
+  const label = screen.getByLabelText('Distance to check (in km):');
   expect(label).toBeInTheDocument();
 });
 
 test('Map should contain Check butotn', () => {
-  const { getByText } = render(<Map />);
-  const button = getByText('Check');
+  render(<Map />);
+  const button = screen.getByText('Check');
   expect(button).toBeInTheDocument();
 });
 
 test('Map should contain Load map butotn', () => {
-  const { getByText } = render(<Map />);
-  const button = getByText('Load map with selected points');
+  render(<Map />);
+  const button = screen.getByText('Load map with selected points');
   expect(button).toBeInTheDocument();
 });
