@@ -5,6 +5,7 @@ const initialState = {
   fileIn: '',
   fileInList: {},
   isLoading: false,
+  data: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -29,6 +30,7 @@ const reducer = (state = initialState, action) => {
     return {
       ...state,
       isLoading: false,
+      data: action.value,
     };
   default:
     return state;

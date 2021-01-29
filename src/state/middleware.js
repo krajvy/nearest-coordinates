@@ -1,7 +1,9 @@
 import dataComplete from './actions/dataComplete';
+import preprocessData from './actions/preprocessData';
 import readFile from './../functions/readFile';
+import preprocessFile from './../functions/preprocessFile';
 
-import { READDATA } from './constants';
+import { PREPROCESSDATA, READDATA } from './constants';
 
 const middleware = store => next => action => {
   const state = store.getState();
@@ -10,6 +12,12 @@ const middleware = store => next => action => {
   case READDATA:
     next(action);
     readFile(state.fileInList)
+      .then(data => {
+        store.dispatch(preprocessData(data));
+      });
+    break;
+  case PREPROCESSDATA:
+    preprocessFile(action.payload)
       .then(data => {
         store.dispatch(dataComplete(data));
       });
