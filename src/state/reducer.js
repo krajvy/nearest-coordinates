@@ -1,19 +1,28 @@
+import { SETCOORDIN, SETFILEIN, READDATA } from './constants';
+
 import readFile from '../functions/readFile';
 
-const NCReducer = (state, action) => {
+const initialState = {
+  coordIn: '',
+  fileIn: '',
+  fileInList: {},
+  loading: false,
+};
+
+function reducer (state = initialState, action) {
   switch (action.type) {
-  case 'SETCOORDIN':
+  case SETCOORDIN:
     return {
       ...state,
       coordIn: action.value,
     };
-  case 'SETFILEIN':
+  case SETFILEIN:
     return {
       ...state,
       fileIn: action.value,
       fileInList: action.files,
     };
-  case 'READDATA':
+  case READDATA:
     state.loading = true;
     readFile(state.fileInList)
       .then(data => {
@@ -33,4 +42,4 @@ const NCReducer = (state, action) => {
   }
 };
 
-export default NCReducer;
+export default reducer;

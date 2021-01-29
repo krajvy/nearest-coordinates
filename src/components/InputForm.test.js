@@ -1,16 +1,17 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import NCState from './../context/NCState';
-
 import InputForm from './InputForm';
+
+import { Provider } from 'react-redux';
+import store from './../state/store';
 
 /* globals test, expect */
 
 const renderForm = () => render(
-  <NCState>
+  <Provider store={store}>
     <InputForm />
-  </NCState>,
+  </Provider>,
 );
 
 test('Form should contain Input legend', () => {
