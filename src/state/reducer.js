@@ -1,15 +1,13 @@
-import { SETCOORDIN, SETFILEIN, READDATA } from './constants';
-
-import readFile from '../functions/readFile';
+import { SETCOORDIN, SETFILEIN, READDATA, DATACOMPLETE } from './constants';
 
 const initialState = {
   coordIn: '',
   fileIn: '',
   fileInList: {},
-  loading: false,
+  isLoading: false,
 };
 
-function reducer (state = initialState, action) {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
   case SETCOORDIN:
     return {
@@ -23,19 +21,14 @@ function reducer (state = initialState, action) {
       fileInList: action.files,
     };
   case READDATA:
-    state.loading = true;
-    readFile(state.fileInList)
-      .then(data => {
-        console.log(data, state);
-      })
-      .catch(error => {
-        console.error(error, state);
-      }).finally(() => {
-        state.loading = false;
-      });
-    console.log('READDATA', state, action);
     return {
       ...state,
+      isLoading: true,
+    };
+  case DATACOMPLETE:
+    return {
+      ...state,
+      isLoading: false,
     };
   default:
     return state;
