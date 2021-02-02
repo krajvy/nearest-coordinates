@@ -3,10 +3,17 @@ import { render, screen } from '@testing-library/react';
 
 import OutputTable from './OutputTable';
 
+import { Provider } from 'react-redux';
+import store from './../state/store';
+
 /* globals test, expect */
 
 test('Output table should contain all needed rows', () => {
-  render(<OutputTable />);
+  render(
+    <Provider store={store}>
+      <OutputTable />
+    </Provider>,
+  );
   const columns = ['Coordinates', 'Distance', 'Azimuth', 'Description', 'Map'];
 
   columns.forEach(heading => {
