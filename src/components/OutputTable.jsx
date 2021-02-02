@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import formatCoordinates from './../functions/formatCoordinates';
+import formatCoordinates from '../functions/format/formatCoordinates';
 
 const OutputTable = props => {
   return (
