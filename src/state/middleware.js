@@ -10,6 +10,10 @@ const middleware = store => next => action => {
 
   switch (action.type) {
   case READDATA:
+    if (!state.coordIn || !state.fileIn) {
+      console.error('Input fields not filled properly!');
+      break;
+    }
     next(action);
     readFile(state.fileInList)
       .then(data => {
