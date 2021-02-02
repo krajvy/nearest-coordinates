@@ -12,25 +12,29 @@ import InputSubmit from './input/InputSubmit';
 
 const InputForm = props => {
   return (
-    <fieldset>
-      <legend>Input</legend>
-      <InputText
-        label="Your coordinates"
-        name="coord_in"
-        onChange={props.setCoordIn}
-        value={props.coordIn}
-      />
-      <InputFile
-        label="Input file"
-        name="file_in"
-        onChange={props.setFileIn}
-        value={props.fileIn}
-      />
-      <InputSubmit
-        value="Read data"
-        onClick={props.readData}
-      />
-    </fieldset>
+    <form onSubmit={event => event.preventDefault()}>
+      <fieldset>
+        <legend>Input</legend>
+        <InputText
+          label="Your coordinates"
+          name="coord_in"
+          onChange={props.setCoordIn}
+          required={true}
+          value={props.coordIn}
+        />
+        <InputFile
+          label="Input file"
+          name="file_in"
+          required={true}
+          onChange={props.setFileIn}
+          value={props.fileIn}
+        />
+        <InputSubmit
+          value="Read data"
+          onClick={props.readData}
+        />
+      </fieldset>
+    </form>
   );
 };
 

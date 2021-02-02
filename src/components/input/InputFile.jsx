@@ -8,6 +8,7 @@ const InputFile = props => {
         <Input
           name={props.name}
           onChange={props.onChange}
+          required={props.required}
           type="file"
           value={props.value}
         />;
@@ -34,6 +35,7 @@ InputFile.propTypes = {
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func,
   label: PropTypes.string,
+  required: PropTypes.bool,
   value: PropTypes.string,
 };
 
