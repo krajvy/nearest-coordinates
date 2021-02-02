@@ -1,5 +1,5 @@
-import parseCoordinates from './parseCoordinates';
-import issetCoordinates from './issetCoordinates';
+import parseCoordinates from '../parseCoordinates';
+import issetCoordinates from '../issetCoordinates';
 
 const preprocessFile = data => new Promise((resolve, reject) => {
   const output = [];

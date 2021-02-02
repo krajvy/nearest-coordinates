@@ -1,7 +1,7 @@
 import dataComplete from './actions/dataComplete';
 import preprocessData from './actions/preprocessData';
-import readFile from './../functions/readFile';
-import preprocessFile from './../functions/preprocessFile';
+import readFile from '../functions/file/readFile';
+import preprocessFile from '../functions/file/preprocessFile';
 
 import { PREPROCESSDATA, READDATA } from './constants';
 
