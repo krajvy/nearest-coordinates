@@ -3,7 +3,7 @@ const readFile = fileList => new Promise((resolve, reject) => {
     reject(new Error('FileReader does not exists!'));
   }
 
-  if (fileList.length < 1) {
+  if (!fileList.length) {
     reject(new Error('No file to read passed!'));
   }
 

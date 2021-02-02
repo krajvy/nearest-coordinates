@@ -14,12 +14,16 @@ const middleware = store => next => action => {
     readFile(state.fileInList)
       .then(data => {
         store.dispatch(preprocessData(data));
+      }).catch(error => {
+        console.error(error.message);
       });
     break;
   case PREPROCESSDATA:
     preprocessFile(action.payload)
       .then(data => {
         store.dispatch(dataComplete(data));
+      }).catch(error => {
+        console.error(error.message);
       });
     break;
   default:
