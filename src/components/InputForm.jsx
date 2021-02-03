@@ -10,6 +10,8 @@ import InputText from './input/InputText';
 import InputFile from './input/InputFile';
 import InputSubmit from './input/InputSubmit';
 
+import { COORDSPATTERN } from '../functions/validator/coordspattern';
+
 const InputForm = props => {
   return (
     <form onSubmit={event => event.preventDefault()}>
@@ -19,6 +21,7 @@ const InputForm = props => {
           label="Your coordinates"
           name="coord_in"
           onChange={props.setCoordIn}
+          pattern={COORDSPATTERN}
           required={true}
           value={props.coordIn}
         />

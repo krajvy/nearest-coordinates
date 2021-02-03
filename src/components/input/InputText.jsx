@@ -8,6 +8,7 @@ const InputText = props => {
         <Input
           name={props.name}
           onChange={props.onChange}
+          pattern={props.pattern}
           required={props.required}
           type="text"
           value={props.value}
@@ -24,6 +25,7 @@ InputText.propTypes = {
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func,
   label: PropTypes.string,
+  pattern: PropTypes.string,
   required: PropTypes.bool,
   value: PropTypes.oneOfType([
     PropTypes.string,

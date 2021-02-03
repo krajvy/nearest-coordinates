@@ -12,6 +12,7 @@ const Input = props => {
       name={props.name}
       onChange={onChange}
       onClick={onClick}
+      pattern={props.pattern}
       required={props.required}
       type={props.type}
       value={props.value}
@@ -23,6 +24,7 @@ Input.propTypes = {
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func,
   onClick: PropTypes.func,
+  pattern: PropTypes.string,
   required: PropTypes.bool,
   type: PropTypes.string.isRequired,
   value: PropTypes.oneOfType([
