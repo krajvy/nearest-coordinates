@@ -1,4 +1,4 @@
-import issetCoordinates from './validator/issetCoordinates';
+import issetCoordinates from '../validator/issetCoordinates';
 
 const getDescription = (coordinates, line) => {
   // As description, lets have whole line with coordinates

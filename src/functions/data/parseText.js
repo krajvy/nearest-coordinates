@@ -1,4 +1,4 @@
-import parseCoordinates from '../parseCoordinates';
+import parseCoordinates from '../data/parseCoordinates';
 import issetCoordinates from '../validator/issetCoordinates';
 
 const parseText = data => new Promise((resolve, reject) => {

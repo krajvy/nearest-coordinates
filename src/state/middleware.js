@@ -2,7 +2,7 @@ import dataComplete from './actions/dataComplete';
 import preprocessData from './actions/preprocessData';
 import readFile from '../functions/file/readFile';
 import parseText from '../functions/data/parseText';
-import parseCoordinates from '../functions/parseCoordinates';
+import parseCoordinates from '../functions/data/parseCoordinates';
 import issetCoordinates from '../functions/validator/issetCoordinates';
 
 import { PREPROCESSDATA, READDATA } from './constants';
