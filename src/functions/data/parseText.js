@@ -1,5 +1,5 @@
 import parseCoordinates from '../parseCoordinates';
-import issetCoordinates from '../issetCoordinates';
+import issetCoordinates from '../validator/issetCoordinates';
 
 const parseText = data => new Promise((resolve, reject) => {
   const output = [];

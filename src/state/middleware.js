@@ -3,7 +3,7 @@ import preprocessData from './actions/preprocessData';
 import readFile from '../functions/file/readFile';
 import parseText from '../functions/data/parseText';
 import parseCoordinates from '../functions/parseCoordinates';
-import issetCoordinates from '../functions/issetCoordinates';
+import issetCoordinates from '../functions/validator/issetCoordinates';
 
 import { PREPROCESSDATA, READDATA } from './constants';
 
