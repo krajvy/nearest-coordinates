@@ -1,7 +1,7 @@
 import dataComplete from './actions/dataComplete';
 import preprocessData from './actions/preprocessData';
 import readFile from '../functions/file/readFile';
-import preprocessFile from '../functions/file/preprocessFile';
+import parseText from '../functions/data/parseText';
 import parseCoordinates from '../functions/parseCoordinates';
 import issetCoordinates from '../functions/issetCoordinates';
 
@@ -27,7 +27,7 @@ const middleware = store => next => action => {
       });
     break;
   case PREPROCESSDATA:
-    preprocessFile(action.payload)
+    parseText(action.payload)
       .then(data => {
         store.dispatch(dataComplete(data));
       }).catch(error => {

@@ -1,7 +1,7 @@
 import parseCoordinates from '../parseCoordinates';
 import issetCoordinates from '../issetCoordinates';
 
-const preprocessFile = data => new Promise((resolve, reject) => {
+const parseText = data => new Promise((resolve, reject) => {
   const output = [];
 
   // cut by newlines
@@ -24,4 +24,4 @@ const preprocessFile = data => new Promise((resolve, reject) => {
   resolve(output);
 });
 
-export default preprocessFile;
+export default parseText;
