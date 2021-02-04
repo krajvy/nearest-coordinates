@@ -21,8 +21,8 @@ const OutputTable = props => {
           return (
             <tr key={index}>
               <td className="coordinates">{formatCoordinates(row.latitude, row.longitude)}</td>
-              <td className="distance"></td>
-              <td className="azimuth"></td>
+              <td className="distance">{row.distance} km</td>
+              <td className="azimuth">{row.azimuth}</td>
               <td className="description">{row.description}</td>
               <td className="map"></td>
             </tr>
