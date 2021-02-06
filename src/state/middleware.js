@@ -4,6 +4,7 @@ import readFile from '../functions/file/readFile';
 import calculateAllMutualPositions from '../functions/data/calculateAllMutualPositions';
 import parseText from '../functions/data/parseText';
 import parseCoordinates from '../functions/data/parseCoordinates';
+import addMapField from '../functions/data/addMapField';
 import sortByDistance from '../functions/math/sortByDistance';
 import issetCoordinates from '../functions/validator/issetCoordinates';
 
@@ -34,6 +35,7 @@ const middleware = store => next => action => {
         const coordIn = parseCoordinates(state.coordIn);
         data = calculateAllMutualPositions(coordIn, data);
         data = sortByDistance(data);
+        data = addMapField(data);
         store.dispatch(dataComplete(data));
       }).catch(error => {
         console.error(error.message);
