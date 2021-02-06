@@ -30,7 +30,9 @@ const OutputTable = props => {
           return (
             <tr key={index}>
               <td className="coordinates">{formatCoordinates(row.latitude, row.longitude)}</td>
-              <td className="distance">{row.distance} km</td>
+              <td className="distance">
+                {row.distance > 50 ? parseInt(row.distance, 10) : row.distance} km
+              </td>
               <td className="azimuth">
                 <Arrow azimuth={row.azimuth}>&#10140;</Arrow>
                 <Azimuth>{row.azimuth}</Azimuth>
