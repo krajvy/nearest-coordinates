@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import LoadingMask from 'react-loadingmask';
+import 'react-loadingmask/dist/react-loadingmask.css';
 
 import setCoordIn from './../state/actions/setCoordIn';
 import setFileIn from './../state/actions/setFileIn';
@@ -17,25 +19,28 @@ const InputForm = props => {
     <form onSubmit={event => event.preventDefault()}>
       <fieldset>
         <legend>Input</legend>
-        <InputText
-          label="Your coordinates"
-          name="coord_in"
-          onChange={props.setCoordIn}
-          pattern={COORDSPATTERN}
-          required={true}
-          value={props.coordIn}
-        />
-        <InputFile
-          label="Input file"
-          name="file_in"
-          required={true}
-          onChange={props.setFileIn}
-          value={props.fileIn}
-        />
-        <InputSubmit
-          value="Read data"
-          onClick={props.readData}
-        />
+        <LoadingMask loading={props.isLoading} text="Processing data...">
+          <InputText
+            label="Your coordinates"
+            name="coord_in"
+            onChange={props.setCoordIn}
+            pattern={COORDSPATTERN}
+            required={true}
+            value={props.coordIn}
+          />
+          <InputFile
+            label="Input file"
+            name="file_in"
+            required={true}
+            onChange={props.setFileIn}
+            value={props.fileIn}
+          />
+          <InputSubmit
+            isLoading={props.isLoading}
+            value="Read data"
+            onClick={props.readData}
+          />
+        </LoadingMask>
       </fieldset>
     </form>
   );
@@ -44,6 +49,7 @@ const InputForm = props => {
 InputForm.propTypes = {
   coordIn: PropTypes.string,
   fileIn: PropTypes.string,
+  isLoading: PropTypes.bool,
   setCoordIn: PropTypes.func,
   setFileIn: PropTypes.func,
   readData: PropTypes.func,
@@ -53,6 +59,7 @@ const mapStateToProps = state => {
   return {
     coordIn: state.coordIn,
     fileIn: state.fileIn,
+    isLoading: state.isLoading,
   };
 };
 

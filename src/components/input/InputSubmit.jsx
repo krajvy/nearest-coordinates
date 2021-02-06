@@ -7,6 +7,7 @@ const InputSubmit = props => {
   return (
     <div>
       <Input
+        disabled={props.isLoading}
         name="submit"
         onClick={props.onClick}
         type="submit"
@@ -17,6 +18,7 @@ const InputSubmit = props => {
 };
 
 InputSubmit.propTypes = {
+  isLoading: PropTypes.bool,
   onClick: PropTypes.func,
   value: PropTypes.string,
 };

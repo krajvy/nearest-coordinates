@@ -9,6 +9,7 @@ const Input = props => {
   return (
     <input
       className={`input input--${props.name}`}
+      disabled={props.disabled}
       name={props.name}
       onChange={onChange}
       onClick={onClick}
@@ -21,6 +22,7 @@ const Input = props => {
 };
 
 Input.propTypes = {
+  disabled: PropTypes.bool,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func,
   onClick: PropTypes.func,
