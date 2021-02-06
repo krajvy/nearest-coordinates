@@ -1,4 +1,4 @@
-import { SETCOORDIN, SETFILEIN, READDATA, DATACOMPLETE } from './constants';
+import { SETCOORDIN, SETFILEIN, READDATA, DATACOMPLETE, SETDISPLAYONMAP } from './constants';
 
 const initialState = {
   coordIn: '',
@@ -20,6 +20,11 @@ const reducer = (state = initialState, action) => {
       ...state,
       fileIn: action.value,
       fileInList: action.files,
+    };
+  case SETDISPLAYONMAP:
+    state.data[action.index].displayOnMap = !state.data[action.index].displayOnMap;
+    return {
+      ...state,
     };
   case READDATA:
     return {

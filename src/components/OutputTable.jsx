@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
+import setDisplayOnMap from './../state/actions/setDisplayOnMap';
+
+import InputCheckbox from './input/InputCheckbox';
+
 import formatCoordinates from '../functions/format/formatCoordinates';
 
 const Arrow = styled.span`
@@ -38,7 +42,13 @@ const OutputTable = props => {
                 <Azimuth>{row.azimuth}</Azimuth>
               </td>
               <td className="description">{row.description}</td>
-              <td className="map"></td>
+              <td className="map">
+                <InputCheckbox
+                  name={'map-' + index}
+                  onChange={e => { props.setDisplayOnMap(e, index); }}
+                  value={row.displayOnMap}
+                />
+              </td>
             </tr>
           );
         })}
@@ -49,6 +59,7 @@ const OutputTable = props => {
 
 OutputTable.propTypes = {
   data: PropTypes.array,
+  setDisplayOnMap: PropTypes.func,
 };
 
 const mapStateToProps = state => {
@@ -57,6 +68,13 @@ const mapStateToProps = state => {
   };
 };
 
+const mapDispatchToProps = dispatch => {
+  return {
+    setDisplayOnMap: (payload, index) => dispatch(setDisplayOnMap(payload, index)),
+  };
+};
+
 export default connect(
   mapStateToProps,
+  mapDispatchToProps,
 )(OutputTable);
