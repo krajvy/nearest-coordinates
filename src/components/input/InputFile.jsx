@@ -16,7 +16,7 @@ const InputFile = props => {
   return (
     <>
       <div>
-        {props.label ? <label>{props.label}:{input}</label> : { input }}
+        {props.label ? <label>{props.label}:{input}</label> : <>{input}</>}
       </div>
     </>
   );
