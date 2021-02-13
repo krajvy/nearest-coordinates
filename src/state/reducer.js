@@ -5,6 +5,7 @@ import {
   DATACOMPLETE,
   SETDISPLAYONMAP,
   SETMAPDISTANCE,
+  SETDISPLAYONMAPBYDISTANCE,
 } from './constants';
 
 const initialState = {
@@ -33,6 +34,14 @@ const reducer = (state = initialState, action) => {
     state.data[action.index].displayOnMap = !state.data[action.index].displayOnMap;
     return {
       ...state,
+    };
+  case SETDISPLAYONMAPBYDISTANCE:
+    return {
+      ...state,
+      data: state.data.map(row => {
+        row.displayOnMap = row.distance <= state.mapDistance;
+        return row;
+      }),
     };
   case SETMAPDISTANCE:
     return {

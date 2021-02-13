@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import setMapDistance from './../state/actions/setMapDistance';
+import setDisplayOnMapByDistance from './../state/actions/setDisplayOnMapByDistance';
 
 import InputNumber from './input/InputNumber';
+import InputSubmit from './input/InputSubmit';
 import Button from './button/Button';
 
 const MapForm = props => {
@@ -21,9 +23,9 @@ const MapForm = props => {
             min={0}
             value={props.mapDistance}
           />
-          <Button
-            name="map_range"
+          <InputSubmit
             value="Check"
+            onClick={props.setDisplayOnMapByDistance}
           />
         </div>
         <Button
@@ -39,6 +41,7 @@ const MapForm = props => {
 MapForm.propTypes = {
   mapDistance: PropTypes.number,
   setMapDistance: PropTypes.func,
+  setDisplayOnMapByDistance: PropTypes.func,
 };
 
 const mapStateToProps = state => {
@@ -50,6 +53,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     setMapDistance: payload => dispatch(setMapDistance(payload)),
+    setDisplayOnMapByDistance: payload => dispatch(setDisplayOnMapByDistance(payload)),
   };
 };
 
