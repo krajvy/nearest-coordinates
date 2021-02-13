@@ -3,7 +3,7 @@ import React from 'react';
 import InputText from './input/InputText';
 import Button from './button/Button';
 
-const Map = () => {
+const MapForm = () => {
   return (
     <>
       <fieldset>
@@ -29,4 +29,4 @@ const Map = () => {
   );
 };
 
-export default Map;
+export default MapForm;
