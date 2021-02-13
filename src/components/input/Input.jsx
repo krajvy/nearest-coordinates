@@ -2,10 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Input = props => {
-  const nothing = () => {};
-  const onChange = props.onChange || nothing;
-  const onClick = props.onClick || nothing;
-
   return (
     <input
       className={`input input--${props.name}`}
@@ -13,8 +9,8 @@ const Input = props => {
       disabled={props.disabled}
       name={props.name}
       min={props.min}
-      onChange={onChange}
-      onClick={onClick}
+      onChange={props.onChange}
+      onClick={props.onClick}
       pattern={props.pattern}
       required={props.required}
       type={props.type}
