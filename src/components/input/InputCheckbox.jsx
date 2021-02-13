@@ -6,10 +6,10 @@ import Input from './Input';
 const InputCheckbox = props => {
   const input =
     <Input
+      checked={props.checked}
       name={props.name}
       onChange={props.onChange}
       type="checkbox"
-      value={props.value}
     />;
 
   return (
@@ -23,7 +23,7 @@ InputCheckbox.propTypes = {
   label: PropTypes.string,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func,
-  value: PropTypes.bool,
+  checked: PropTypes.bool,
 };
 
 export default InputCheckbox;

@@ -9,6 +9,7 @@ const Input = props => {
   return (
     <input
       className={`input input--${props.name}`}
+      checked={props.checked}
       disabled={props.disabled}
       name={props.name}
       min={props.min}
@@ -24,6 +25,7 @@ const Input = props => {
 
 Input.propTypes = {
   disabled: PropTypes.bool,
+  checked: PropTypes.bool,
   min: PropTypes.number,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func,

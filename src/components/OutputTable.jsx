@@ -46,7 +46,7 @@ const OutputTable = props => {
                 <InputCheckbox
                   name={'map-' + index}
                   onChange={e => { props.setDisplayOnMap(e, index); }}
-                  value={row.displayOnMap}
+                  checked={row.displayOnMap}
                 />
               </td>
             </tr>
