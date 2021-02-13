@@ -46,7 +46,7 @@ const reducer = (state = initialState, action) => {
   case SETMAPDISTANCE:
     return {
       ...state,
-      mapDistance: action.value,
+      mapDistance: parseInt(action.value, 10),
     };
   case READDATA:
     return {

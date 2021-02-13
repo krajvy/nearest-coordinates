@@ -2,7 +2,7 @@ import { SETMAPDISTANCE } from './../constants';
 
 const setMapDistance = payload => ({
   type: SETMAPDISTANCE,
-  value: parseInt(payload.target.value, 10),
+  value: payload.target.value,
   payload,
 });
 
