@@ -36,7 +36,7 @@ const InputForm = props => {
             value={props.fileIn}
           />
           <InputSubmit
-            isLoading={props.isLoading}
+            disabled={props.isLoading}
             value="Read data"
             onClick={props.readData}
           />
