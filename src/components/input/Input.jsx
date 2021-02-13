@@ -11,6 +11,7 @@ const Input = props => {
       className={`input input--${props.name}`}
       disabled={props.disabled}
       name={props.name}
+      min={props.min}
       onChange={onChange}
       onClick={onClick}
       pattern={props.pattern}
@@ -23,6 +24,7 @@ const Input = props => {
 
 Input.propTypes = {
   disabled: PropTypes.bool,
+  min: PropTypes.number,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func,
   onClick: PropTypes.func,

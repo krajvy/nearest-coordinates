@@ -1,4 +1,11 @@
-import { SETCOORDIN, SETFILEIN, READDATA, DATACOMPLETE, SETDISPLAYONMAP } from './constants';
+import {
+  SETCOORDIN,
+  SETFILEIN,
+  READDATA,
+  DATACOMPLETE,
+  SETDISPLAYONMAP,
+  SETMAPDISTANCE,
+} from './constants';
 
 const initialState = {
   coordIn: '',
@@ -6,6 +13,7 @@ const initialState = {
   fileInList: {},
   isLoading: false,
   data: [],
+  mapDistance: 50,
 };
 
 const reducer = (state = initialState, action) => {
@@ -25,6 +33,11 @@ const reducer = (state = initialState, action) => {
     state.data[action.index].displayOnMap = !state.data[action.index].displayOnMap;
     return {
       ...state,
+    };
+  case SETMAPDISTANCE:
+    return {
+      ...state,
+      mapDistance: action.value,
     };
   case READDATA:
     return {
