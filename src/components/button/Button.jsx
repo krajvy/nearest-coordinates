@@ -5,6 +5,7 @@ const Button = props => {
   return (
     <button
       className={`btn btn--${props.name}`}
+      disabled={props.disabled}
       name={props.name}
       type="button"
     >
@@ -14,6 +15,7 @@ const Button = props => {
 };
 
 Button.propTypes = {
+  disabled: PropTypes.bool,
   name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
 };

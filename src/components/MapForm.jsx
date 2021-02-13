@@ -24,11 +24,13 @@ const MapForm = props => {
             value={props.mapDistance}
           />
           <InputSubmit
+            disabled={props.noData}
             value="Check"
             onClick={props.setDisplayOnMapByDistance}
           />
         </div>
         <Button
+          disabled={props.noData}
           name="map_load"
           value="Load map with selected points"
         />
@@ -39,6 +41,7 @@ const MapForm = props => {
 };
 
 MapForm.propTypes = {
+  noData: PropTypes.bool,
   mapDistance: PropTypes.number,
   setMapDistance: PropTypes.func,
   setDisplayOnMapByDistance: PropTypes.func,
@@ -47,6 +50,7 @@ MapForm.propTypes = {
 const mapStateToProps = state => {
   return {
     mapDistance: state.mapDistance,
+    noData: state.data.length === 0,
   };
 };
 
