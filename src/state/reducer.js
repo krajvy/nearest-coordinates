@@ -8,8 +8,11 @@ import {
   SETDISPLAYONMAPBYDISTANCE,
 } from './constants';
 
+import parseCoordinates from '../functions/data/parseCoordinates';
+
 const initialState = {
   coordIn: '',
+  coordInParsed: {},
   fileIn: '',
   fileInList: {},
   isLoading: false,
@@ -23,6 +26,7 @@ const reducer = (state = initialState, action) => {
     return {
       ...state,
       coordIn: action.value,
+      coordInParsed: parseCoordinates(action.value),
     };
   case SETFILEIN:
     return {
