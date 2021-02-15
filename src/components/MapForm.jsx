@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -8,39 +8,67 @@ import setDisplayOnMapByDistance from './../state/actions/setDisplayOnMapByDista
 import InputNumber from './input/InputNumber';
 import InputSubmit from './input/InputSubmit';
 import Button from './button/Button';
+import Map from './Map';
 
 const MapForm = props => {
+  const [showMap, setShowMap] = useState(false);
+
+  const mapContainer =
+    showMap &&
+    !props.noData &&
+    props.coordInParsed.latitude &&
+    props.coordInParsed.longitude
+      ? <Map
+        latitude={props.coordInParsed.latitude}
+        longitude={props.coordInParsed.longitude}
+        zoom={13}
+      />
+      : null;
+
   return (
-    <form onSubmit={event => event.preventDefault()}>
-      <fieldset>
-        <legend>Map operations</legend>
-        <div>
-          <InputNumber
-            label="Distance to check (in km)"
-            name="map_range"
-            onChange={props.setMapDistance}
-            required={true}
-            min={0}
-            value={props.mapDistance}
-          />
-          <InputSubmit
+    <>
+      <form onSubmit={event => event.preventDefault()}>
+        <fieldset>
+          <legend>Map operations</legend>
+          <div>
+            <InputNumber
+              label="Distance to check (in km)"
+              name="map_range"
+              onChange={props.setMapDistance}
+              required={true}
+              min={0}
+              value={props.mapDistance}
+            />
+            <InputSubmit
+              disabled={props.noData}
+              value="Check"
+              onClick={props.setDisplayOnMapByDistance}
+            />
+          </div>
+          <Button
             disabled={props.noData}
-            value="Check"
-            onClick={props.setDisplayOnMapByDistance}
+            name="map_load"
+            value="Show map"
+            onClick={() => setShowMap(true)}
           />
-        </div>
-        <Button
-          disabled={props.noData}
-          name="map_load"
-          value="Load map with selected points"
-        />
-      </fieldset>
-      <div className="map--canvas hidden"></div>
-    </form>
+          <Button
+            disabled={props.noData}
+            name="map_hide"
+            value="Hide map"
+            onClick={() => setShowMap(false)}
+          />
+        </fieldset>
+      </form>
+      {mapContainer}
+    </>
   );
 };
 
 MapForm.propTypes = {
+  coordInParsed: PropTypes.shape({
+    latitude: PropTypes.number,
+    longitude: PropTypes.number,
+  }),
   noData: PropTypes.bool,
   mapDistance: PropTypes.number,
   setMapDistance: PropTypes.func,
@@ -51,6 +79,7 @@ const mapStateToProps = state => {
   return {
     mapDistance: state.mapDistance,
     noData: state.data.length === 0,
+    coordInParsed: state.coordInParsed,
   };
 };
 
