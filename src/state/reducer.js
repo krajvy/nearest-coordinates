@@ -35,9 +35,14 @@ const reducer = (state = initialState, action) => {
       fileInList: action.files,
     };
   case SETDISPLAYONMAP:
-    state.data[action.index].displayOnMap = !state.data[action.index].displayOnMap;
     return {
       ...state,
+      data: state.data.map((row, index) => {
+        if (index === action.index) {
+          row.displayOnMap = !row.displayOnMap;
+        }
+        return row;
+      }),
     };
   case SETDISPLAYONMAPBYDISTANCE:
     return {
