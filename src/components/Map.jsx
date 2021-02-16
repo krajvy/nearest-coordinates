@@ -89,7 +89,7 @@ Map.propTypes = {
 };
 
 Map.defaultProps = {
-  zoom: 13,
+  zoom: 11,
 };
 
 export default Map;

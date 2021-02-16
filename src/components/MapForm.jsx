@@ -21,7 +21,7 @@ const MapForm = props => {
       ? <Map
         latitude={props.coordInParsed.latitude}
         longitude={props.coordInParsed.longitude}
-        zoom={13}
+        zoom={11}
         points={props.data.filter(row => row.displayOnMap)}
       />
       : null;
