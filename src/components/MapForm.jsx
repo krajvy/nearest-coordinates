@@ -22,6 +22,7 @@ const MapForm = props => {
         latitude={props.coordInParsed.latitude}
         longitude={props.coordInParsed.longitude}
         zoom={13}
+        points={props.data.filter(row => row.displayOnMap)}
       />
       : null;
 
@@ -69,6 +70,7 @@ MapForm.propTypes = {
     latitude: PropTypes.number,
     longitude: PropTypes.number,
   }),
+  data: PropTypes.array,
   noData: PropTypes.bool,
   mapDistance: PropTypes.number,
   setMapDistance: PropTypes.func,
@@ -80,6 +82,7 @@ const mapStateToProps = state => {
     mapDistance: state.mapDistance,
     noData: state.data.length === 0,
     coordInParsed: state.coordInParsed,
+    data: state.data,
   };
 };
 
