@@ -4,6 +4,8 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+import './grid.css';
+
 import { Provider } from 'react-redux';
 import store from './state/store';
 window.store = store;

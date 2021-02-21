@@ -1,12 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-import Input from './Input';
+const StyledInput = styled.input`
+  margin-top: 1em;
+  width: 100%;
+`;
 
 const InputSubmit = props => {
   return (
     <div>
-      <Input
+      <StyledInput
         disabled={props.disabled}
         name="submit"
         onClick={props.onClick}

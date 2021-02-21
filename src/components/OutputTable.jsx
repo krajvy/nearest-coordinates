@@ -9,40 +9,51 @@ import InputCheckbox from './input/InputCheckbox';
 
 import formatCoordinates from '../functions/format/formatCoordinates';
 
-const Arrow = styled.span`
+const StyledArrow = styled.span`
   position: absolute;
   transform: rotate(${props => props.azimuth - 90}deg);
 `;
-const Azimuth = styled.span`
+const StyledAzimuth = styled.span`
   margin-left: 1.2em;
 `;
 
-const Table = styled.table`
+const StyledTable = styled.table`
+  border: 1px solid #ccc;
   border-collapse: collapse;
+  overflow-x: auto;
   width: 100%;
+  thead tr {
+    background-color: #efefef;
+    border: 1px solid #ddd;
+    letter-spacing: 0.1em;
+  }
+  tr {
+    border: 1px solid #ddd;
+  }
+  tr:nth-child(even) {
+    background-color: #f8f8f8;
+  }
   th, td {
-    border: 1px solid black;
-    padding-left: 0.3em;
-    padding-right: 0.3em;
+    padding: 0.3em;
   }
 `;
 
-const TdCoordinates = styled.td`
+const StyledTdCoordinates = styled.td`
   text-align: center;
   width: 10em;
 `;
 
-const TdDistance = styled.td`
+const StyledTdDistance = styled.td`
   text-align: right;
   width: 5em;
 `;
 
-const TdAzimuth = styled.td`
+const StyledTdAzimuth = styled.td`
   text-align: center;
   width: 4em;
 `;
 
-const TdMap = styled.td`
+const StyledTdMap = styled.td`
   text-align: center;
   width: 2em;
 `;
@@ -51,7 +62,7 @@ const OutputTable = props => {
   return (
     <fieldset>
       <legend>Output table</legend>
-      <Table>
+      <StyledTable>
         <thead>
           <tr>
             <th>Coordinates</th>
@@ -65,27 +76,27 @@ const OutputTable = props => {
           {props.data.map((row, index) => {
             return (
               <tr key={index}>
-                <TdCoordinates>{formatCoordinates(row.latitude, row.longitude)}</TdCoordinates>
-                <TdDistance>
+                <StyledTdCoordinates>{formatCoordinates(row.latitude, row.longitude)}</StyledTdCoordinates>
+                <StyledTdDistance>
                   {row.distance > 50 ? parseInt(row.distance, 10) : row.distance} km
-                </TdDistance>
-                <TdAzimuth>
-                  <Arrow azimuth={row.azimuth}>&#10140;</Arrow>
-                  <Azimuth>{row.azimuth.toString().padStart(3, 0)}</Azimuth>
-                </TdAzimuth>
+                </StyledTdDistance>
+                <StyledTdAzimuth>
+                  <StyledArrow azimuth={row.azimuth}>&#10140;</StyledArrow>
+                  <StyledAzimuth>{row.azimuth.toString().padStart(3, 0)}</StyledAzimuth>
+                </StyledTdAzimuth>
                 <td>{row.description}</td>
-                <TdMap>
+                <StyledTdMap>
                   <InputCheckbox
                     name={'map-' + index}
                     onChange={e => { props.setDisplayOnMap(e, index); }}
                     checked={row.displayOnMap}
                   />
-                </TdMap>
+                </StyledTdMap>
               </tr>
             );
           })}
         </tbody>
-      </Table>
+      </StyledTable>
     </fieldset>
   );
 };

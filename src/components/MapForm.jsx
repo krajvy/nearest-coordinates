@@ -28,7 +28,7 @@ const MapForm = props => {
 
   return (
     <>
-      <form onSubmit={event => event.preventDefault()}>
+      <form className="form form--map" onSubmit={event => event.preventDefault()}>
         <fieldset>
           <legend>Map operations</legend>
           <div>

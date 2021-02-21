@@ -1,10 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
+const StyledInput = styled.input`
+  margin: 0.2em 0 0.6em;
+  width: calc(100% - 0.6em);
+`;
 
 const Input = props => {
   return (
-    <input
-      className={`input input--${props.name}`}
+    <StyledInput
       checked={props.checked}
       disabled={props.disabled}
       name={props.name}

@@ -16,7 +16,7 @@ import { COORDSPATTERN } from '../functions/validator/coordspattern';
 
 const InputForm = props => {
   return (
-    <form onSubmit={event => event.preventDefault()}>
+    <form className="form form--input" onSubmit={event => event.preventDefault()}>
       <fieldset>
         <legend>Input</legend>
         <LoadingMask loading={props.isLoading} text="Processing data...">
