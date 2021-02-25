@@ -22,7 +22,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test-all": "react-scripts test --watchAll=false",
+    "preversion": "npm run test-all",
+    "postversion": "git push && git push --tags"
   },
   "eslintConfig": {
     "extends": [
