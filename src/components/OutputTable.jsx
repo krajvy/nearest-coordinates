@@ -82,7 +82,7 @@ const OutputTable = props => {
                 </StyledTdDistance>
                 <StyledTdAzimuth>
                   <StyledArrow azimuth={row.azimuth}>&#10140;</StyledArrow>
-                  <StyledAzimuth>{row.azimuth.toString().padStart(3, 0)}</StyledAzimuth>
+                  <StyledAzimuth>{row.azimuth.toString().padStart(3, 0)} °</StyledAzimuth>
                 </StyledTdAzimuth>
                 <td>{row.description}</td>
                 <StyledTdMap>
