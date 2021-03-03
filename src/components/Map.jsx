@@ -33,7 +33,7 @@ const iconRed = new Icon({
   iconUrl: markerRed,
 });
 
-const Map = props => {
+const Map = (props) => {
   const [activePoint, setActivePoint] = useState(null);
 
   return (
@@ -44,10 +44,7 @@ const Map = props => {
         zoom={props.zoom}
         style={{ height: '100%' }}
       >
-        <Marker
-          icon={iconGreen}
-          position={[props.latitude, props.longitude]}
-        >
+        <Marker icon={iconGreen} position={[props.latitude, props.longitude]}>
           <Tooltip>Your coordinates</Tooltip>
         </Marker>
 

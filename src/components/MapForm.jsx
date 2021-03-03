@@ -10,25 +10,28 @@ import InputSubmit from './input/InputSubmit';
 import Button from './button/Button';
 import Map from './Map';
 
-const MapForm = props => {
+const MapForm = (props) => {
   const [showMap, setShowMap] = useState(false);
 
   const mapContainer =
     showMap &&
     !props.noData &&
     props.coordInParsed.latitude &&
-    props.coordInParsed.longitude
-      ? <Map
+    props.coordInParsed.longitude ? (
+      <Map
         latitude={props.coordInParsed.latitude}
         longitude={props.coordInParsed.longitude}
         zoom={11}
-        points={props.data.filter(row => row.displayOnMap)}
+        points={props.data.filter((row) => row.displayOnMap)}
       />
-      : null;
+    ) : null;
 
   return (
     <>
-      <form className="form form--map" onSubmit={event => event.preventDefault()}>
+      <form
+        className="form form--map"
+        onSubmit={(event) => event.preventDefault()}
+      >
         <fieldset>
           <legend>Map operations</legend>
           <div>
@@ -77,7 +80,7 @@ MapForm.propTypes = {
   setDisplayOnMapByDistance: PropTypes.func,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     mapDistance: state.mapDistance,
     noData: state.data.length === 0,
@@ -86,14 +89,12 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    setMapDistance: payload => dispatch(setMapDistance(payload)),
-    setDisplayOnMapByDistance: payload => dispatch(setDisplayOnMapByDistance(payload)),
+    setMapDistance: (payload) => dispatch(setMapDistance(payload)),
+    setDisplayOnMapByDistance: (payload) =>
+      dispatch(setDisplayOnMapByDistance(payload)),
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(MapForm);
+export default connect(mapStateToProps, mapDispatchToProps)(MapForm);

@@ -1,4 +1,7 @@
-import parseCoordinates, { getDescription, degMinSec2float } from './parseCoordinates';
+import parseCoordinates, {
+  getDescription,
+  degMinSec2float,
+} from './parseCoordinates';
 
 /* globals test, expect */
 
@@ -51,7 +54,7 @@ test('Should calculate correct float number from degrees, minutes and seconds', 
       output: -72.24083333333333,
     },
   ];
-  coords.forEach(value => {
+  coords.forEach((value) => {
     const ret = degMinSec2float(value.degrees, value.minutes, value.seconds);
     expect(ret).toEqual(value.output);
   });
@@ -74,7 +77,9 @@ test('Should return blank latitude, longitude and description, when input has no
     longitude: undefined,
     description: '',
   };
-  const ret = parseCoordinates('Some wierd line without coordinates, but with numbers 123 875 and so on.');
+  const ret = parseCoordinates(
+    'Some wierd line without coordinates, but with numbers 123 875 and so on.',
+  );
   expect(ret).toEqual(expected);
 });
 
@@ -94,7 +99,9 @@ test('Should return filled latitude, longitude and description, when input has c
     longitude: 16.5538242,
     description: 'Line with coordinates 50.0950228N, 16.5538242E',
   };
-  const ret = parseCoordinates('Line with coordinates 50.0950228N, 16.5538242E');
+  const ret = parseCoordinates(
+    'Line with coordinates 50.0950228N, 16.5538242E',
+  );
   expect(ret).toEqual(expected);
 });
 
@@ -104,7 +111,9 @@ test('Should return filled latitude, longitude and description, when input has c
     longitude: 16.907996666666666,
     description: 'Line with coordinates 49°33\'46.745"N, 16°54\'28.788"E',
   };
-  const ret = parseCoordinates('Line with coordinates 49°33\'46.745"N, 16°54\'28.788"E');
+  const ret = parseCoordinates(
+    'Line with coordinates 49°33\'46.745"N, 16°54\'28.788"E',
+  );
   expect(ret).toEqual(expected);
 });
 
@@ -112,9 +121,11 @@ test('Should return filled latitude, longitude and description, when input has c
   const expected = {
     latitude: 50.760866166666666,
     longitude: 15.053179166666666,
-    description: 'Line with coordinates N 50°45.65197\', E 15°3.19075\'"',
+    description: "Line with coordinates N 50°45.65197', E 15°3.19075'\"",
   };
-  const ret = parseCoordinates('Line with coordinates N 50°45.65197\', E 15°3.19075\'"');
+  const ret = parseCoordinates(
+    "Line with coordinates N 50°45.65197', E 15°3.19075'\"",
+  );
   expect(ret).toEqual(expected);
 });
 

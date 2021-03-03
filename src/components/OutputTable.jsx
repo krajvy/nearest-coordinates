@@ -11,7 +11,7 @@ import formatCoordinates from '../functions/format/formatCoordinates';
 
 const StyledArrow = styled.span`
   position: absolute;
-  transform: rotate(${props => props.azimuth - 90}deg);
+  transform: rotate(${(props) => props.azimuth - 90}deg);
 `;
 const StyledAzimuth = styled.span`
   margin-left: 1.2em;
@@ -33,7 +33,8 @@ const StyledTable = styled.table`
   tr:nth-child(even) {
     background-color: #f8f8f8;
   }
-  th, td {
+  th,
+  td {
     padding: 0.3em;
   }
 `;
@@ -58,7 +59,7 @@ const StyledTdMap = styled.td`
   width: 2em;
 `;
 
-const OutputTable = props => {
+const OutputTable = (props) => {
   return (
     <fieldset>
       <legend>Output table</legend>
@@ -76,19 +77,28 @@ const OutputTable = props => {
           {props.data.map((row, index) => {
             return (
               <tr key={index}>
-                <StyledTdCoordinates>{formatCoordinates(row.latitude, row.longitude)}</StyledTdCoordinates>
+                <StyledTdCoordinates>
+                  {formatCoordinates(row.latitude, row.longitude)}
+                </StyledTdCoordinates>
                 <StyledTdDistance>
-                  {row.distance > 50 ? parseInt(row.distance, 10) : row.distance} km
+                  {row.distance > 50
+                    ? parseInt(row.distance, 10)
+                    : row.distance}{' '}
+                  km
                 </StyledTdDistance>
                 <StyledTdAzimuth>
                   <StyledArrow azimuth={row.azimuth}>&#10140;</StyledArrow>
-                  <StyledAzimuth>{row.azimuth.toString().padStart(3, 0)} °</StyledAzimuth>
+                  <StyledAzimuth>
+                    {row.azimuth.toString().padStart(3, 0)} °
+                  </StyledAzimuth>
                 </StyledTdAzimuth>
                 <td>{row.description}</td>
                 <StyledTdMap>
                   <InputCheckbox
                     name={'map-' + index}
-                    onChange={e => { props.setDisplayOnMap(e, index); }}
+                    onChange={(e) => {
+                      props.setDisplayOnMap(e, index);
+                    }}
                     checked={row.displayOnMap}
                   />
                 </StyledTdMap>
@@ -106,19 +116,17 @@ OutputTable.propTypes = {
   setDisplayOnMap: PropTypes.func,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     data: state.data,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    setDisplayOnMap: (payload, index) => dispatch(setDisplayOnMap(payload, index)),
+    setDisplayOnMap: (payload, index) =>
+      dispatch(setDisplayOnMap(payload, index)),
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(OutputTable);
+export default connect(mapStateToProps, mapDispatchToProps)(OutputTable);

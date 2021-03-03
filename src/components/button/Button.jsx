@@ -7,7 +7,7 @@ const StyledButton = styled.button`
   width: 50%;
 `;
 
-const Button = props => {
+const Button = (props) => {
   return (
     <StyledButton
       disabled={props.disabled}

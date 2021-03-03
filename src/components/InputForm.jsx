@@ -14,9 +14,12 @@ import InputSubmit from './input/InputSubmit';
 
 import { COORDSPATTERN } from '../functions/validator/coordspattern';
 
-const InputForm = props => {
+const InputForm = (props) => {
   return (
-    <form className="form form--input" onSubmit={event => event.preventDefault()}>
+    <form
+      className="form form--input"
+      onSubmit={(event) => event.preventDefault()}
+    >
       <fieldset>
         <legend>Input</legend>
         <LoadingMask loading={props.isLoading} text="Processing data...">
@@ -55,7 +58,7 @@ InputForm.propTypes = {
   readData: PropTypes.func,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     coordIn: state.coordIn,
     fileIn: state.fileIn,
@@ -63,15 +66,12 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    setCoordIn: payload => dispatch(setCoordIn(payload)),
-    setFileIn: payload => dispatch(setFileIn(payload)),
-    readData: payload => dispatch(readData(payload)),
+    setCoordIn: (payload) => dispatch(setCoordIn(payload)),
+    setFileIn: (payload) => dispatch(setFileIn(payload)),
+    readData: (payload) => dispatch(readData(payload)),
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(InputForm);
+export default connect(mapStateToProps, mapDispatchToProps)(InputForm);

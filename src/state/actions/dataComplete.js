@@ -1,6 +1,6 @@
 import { DATACOMPLETE } from './../constants';
 
-const dataComplete = payload => ({
+const dataComplete = (payload) => ({
   type: DATACOMPLETE,
   value: payload,
   payload,

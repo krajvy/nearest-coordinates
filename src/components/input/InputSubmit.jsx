@@ -7,7 +7,7 @@ const StyledInput = styled.input`
   width: 100%;
 `;
 
-const InputSubmit = props => {
+const InputSubmit = (props) => {
   return (
     <div>
       <StyledInput

@@ -1,6 +1,6 @@
 import { SETCOORDIN } from './../constants';
 
-const setCoordIn = payload => ({
+const setCoordIn = (payload) => ({
   type: SETCOORDIN,
   value: payload.target.value,
   payload,

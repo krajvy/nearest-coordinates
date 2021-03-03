@@ -11,7 +11,7 @@ describe('Test formatCoordinates results', () => {
     [-15.9159111, -69.2928119, '-15.91591,-69.29281'],
     [64.3825969, -16.9356697, '64.3826,-16.93567'],
   ];
-  dataProvider.forEach(instance => {
+  dataProvider.forEach((instance) => {
     const latitude = instance[0];
     const longitude = instance[1];
     const expectation = instance[2];

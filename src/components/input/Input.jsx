@@ -7,7 +7,7 @@ const StyledInput = styled.input`
   width: calc(100% - 0.6em);
 `;
 
-const Input = props => {
+const Input = (props) => {
   return (
     <StyledInput
       checked={props.checked}

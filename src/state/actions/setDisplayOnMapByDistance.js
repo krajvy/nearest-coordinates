@@ -1,6 +1,6 @@
 import { SETDISPLAYONMAPBYDISTANCE } from './../constants';
 
-const setDisplayOnMapByDistance = payload => ({
+const setDisplayOnMapByDistance = (payload) => ({
   type: SETDISPLAYONMAPBYDISTANCE,
   payload,
 });

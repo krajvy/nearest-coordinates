@@ -3,10 +3,9 @@ import parseText from './parseText';
 /* globals test, expect */
 
 test('Should throw an error, when passed content is not parsable', async () => {
-  await parseText(null)
-    .catch(error => {
-      expect(error).toBeInstanceOf(Error);
-    });
+  await parseText(null).catch((error) => {
+    expect(error).toBeInstanceOf(Error);
+  });
 });
 
 test('Should return empty data, when passed content has no coordinates', async () => {
@@ -18,11 +17,10 @@ test('Should return empty data, when passed content has no coordinates', async (
   `;
   const expectation = [];
 
-  await parseText(content)
-    .then(data => {
-      expect(data).toBeInstanceOf(Array);
-      expect(data).toEqual(expectation);
-    });
+  await parseText(content).then((data) => {
+    expect(data).toBeInstanceOf(Array);
+    expect(data).toEqual(expectation);
+  });
 });
 
 test('Should return preprocessed data, when passed content is correct', async () => {
@@ -59,9 +57,8 @@ test('Should return preprocessed data, when passed content is correct', async ()
     },
   ];
 
-  await parseText(content)
-    .then(data => {
-      expect(data).toBeInstanceOf(Array);
-      expect(data).toEqual(expectation);
-    });
+  await parseText(content).then((data) => {
+    expect(data).toBeInstanceOf(Array);
+    expect(data).toEqual(expectation);
+  });
 });

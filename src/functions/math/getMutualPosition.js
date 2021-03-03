@@ -3,9 +3,9 @@ import precisionRound from './precisionRound';
 
 const earthRadius = 6371.0072;
 
-const deg2rad = deg => (deg / 180) * Math.PI;
+const deg2rad = (deg) => (deg / 180) * Math.PI;
 
-const rad2deg = rad => (rad / Math.PI) * 180;
+const rad2deg = (rad) => (rad / Math.PI) * 180;
 
 const getMutualPosition = (coord1, coord2) => {
   const output = {
@@ -14,8 +14,14 @@ const getMutualPosition = (coord1, coord2) => {
   };
 
   if (
-    !issetCoordinates({ latitude: coord1.latitude, longitude: coord1.longitude }) ||
-    !issetCoordinates({ latitude: coord2.latitude, longitude: coord2.longitude })
+    !issetCoordinates({
+      latitude: coord1.latitude,
+      longitude: coord1.longitude,
+    }) ||
+    !issetCoordinates({
+      latitude: coord2.latitude,
+      longitude: coord2.longitude,
+    })
   ) {
     return output;
   }
@@ -28,22 +34,23 @@ const getMutualPosition = (coord1, coord2) => {
   // alghorithms based on:
   // http://cs.wikipedia.org/wiki/Loxodroma
   // http://cs.wikipedia.org/wiki/Ortodroma
-  output.distance = Math.acos(
-    Math.sin(radLatitude1) *
-    Math.sin(radLatitude2) +
-    Math.cos(radLatitude1) *
-    Math.cos(radLatitude2) *
-    Math.cos(radDeltaLongitude),
-  ) * earthRadius;
+  output.distance =
+    Math.acos(
+      Math.sin(radLatitude1) * Math.sin(radLatitude2) +
+        Math.cos(radLatitude1) *
+          Math.cos(radLatitude2) *
+          Math.cos(radDeltaLongitude),
+    ) * earthRadius;
 
-  output.azimuth = rad2deg(Math.atan2(
-    Math.sin(radDeltaLongitude) * Math.cos(radLatitude2),
-    Math.cos(radLatitude1) *
-    Math.sin(radLatitude2) -
-    Math.sin(radLatitude1) *
-    Math.cos(radLatitude2) *
-    Math.cos(radDeltaLongitude),
-  ));
+  output.azimuth = rad2deg(
+    Math.atan2(
+      Math.sin(radDeltaLongitude) * Math.cos(radLatitude2),
+      Math.cos(radLatitude1) * Math.sin(radLatitude2) -
+        Math.sin(radLatitude1) *
+          Math.cos(radLatitude2) *
+          Math.cos(radDeltaLongitude),
+    ),
+  );
 
   if (output.azimuth < 0) {
     output.azimuth += 360;

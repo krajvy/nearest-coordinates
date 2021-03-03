@@ -3,21 +3,28 @@ import PropTypes from 'prop-types';
 
 import Input from './Input';
 
-const InputNumber = props => {
-  const input =
-        <Input
-          name={props.name}
-          onChange={props.onChange}
-          pattern={props.pattern}
-          required={props.required}
-          type="number"
-          min={props.min}
-          value={props.value}
-        />;
+const InputNumber = (props) => {
+  const input = (
+    <Input
+      name={props.name}
+      onChange={props.onChange}
+      pattern={props.pattern}
+      required={props.required}
+      type="number"
+      min={props.min}
+      value={props.value}
+    />
+  );
 
   return (
     <div>
-      {props.label ? <label>{props.label}:{input}</label> : <>{input}</>}
+      {props.label ? (
+        <label>
+          {props.label}:{input}
+        </label>
+      ) : (
+        <>{input}</>
+      )}
     </div>
   );
 };

@@ -12,7 +12,7 @@ describe('Test precisionRound results', () => {
     [8.31, 5, 8.31],
     [-39.2960789, 6, -39.296079],
   ];
-  dataProvider.forEach(instance => {
+  dataProvider.forEach((instance) => {
     const what = instance[0];
     const accuracy = instance[1];
     const expectation = instance[2];

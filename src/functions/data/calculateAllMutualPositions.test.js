@@ -48,7 +48,7 @@ test('Should calculate correct mutual positions of all given data', () => {
     {
       latitude: 61.63639,
       longitude: 8.3125,
-      description: 'Line with coordinates N 61°38.18333\', E 8°18.75000\'',
+      description: "Line with coordinates N 61°38.18333', E 8°18.75000'",
     },
     {
       latitude: -3.07641,
@@ -84,7 +84,7 @@ test('Should calculate correct mutual positions of all given data', () => {
     {
       latitude: 61.63639,
       longitude: 8.3125,
-      description: 'Line with coordinates N 61°38.18333\', E 8°18.75000\'',
+      description: "Line with coordinates N 61°38.18333', E 8°18.75000'",
       distance: 1379.98,
       azimuth: 342,
     },

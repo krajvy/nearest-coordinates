@@ -1,6 +1,6 @@
 import { SETFILEIN } from './../constants';
 
-const setFileIn = payload => ({
+const setFileIn = (payload) => ({
   type: SETFILEIN,
   value: payload.target.value,
   files: payload.target.files,
