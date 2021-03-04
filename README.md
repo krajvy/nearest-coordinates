@@ -6,6 +6,8 @@ It is very handfull when you have database with interesting places and you want 
 
 Version 2 is based on React. It can be easily packed and viewed on most of all modern browsers.
 
+Public version is available by GitHub Pages on URL: https://krajvy.github.io/nearest-coordinates/
+
 ## Input file
 
 Input file have to be in specific format:
