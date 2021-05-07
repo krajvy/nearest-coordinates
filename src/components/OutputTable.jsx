@@ -20,8 +20,11 @@ const StyledAzimuth = styled.span`
 const StyledTable = styled.table`
   border: 1px solid #ccc;
   border-collapse: collapse;
+  font-size: 1em;
+  line-height: 1.5em;
   overflow-x: auto;
   width: 100%;
+
   thead tr {
     background-color: #efefef;
     border: 1px solid #ddd;
@@ -36,6 +39,37 @@ const StyledTable = styled.table`
   th,
   td {
     padding: 0.3em;
+  }
+
+  @media screen and (max-width: 600px) {
+    border: 0;
+
+    thead {
+      display: none;
+    }
+    tr {
+      display: block;
+      margin-bottom: 0.625em;
+    }
+    td {
+      border-bottom: 1px solid #ddd;
+      display: block;
+      text-align: left;
+      width: calc(100% - 0.6em);
+
+      &:last-child {
+        border-bottom: 0;
+      }
+      &::before {
+        content: attr(data-label) ':';
+        float: left;
+        font-weight: bold;
+        width: 6.5em;
+      }
+      input {
+        width: calc(100% - 8em);
+      }
+    }
   }
 `;
 
@@ -77,23 +111,23 @@ const OutputTable = (props) => {
           {props.data.map((row, index) => {
             return (
               <tr key={index}>
-                <StyledTdCoordinates>
+                <StyledTdCoordinates data-label="Coordinates">
                   {formatCoordinates(row.latitude, row.longitude)}
                 </StyledTdCoordinates>
-                <StyledTdDistance>
+                <StyledTdDistance data-label="Distance">
                   {row.distance > 50
                     ? parseInt(row.distance, 10)
                     : row.distance}{' '}
                   km
                 </StyledTdDistance>
-                <StyledTdAzimuth>
+                <StyledTdAzimuth data-label="Azimuth">
                   <StyledArrow azimuth={row.azimuth}>&#10140;</StyledArrow>
                   <StyledAzimuth>
                     {row.azimuth.toString().padStart(3, 0)} °
                   </StyledAzimuth>
                 </StyledTdAzimuth>
-                <td>{row.description}</td>
-                <StyledTdMap>
+                <td data-label="Description">{row.description}</td>
+                <StyledTdMap data-label="Map">
                   <InputCheckbox
                     name={'map-' + index}
                     onChange={(e) => {

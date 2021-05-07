@@ -1,4 +1,16 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
+
+const StyledPre = styled.pre`
+  overflow: scroll;
+  width: calc(100vw - 50px);
+`;
+
+const StyledTable = styled.table`
+  display: inline-block;
+  overflow: scroll;
+  width: calc(100vw - 50px);
+`;
 
 const Help = () => {
   const [showHelp, setShowHelp] = useState(false);
@@ -31,7 +43,7 @@ const Help = () => {
           </p>
           <h3>Input file</h3>
           <p>Input file have to be in specific format:</p>
-          <pre>
+          <StyledPre>
             Galdhøpiggen - 2469 m (N 61°38.18333&apos;, E 8°18.75000&apos;)
             <br />
             Hoverla - 2061 m (N 48°9.60000&apos;, E 24°30.01667&apos;)
@@ -39,7 +51,7 @@ const Help = () => {
             Sněžka - 1602 m (N 50°44.16667&apos;, E 15°44.41667&apos;)
             <br />
             Monte Titano - 756 m (N 43°55.70000&apos;, E 12°27.13333&apos;)
-          </pre>
+          </StyledPre>
           <p>
             Line without any coordinates, or with coordinates which script
             cannot parse, will be ignored in output.
@@ -50,7 +62,7 @@ const Help = () => {
           </p>
           <h3>Coordinate format</h3>
           <p>Coordinates can be written only in specific formats:</p>
-          <pre>
+          <StyledPre>
             50°2&apos;33.819&quot;N, 14°31&apos;49.897&quot;E
             <br />
             50.0427275N, 14.5305269E
@@ -58,7 +70,7 @@ const Help = () => {
             N 50°2.56365&apos;, E 14°31.83162&apos;
             <br />
             50.0427275,14.5305269
-          </pre>
+          </StyledPre>
           <h3>Output</h3>
           <p>Output should be table with:</p>
           <ul>
@@ -70,7 +82,7 @@ const Help = () => {
             <li>Whole line from input file like description</li>
           </ul>
           <p>As example:</p>
-          <table>
+          <StyledTable>
             <thead>
               <tr>
                 <th>Coordinates</th>
@@ -115,7 +127,7 @@ const Help = () => {
                 </td>
               </tr>
             </tbody>
-          </table>
+          </StyledTable>
           {heading}
         </div>
       ) : null}
