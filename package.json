@@ -1,6 +1,6 @@
 {
   "name": "nearest-coordinates",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "private": true,
   "description": "Find nearest given GPS coordinates on Earth from start point.",
   "homepage": ".",
