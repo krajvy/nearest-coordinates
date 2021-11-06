@@ -35,5 +35,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Run prettier check
+        run: npm run format-check
+
       - name: NPM tests
         run: npm run test-all
