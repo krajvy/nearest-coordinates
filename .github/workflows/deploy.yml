@@ -1,12 +1,18 @@
-name: Build and publish app when tag is pushed
+name: Build and publish app
 
 on:
-  push:
-    tags: v[1-9]+.[0-9]+.[0-9]+
+  workflow_run:
+    workflows: 
+      - "Run tests"
+    branches:
+      - master
+    types:
+      - completed
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
       - uses: actions/checkout@v2
@@ -32,9 +38,6 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-
-      - name: Run tests
-        run: npm run test-all
 
       - name: Build App
         run: npm run build
