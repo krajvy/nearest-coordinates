@@ -19,8 +19,8 @@
     "url": "https://github.com/krajvy/nearest-coordinates/issues"
   },
   "scripts": {
-    "start": "export REACT_APP_VERSION=DEV && react-scripts start",
-    "build": "export REACT_APP_VERSION=$(git rev-parse HEAD) && react-scripts build",
+    "start": "export REACT_APP_VERSION=DEV-$(git rev-parse --short HEAD) && react-scripts start",
+    "build": "export REACT_APP_VERSION=$(git rev-parse --short HEAD) && react-scripts build",
     "test": "react-scripts test",
     "test-all": "react-scripts test --watchAll=false",
     "format-check": "npx prettier --check .",
