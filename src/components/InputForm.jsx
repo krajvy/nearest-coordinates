@@ -33,6 +33,7 @@ const InputForm = (props) => {
           />
           <InputFile
             label="Input file"
+            multiple={true}
             name="file_in"
             required={true}
             onChange={props.setFileIn}

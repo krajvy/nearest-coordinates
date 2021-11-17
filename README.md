@@ -8,9 +8,9 @@ Version 2 is based on React. It can be easily packed and viewed on most of all m
 
 Public version is available by GitHub Pages on URL: https://krajvy.github.io/nearest-coordinates/
 
-## Input file
+## Input files
 
-Input file have to be in specific format:
+You can input one ore more text files, that have to be in specific format:
 
 ```
 Galdhøpiggen - 2469 m (N 61°38.18333', E 8°18.75000')

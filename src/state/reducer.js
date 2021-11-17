@@ -6,6 +6,7 @@ import {
   SETDISPLAYONMAP,
   SETMAPDISTANCE,
   SETDISPLAYONMAPBYDISTANCE,
+  ERROROCCURED,
 } from './constants';
 
 import parseCoordinates from '../functions/data/parseCoordinates';
@@ -14,10 +15,11 @@ const initialState = {
   coordIn: '',
   coordInParsed: {},
   fileIn: '',
-  fileInList: {},
+  filesInList: {},
   isLoading: false,
   data: [],
   mapDistance: 50,
+  errorMessage: '',
 };
 
 const reducer = (state = initialState, action) => {
@@ -32,7 +34,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         fileIn: action.value,
-        fileInList: action.files,
+        filesInList: action.files,
       };
     case SETDISPLAYONMAP:
       return {
@@ -61,12 +63,20 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: true,
+        data: [],
       };
     case DATACOMPLETE:
       return {
         ...state,
         isLoading: false,
         data: action.value,
+      };
+    case ERROROCCURED:
+      console.error(action.payload);
+      return {
+        ...state,
+        isLoading: false,
+        errorMessage: action.payload,
       };
     default:
       return state;
