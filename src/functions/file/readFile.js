@@ -1,16 +1,16 @@
-const readFile = (fileList) =>
+const readFile = (file) =>
   new Promise((resolve, reject) => {
     if (!FileReader) {
       reject(new Error('FileReader does not exists!'));
     }
 
-    if (!fileList.length) {
+    if (!file) {
       reject(new Error('No file to read passed!'));
     }
 
-    const file = fileList[0];
-    if (!file.type.match('text.*')) {
-      reject(new Error('Cannot parse this file as text!'));
+    if (!(file instanceof File) || !file.type.match('text.*')) {
+      const fileName = file.name || 'unknown';
+      reject(new Error(`Cannot parse ${fileName} file as text!`));
     }
 
     const fileReader = new FileReader();

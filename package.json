@@ -24,6 +24,7 @@
     "test": "react-scripts test",
     "test-all": "react-scripts test --watchAll=false",
     "format-check": "npx prettier --check .",
+    "format-fix": "prettier -w .",
     "preversion": "npm run format-check && npm run test-all",
     "postversion": "git push && git push --tags"
   },

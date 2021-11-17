@@ -13,6 +13,7 @@ const Input = (props) => {
       checked={props.checked}
       disabled={props.disabled}
       name={props.name}
+      multiple={props.multiple}
       min={props.min}
       onChange={props.onChange}
       onClick={props.onClick}
@@ -28,6 +29,7 @@ Input.propTypes = {
   disabled: PropTypes.bool,
   checked: PropTypes.bool,
   min: PropTypes.number,
+  multiple: PropTypes.bool,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func,
   onClick: PropTypes.func,

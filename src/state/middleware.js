@@ -1,6 +1,7 @@
 import dataComplete from './actions/dataComplete';
 import preprocessData from './actions/preprocessData';
-import readFile from '../functions/file/readFile';
+import handleError from './actions/handleError';
+import readAllFiles from '../functions/file/readAllFiles';
 import calculateAllMutualPositions from '../functions/data/calculateAllMutualPositions';
 import parseText from '../functions/data/parseText';
 import addMapField from '../functions/data/addMapField';
@@ -21,16 +22,16 @@ const middleware = (store) => (next) => (action) => {
         !state.fileIn ||
         !checkCoordinates(state.coordInParsed)
       ) {
-        console.error('Input fields not filled properly!');
+        store.dispatch(handleError('Input fields not filled properly!'));
         break;
       }
       next(action);
-      readFile(state.fileInList)
+      readAllFiles(state.filesInList)
         .then((data) => {
           store.dispatch(preprocessData(data));
         })
         .catch((error) => {
-          console.error(error.message);
+          store.dispatch(handleError(error));
         });
       break;
     case PREPROCESSDATA:
@@ -42,7 +43,7 @@ const middleware = (store) => (next) => (action) => {
           store.dispatch(dataComplete(data));
         })
         .catch((error) => {
-          console.error(error.message);
+          store.dispatch(handleError(error));
         });
       break;
     default:
