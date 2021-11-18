@@ -18,7 +18,7 @@ describe('Test precisionRound results', () => {
     const expectation = instance[2];
 
     test('Should give all expected results', () => {
-      expect(precisionRound(what, accuracy)).toEqual(expectation);
+      expect(precisionRound(what, accuracy)).toStrictEqual(expectation);
     });
   });
 });

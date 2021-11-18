@@ -2,13 +2,16 @@ import parseText from './parseText';
 
 /* globals test, expect */
 
-test('Should throw an error, when passed content is not parsable', async () => {
-  await parseText(null).catch((error) => {
-    expect(error).toBeInstanceOf(Error);
-  });
+test('Should throw an error, when passed content is not parsable', () => {
+  expect.assertions(2);
+  const result = expect(parseText(null));
+  return (
+    result.rejects.toBeInstanceOf(Error) &&
+    result.rejects.toStrictEqual(Error('Cannot parse passed object as string!'))
+  );
 });
 
-test('Should return empty data, when passed content has no coordinates', async () => {
+test('Should return empty data, when passed content has no coordinates', () => {
   const content = `
   Content with no coordinates.
   No at all.
@@ -17,13 +20,15 @@ test('Should return empty data, when passed content has no coordinates', async (
   `;
   const expectation = [];
 
-  await parseText(content).then((data) => {
-    expect(data).toBeInstanceOf(Array);
-    expect(data).toEqual(expectation);
-  });
+  expect.assertions(2);
+  const result = expect(parseText(content));
+  return (
+    result.resolves.toBeInstanceOf(Array) &&
+    result.resolves.toStrictEqual(expectation)
+  );
 });
 
-test('Should return preprocessed data, when passed content is correct', async () => {
+test('Should return preprocessed data, when passed content is correct', () => {
   const content = `
   Basic, no indentation:
   Galdhopiggen - 2469 m (N 61°38.18333', E 8°18.75000')
@@ -57,8 +62,10 @@ test('Should return preprocessed data, when passed content is correct', async ()
     },
   ];
 
-  await parseText(content).then((data) => {
-    expect(data).toBeInstanceOf(Array);
-    expect(data).toEqual(expectation);
-  });
+  expect.assertions(2);
+  const result = expect(parseText(content));
+  return (
+    result.resolves.toBeInstanceOf(Array) &&
+    result.resolves.toStrictEqual(expectation)
+  );
 });

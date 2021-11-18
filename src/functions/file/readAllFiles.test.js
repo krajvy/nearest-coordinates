@@ -3,16 +3,20 @@ import readAllFiles from './readAllFiles';
 /* globals test, expect */
 
 test('Should throw an error, when no files are passed', () => {
-  expect.assertions(1);
-  return expect(readAllFiles(null)).rejects.toStrictEqual(
-    Error('No files to read passed!'),
+  expect.assertions(2);
+  const result = expect(readAllFiles(null));
+  return (
+    result.rejects.toBeInstanceOf(Error) &&
+    result.rejects.toStrictEqual(Error('No files to read passed!'))
   );
 });
 
 test('Should throw an error, when unexpected type as files are passed', () => {
-  expect.assertions(1);
-  return expect(readAllFiles('this is string')).rejects.toStrictEqual(
-    Error('No files to read passed!'),
+  expect.assertions(2);
+  const result = expect(readAllFiles('this is string'));
+  return (
+    result.rejects.toBeInstanceOf(Error) &&
+    result.rejects.toStrictEqual(Error('No files to read passed!'))
   );
 });
 
@@ -21,9 +25,13 @@ test('Should throw an error, when single passed file in list is not txt', () => 
     type: 'image/bmp',
   });
 
-  expect.assertions(1);
-  return expect(readAllFiles([file])).rejects.toStrictEqual(
-    Error('Cannot parse some-image.bmp file as text!'),
+  expect.assertions(2);
+  const result = expect(readAllFiles([file]));
+  return (
+    result.rejects.toBeInstanceOf(Error) &&
+    result.rejects.toStrictEqual(
+      Error('Cannot parse some-image.bmp file as text!'),
+    )
   );
 });
 
@@ -34,7 +42,8 @@ test('Should read text file, when single passed file in list is correct txt', ()
   });
 
   expect.assertions(1);
-  return expect(readAllFiles([file])).resolves.toStrictEqual(expectedText);
+  const result = expect(readAllFiles([file]));
+  return result.resolves.toStrictEqual(expectedText);
 });
 
 test('Should throw an error, when passed files in list are both not txt', () => {
@@ -45,9 +54,13 @@ test('Should throw an error, when passed files in list are both not txt', () => 
     type: 'application/php',
   });
 
-  expect.assertions(1);
-  return expect(readAllFiles([file1, file2])).rejects.toStrictEqual(
-    Error('Cannot parse some-image.bmp file as text!'),
+  expect.assertions(2);
+  const result = expect(readAllFiles([file1, file2]));
+  return (
+    result.rejects.toBeInstanceOf(Error) &&
+    result.rejects.toStrictEqual(
+      Error('Cannot parse some-image.bmp file as text!'),
+    )
   );
 });
 
@@ -59,9 +72,13 @@ test('Should throw an error, when passed files in list are one correct txt and o
     type: 'image/bmp',
   });
 
-  expect.assertions(1);
-  return expect(readAllFiles([file1, file2])).rejects.toStrictEqual(
-    Error('Cannot parse some-image.bmp file as text!'),
+  expect.assertions(2);
+  const result = expect(readAllFiles([file1, file2]));
+  return (
+    result.rejects.toBeInstanceOf(Error) &&
+    result.rejects.toStrictEqual(
+      Error('Cannot parse some-image.bmp file as text!'),
+    )
   );
 });
 
@@ -73,9 +90,13 @@ test('Should throw an error, when passed files in list are one not txt and one c
     type: 'text/plain',
   });
 
-  expect.assertions(1);
-  return expect(readAllFiles([file1, file2])).rejects.toStrictEqual(
-    Error('Cannot parse some-image.bmp file as text!'),
+  expect.assertions(2);
+  const result = expect(readAllFiles([file1, file2]));
+  return (
+    result.rejects.toBeInstanceOf(Error) &&
+    result.rejects.toStrictEqual(
+      Error('Cannot parse some-image.bmp file as text!'),
+    )
   );
 });
 
@@ -88,7 +109,8 @@ test('Should read text file, when passed files in list are both correct txt', ()
   });
 
   expect.assertions(1);
-  return expect(readAllFiles([file1, file2])).resolves.toStrictEqual(
+  const result = expect(readAllFiles([file1, file2]));
+  return result.resolves.toStrictEqual(
     `test 1\n'test 2!'\n\ntest 3\ntest 4\ntest 5`,
   );
 });

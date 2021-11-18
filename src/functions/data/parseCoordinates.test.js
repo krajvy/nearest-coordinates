@@ -13,7 +13,7 @@ test('Should return description line, when there are coordinates', () => {
   };
   const line = 'Some line with coords';
   const ret = getDescription(coords, line);
-  expect(ret).toEqual('Some line with coords');
+  expect(ret).toStrictEqual('Some line with coords');
 });
 
 test('Should return empty line, when there are no coordinates', () => {
@@ -23,7 +23,7 @@ test('Should return empty line, when there are no coordinates', () => {
   };
   const line = 'Some line without coords';
   const ret = getDescription(coords, line);
-  expect(ret).toEqual('');
+  expect(ret).toStrictEqual('');
 });
 
 // degMinSec2float tests
@@ -56,7 +56,7 @@ test('Should calculate correct float number from degrees, minutes and seconds', 
   ];
   coords.forEach((value) => {
     const ret = degMinSec2float(value.degrees, value.minutes, value.seconds);
-    expect(ret).toEqual(value.output);
+    expect(ret).toStrictEqual(value.output);
   });
 });
 
@@ -68,7 +68,7 @@ test('Should return blank latitude, longitude and description, when input is bla
     description: '',
   };
   const ret = parseCoordinates('');
-  expect(ret).toEqual(expected);
+  expect(ret).toStrictEqual(expected);
 });
 
 test('Should return blank latitude, longitude and description, when input has no coordinates', () => {
@@ -80,7 +80,7 @@ test('Should return blank latitude, longitude and description, when input has no
   const ret = parseCoordinates(
     'Some wierd line without coordinates, but with numbers 123 875 and so on.',
   );
-  expect(ret).toEqual(expected);
+  expect(ret).toStrictEqual(expected);
 });
 
 test('Should return filled latitude, longitude and description, when input has coordinates in format "17.15451°E,50.33167°N"', () => {
@@ -90,7 +90,7 @@ test('Should return filled latitude, longitude and description, when input has c
     description: 'Line with coordinates 17.15451°E,50.33167°N',
   };
   const ret = parseCoordinates('Line with coordinates 17.15451°E,50.33167°N');
-  expect(ret).toEqual(expected);
+  expect(ret).toStrictEqual(expected);
 });
 
 test('Should return filled latitude, longitude and description, when input has coordinates in format "50.0950228N, 16.5538242E"', () => {
@@ -102,7 +102,7 @@ test('Should return filled latitude, longitude and description, when input has c
   const ret = parseCoordinates(
     'Line with coordinates 50.0950228N, 16.5538242E',
   );
-  expect(ret).toEqual(expected);
+  expect(ret).toStrictEqual(expected);
 });
 
 test('Should return filled latitude, longitude and description, when input has coordinates in format "49°33\'46.745"N, 16°54\'28.788"E"', () => {
@@ -114,7 +114,7 @@ test('Should return filled latitude, longitude and description, when input has c
   const ret = parseCoordinates(
     'Line with coordinates 49°33\'46.745"N, 16°54\'28.788"E',
   );
-  expect(ret).toEqual(expected);
+  expect(ret).toStrictEqual(expected);
 });
 
 test('Should return filled latitude, longitude and description, when input has coordinates in format "N 50°45.65197\', E 15°3.19075\'"', () => {
@@ -126,7 +126,7 @@ test('Should return filled latitude, longitude and description, when input has c
   const ret = parseCoordinates(
     "Line with coordinates N 50°45.65197', E 15°3.19075'\"",
   );
-  expect(ret).toEqual(expected);
+  expect(ret).toStrictEqual(expected);
 });
 
 test('Should return filled latitude, longitude and description, when input has coordinates in format "27.449486,-13.050728"', () => {
@@ -136,5 +136,5 @@ test('Should return filled latitude, longitude and description, when input has c
     description: 'Line with coordinates 27.449486,-13.050728',
   };
   const ret = parseCoordinates('Line with coordinates 27.449486,-13.050728');
-  expect(ret).toEqual(expected);
+  expect(ret).toStrictEqual(expected);
 });
