@@ -28,5 +28,5 @@ test('Test sortByDistance results', () => {
     { distance: 7554545.9876 },
   ];
 
-  expect(sortByDistance(what)).toEqual(expectation);
+  expect(sortByDistance(what)).toStrictEqual(expectation);
 });

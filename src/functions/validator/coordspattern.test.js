@@ -36,7 +36,7 @@ describe('Test COORDSPATTERN regex', () => {
     const expectation = instance[1];
 
     test('Should give all expected results', () => {
-      expect(regex.test(coords)).toEqual(expectation);
+      expect(regex.test(coords)).toStrictEqual(expectation);
     });
   });
 });

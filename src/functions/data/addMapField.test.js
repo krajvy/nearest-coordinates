@@ -18,5 +18,5 @@ test('Should set "displayOnMap" property to false in datafield', () => {
     { description: 'Fifth item', displayOnMap: false },
   ];
 
-  expect(addMapField(input)).toEqual(expected);
+  expect(addMapField(input)).toStrictEqual(expected);
 });

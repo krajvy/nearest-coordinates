@@ -113,6 +113,6 @@ test('Should calculate correct mutual position of two given coordinates', () => 
   ];
   inputs.forEach((value) => {
     const ret = getMutualPosition(value.coord1, value.coord2);
-    expect(ret).toEqual(value.output);
+    expect(ret).toStrictEqual(value.output);
   });
 });

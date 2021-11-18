@@ -17,7 +17,7 @@ describe('Test formatCoordinates results', () => {
     const expectation = instance[2];
 
     test('Should give all expected results', () => {
-      expect(formatCoordinates(latitude, longitude)).toEqual(expectation);
+      expect(formatCoordinates(latitude, longitude)).toStrictEqual(expectation);
     });
   });
 });

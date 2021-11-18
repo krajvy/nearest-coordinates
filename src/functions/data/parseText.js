@@ -5,6 +5,10 @@ const parseText = (data) =>
   new Promise((resolve, reject) => {
     const output = [];
 
+    if (typeof data !== 'string' && !(data instanceof String)) {
+      reject(new Error(`Cannot parse passed ${typeof data} as string!`));
+    }
+
     // cut by newlines
     try {
       const lines = data.split(/\n/);

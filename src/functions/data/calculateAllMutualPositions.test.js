@@ -14,7 +14,7 @@ test('Should return empty array, when incorret input coordinates are send', () =
   const expected = [];
 
   const ret = calculateAllMutualPositions(coord, data);
-  expect(ret).toEqual(expected);
+  expect(ret).toStrictEqual(expected);
 });
 
 test('Should return empty array, when no data are send', () => {
@@ -26,7 +26,7 @@ test('Should return empty array, when no data are send', () => {
   const expected = [];
 
   const ret = calculateAllMutualPositions(coord, data);
-  expect(ret).toEqual(expected);
+  expect(ret).toStrictEqual(expected);
 });
 
 test('Should calculate correct mutual positions of all given data', () => {
@@ -112,5 +112,5 @@ test('Should calculate correct mutual positions of all given data', () => {
   ];
 
   const ret = calculateAllMutualPositions(coord, data);
-  expect(ret).toEqual(expected);
+  expect(ret).toStrictEqual(expected);
 });
