@@ -46,15 +46,6 @@ jobs:
         if: ${{ steps.npm-cache.outputs.cache-hit != 'true' }}
         run: exit 1
 
-      - name: Update version in package.json
-        run: |
-          git config --global user.name "GitHub CD bot"
-          git config --global user.email "github-cd-bot@example.com"
-          npm --no-git-tag-version version ${{ github.event.release.tag_name }}
-          git push origin HEAD:master
-        env:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Build App
         run: npm run build
 
