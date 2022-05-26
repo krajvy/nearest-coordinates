@@ -47,7 +47,10 @@ jobs:
         run: exit 1
 
       - name: Update version in package.json
-        run: npm version ${{ github.event.release.tag_name }}
+        run: |
+          git config --global user.name "GitHub CD bot"
+          git config --global user.email "github-cd-bot@example.com"
+          npm version ${{ github.event.release.tag_name }}
 
       - name: Build App
         run: npm run build
