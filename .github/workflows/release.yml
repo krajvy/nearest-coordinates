@@ -62,6 +62,6 @@ jobs:
           folder: build
       
       - name: Push new version to master
-        run: git push
+        run: git push origin HEAD:master
         env:
           github-token: ${{ secrets.GITHUB_TOKEN }}
