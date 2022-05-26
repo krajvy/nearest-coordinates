@@ -60,5 +60,5 @@ jobs:
       
       - name: Push new version to master
         run: git push
-          env:
-            github-token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
