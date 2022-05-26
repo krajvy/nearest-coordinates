@@ -51,6 +51,9 @@ jobs:
           git config --global user.name "GitHub CD bot"
           git config --global user.email "github-cd-bot@example.com"
           npm --no-git-tag-version version ${{ github.event.release.tag_name }}
+          git push origin HEAD:master
+        env:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build App
         run: npm run build
@@ -60,8 +63,3 @@ jobs:
         with:
           branch: gh-pages
           folder: build
-      
-      - name: Push new version to master
-        run: git push origin HEAD:master
-        env:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
