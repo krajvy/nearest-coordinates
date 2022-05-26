@@ -1,0 +1,56 @@
+name: Release App Workflow
+
+on:
+  release:
+    types: [ published ]
+
+jobs:
+  npm-install-dependencies:
+    uses: krajvy/nearest-coordinates/.github/workflows/npm_install.yml@master
+
+  test-unit-npm:
+    uses: krajvy/nearest-coordinates/.github/workflows/test_unit_npm.yml@master
+    needs:
+      - npm-install-dependencies
+
+  build-app:
+    runs-on: ubuntu-latest
+
+    needs:
+      - test-unit-npm
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js 14
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Get directories paths
+        id: dirs
+        run: |
+          echo "::set-output name=npm-cache-dir::$(npm config get cache)"
+          echo "::set-output name=node-modules-dir::**/node_modules"
+
+      - name: Cache NPM packages
+        uses: actions/cache@v2
+        id: npm-cache # use this to check for `cache-hit` ==> if: steps.npm-cache.outputs.cache-hit != 'true'
+        with:
+          path: |
+            ${{ steps.dirs.outputs.npm-cache-dir }}
+            ${{ steps.dirs.outputs.node-modules-dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Throw an error when NPM is not ready
+        if: ${{ steps.npm-cache.outputs.cache-hit != 'true' }}
+        run: exit 1
+
+      - name: Build App
+        run: npm run build
+
+      - name: Deploy to branch gh-pages
+        uses: JamesIves/github-pages-deploy-action@4.1.1
+        with:
+          branch: gh-pages
+          folder: build

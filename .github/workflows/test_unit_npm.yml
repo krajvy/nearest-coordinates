@@ -1,0 +1,41 @@
+name: Unit NPM tests Workflow
+
+on:
+  workflow_call:
+
+jobs:
+  test-unit-npm:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js 14
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Get directories paths
+        id: dirs
+        run: |
+          echo "::set-output name=npm-cache-dir::$(npm config get cache)"
+          echo "::set-output name=node-modules-dir::**/node_modules"
+
+      - name: Cache NPM packages
+        uses: actions/cache@v2
+        id: npm-cache # use this to check for `cache-hit` ==> if: steps.npm-cache.outputs.cache-hit != 'true'
+        with:
+          path: |
+            ${{ steps.dirs.outputs.npm-cache-dir }}
+            ${{ steps.dirs.outputs.node-modules-dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Throw an error when NPM is not ready
+        if: ${{ steps.npm-cache.outputs.cache-hit != 'true' }}
+        run: exit 1
+
+      - name: Run prettier check
+        run: npm run format-check
+
+      - name: NPM tests
+        run: npm run test-all

@@ -1,9 +1,10 @@
-name: Lint commits on PR
+name: Pull Request Workflow
 
-on: [pull_request]
+on:
+  pull_request:
 
 jobs:
-  commitlinter:
+  commit-linter:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,3 +23,11 @@ jobs:
 
       - name: No Fixup Commits
         uses: 13rac1/block-fixup-merge-action@v2.0.0
+
+  npm-install-dependencies:
+    uses: krajvy/nearest-coordinates/.github/workflows/npm_install.yml@master
+
+  test-unit-npm:
+    uses: krajvy/nearest-coordinates/.github/workflows/test_unit_npm.yml@master
+    needs:
+      - npm-install-dependencies
