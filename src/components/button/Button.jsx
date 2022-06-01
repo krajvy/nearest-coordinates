@@ -10,6 +10,7 @@ const StyledButton = styled.button`
 const Button = (props) => {
   return (
     <StyledButton
+      className={props.className}
       disabled={props.disabled}
       name={props.name}
       onClick={props.onClick}
@@ -21,6 +22,7 @@ const Button = (props) => {
 };
 
 Button.propTypes = {
+  className: PropTypes.string,
   disabled: PropTypes.bool,
   name: PropTypes.string.isRequired,
   onClick: PropTypes.func,

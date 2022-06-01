@@ -1,0 +1,8 @@
+Český les - Čerchov (1042m) (N 49°22.99138', E 12°47.04060')
+Hanušovická vrchovina - Jeřáb (1003m) (N 50°3.40548', E 16°48.77232')
+Ještědsko-kozákovský hřbet - Ještěd (1012m) (N 50°43.97338', E 14°59.12855')
+Jizerské hory - Smrk (1124m) (N 50°53.34097', E 15°16.38803')
+Krušné hory - Klínovec (1244m) (N 50°23.78775', E 12°58.05702')
+Orlické hory - Velká Deštná (1115m) (N 50°18.07845', E 16°23.85962')
+Šumava - Plechý (1378m) (N 48°46.28338', E 13°51.41030')
+Šumavské podhůří - Libín (1096m) (N 48°58.72903', E 14°0.70777')

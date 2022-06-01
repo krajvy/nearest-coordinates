@@ -6,6 +6,7 @@ import Input from './Input';
 const InputNumber = (props) => {
   const input = (
     <Input
+      className={props.className}
       name={props.name}
       onChange={props.onChange}
       pattern={props.pattern}
@@ -30,6 +31,7 @@ const InputNumber = (props) => {
 };
 
 InputNumber.propTypes = {
+  className: PropTypes.string,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func,
   label: PropTypes.string,

@@ -24,6 +24,7 @@ const InputForm = (props) => {
         <legend>Input</legend>
         <LoadingMask loading={props.isLoading} text="Processing data...">
           <InputText
+            className="cyCoordinatesIn"
             label="Your coordinates"
             name="coord_in"
             onChange={props.setCoordIn}
@@ -32,6 +33,7 @@ const InputForm = (props) => {
             value={props.coordIn}
           />
           <InputFile
+            className="cyFilesIn"
             label="Input files"
             multiple={true}
             name="files_in"
@@ -40,6 +42,7 @@ const InputForm = (props) => {
             value={props.filesIn}
           />
           <InputSubmit
+            className="cyReadData"
             disabled={props.isLoading}
             value="Read data"
             onClick={props.readData}

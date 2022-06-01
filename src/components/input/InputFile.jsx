@@ -6,6 +6,7 @@ import Input from './Input';
 const InputFile = (props) => {
   const input = (
     <Input
+      className={props.className}
       multiple={props.multiple}
       name={props.name}
       onChange={props.onChange}
@@ -31,6 +32,7 @@ const InputFile = (props) => {
 };
 
 InputFile.propTypes = {
+  className: PropTypes.string,
   multiple: PropTypes.bool,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func,

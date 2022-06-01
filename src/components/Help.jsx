@@ -16,21 +16,21 @@ const Help = () => {
   const [showHelp, setShowHelp] = useState(false);
 
   const heading = showHelp ? (
-    <button onClick={() => setShowHelp(false)}>
+    <button className="cyHelpBtnClose" onClick={() => setShowHelp(false)}>
       Hide help {String.fromCharCode(9666)}
     </button>
   ) : (
-    <button onClick={() => setShowHelp(true)}>
+    <button className="cyHelpBtnOpen" onClick={() => setShowHelp(true)}>
       Show help {String.fromCharCode(9656)}
     </button>
   );
 
   return (
-    <fieldset>
+    <fieldset className="cyHelp">
       <legend>Help</legend>
       {heading}
       {showHelp ? (
-        <div>
+        <div className="cyHelpText">
           <h2>Nearest Coordinates</h2>
           <p>
             Webapp for finding nearest coordinates on Earth in input file by

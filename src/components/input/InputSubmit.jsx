@@ -11,6 +11,7 @@ const InputSubmit = (props) => {
   return (
     <div>
       <StyledInput
+        className={props.className}
         disabled={props.disabled}
         name="submit"
         onClick={props.onClick}
@@ -22,6 +23,7 @@ const InputSubmit = (props) => {
 };
 
 InputSubmit.propTypes = {
+  className: PropTypes.string,
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
   value: PropTypes.string,
