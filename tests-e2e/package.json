@@ -1,0 +1,24 @@
+{
+  "name": "tests",
+  "version": "1.0.0",
+  "description": "Testing",
+  "author": "Jan Krivohlavek",
+  "license": "UNLICENSED",
+  "scripts": {
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "start": "cd .. && npm start"
+  },
+  "engines": {
+    "node": "^14.18.2",
+    "npm": "^6.14.15"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.27.0",
+    "@typescript-eslint/parser": "^5.27.0",
+    "cypress": "^9.7.0",
+    "eslint": "^8.16.0",
+    "ts-node": "^10.8.0",
+    "typescript": "^4.7.2"
+  }
+}

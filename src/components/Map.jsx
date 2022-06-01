@@ -37,7 +37,7 @@ const Map = (props) => {
   const [activePoint, setActivePoint] = useState(null);
 
   return (
-    <Container>
+    <Container className="cyMapContainer">
       <legend>Map</legend>
       <MapContainer
         center={[props.latitude, props.longitude]}

@@ -110,7 +110,7 @@ const OutputTable = (props) => {
         <tbody>
           {props.data.map((row, index) => {
             return (
-              <tr key={index}>
+              <tr className="cyOutputTableRow" key={index}>
                 <StyledTdCoordinates data-label="Coordinates">
                   {formatCoordinates(row.latitude, row.longitude)}
                 </StyledTdCoordinates>
@@ -122,7 +122,7 @@ const OutputTable = (props) => {
                 </StyledTdDistance>
                 <StyledTdAzimuth data-label="Azimuth">
                   <StyledArrow azimuth={row.azimuth}>&#10140;</StyledArrow>
-                  <StyledAzimuth>
+                  <StyledAzimuth className="cyOutputTableRowAzimuth">
                     {row.azimuth.toString().padStart(3, 0)} °
                   </StyledAzimuth>
                 </StyledTdAzimuth>

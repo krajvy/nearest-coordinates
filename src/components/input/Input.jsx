@@ -11,6 +11,7 @@ const Input = (props) => {
   return (
     <StyledInput
       checked={props.checked}
+      className={props.className}
       disabled={props.disabled}
       name={props.name}
       multiple={props.multiple}
@@ -26,6 +27,7 @@ const Input = (props) => {
 };
 
 Input.propTypes = {
+  className: PropTypes.string,
   disabled: PropTypes.bool,
   checked: PropTypes.bool,
   min: PropTypes.number,

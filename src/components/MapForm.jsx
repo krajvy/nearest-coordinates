@@ -36,6 +36,7 @@ const MapForm = (props) => {
           <legend>Map operations</legend>
           <div>
             <InputNumber
+              className="cyMapRange"
               label="Distance to check (in km)"
               name="map_range"
               onChange={props.setMapDistance}
@@ -44,18 +45,21 @@ const MapForm = (props) => {
               value={props.mapDistance}
             />
             <InputSubmit
+              className="cyMapRangeCheck"
               disabled={props.noData}
               value="Check"
               onClick={props.setDisplayOnMapByDistance}
             />
           </div>
           <Button
+            className="cyMapShow"
             disabled={props.noData}
             name="map_load"
             value="Show map"
             onClick={() => setShowMap(true)}
           />
           <Button
+            className="cyMapHide"
             disabled={props.noData}
             name="map_hide"
             value="Hide map"
