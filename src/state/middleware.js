@@ -19,7 +19,7 @@ const middleware = (store) => (next) => (action) => {
     case READDATA:
       if (
         !state.coordIn ||
-        !state.fileIn ||
+        !state.filesIn ||
         !checkCoordinates(state.coordInParsed)
       ) {
         store.dispatch(handleError('Input fields not filled properly!'));

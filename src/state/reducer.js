@@ -1,6 +1,6 @@
 import {
   SETCOORDIN,
-  SETFILEIN,
+  SETFILESIN,
   READDATA,
   DATACOMPLETE,
   SETDISPLAYONMAP,
@@ -14,7 +14,7 @@ import parseCoordinates from '../functions/data/parseCoordinates';
 const initialState = {
   coordIn: '',
   coordInParsed: {},
-  fileIn: '',
+  filesIn: '',
   filesInList: {},
   isLoading: false,
   data: [],
@@ -30,10 +30,10 @@ const reducer = (state = initialState, action) => {
         coordIn: action.value,
         coordInParsed: parseCoordinates(action.value),
       };
-    case SETFILEIN:
+    case SETFILESIN:
       return {
         ...state,
-        fileIn: action.value,
+        filesIn: action.value,
         filesInList: action.files,
       };
     case SETDISPLAYONMAP:
