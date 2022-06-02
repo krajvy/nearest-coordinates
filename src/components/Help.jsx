@@ -33,16 +33,19 @@ const Help = () => {
         <div>
           <h2>Nearest Coordinates</h2>
           <p>
-            This is webapp for finding nearest coordinates on Earth in input
-            file by given start coordinate.
+            Webapp for finding nearest coordinates on Earth in input file by
+            given start coordinate.
           </p>
           <p>
             It is very handfull when you have database with interesting places
             and you want to find the closest ones to your actual position.
             Usually when you are planning holiday, trip or geocaching adventure.
           </p>
-          <h3>Input file</h3>
-          <p>Input file have to be in specific format:</p>
+          <h3>Input files</h3>
+          <p>
+            You can input one ore more text files, that have to be in specific
+            format:
+          </p>
           <StyledPre>
             Galdhøpiggen - 2469 m (N 61°38.18333&apos;, E 8°18.75000&apos;)
             <br />
