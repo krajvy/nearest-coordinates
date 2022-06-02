@@ -5,7 +5,7 @@ import LoadingMask from 'react-loadingmask';
 import 'react-loadingmask/dist/react-loadingmask.css';
 
 import setCoordIn from './../state/actions/setCoordIn';
-import setFileIn from './../state/actions/setFileIn';
+import setFilesIn from './../state/actions/setFilesIn';
 import readData from './../state/actions/readData';
 
 import InputText from './input/InputText';
@@ -32,12 +32,12 @@ const InputForm = (props) => {
             value={props.coordIn}
           />
           <InputFile
-            label="Input file"
+            label="Input files"
             multiple={true}
-            name="file_in"
+            name="files_in"
             required={true}
-            onChange={props.setFileIn}
-            value={props.fileIn}
+            onChange={props.setFilesIn}
+            value={props.filesIn}
           />
           <InputSubmit
             disabled={props.isLoading}
@@ -52,17 +52,17 @@ const InputForm = (props) => {
 
 InputForm.propTypes = {
   coordIn: PropTypes.string,
-  fileIn: PropTypes.string,
+  filesIn: PropTypes.string,
   isLoading: PropTypes.bool,
   setCoordIn: PropTypes.func,
-  setFileIn: PropTypes.func,
+  setFilesIn: PropTypes.func,
   readData: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
   return {
     coordIn: state.coordIn,
-    fileIn: state.fileIn,
+    filesIn: state.filesIn,
     isLoading: state.isLoading,
   };
 };
@@ -70,7 +70,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     setCoordIn: (payload) => dispatch(setCoordIn(payload)),
-    setFileIn: (payload) => dispatch(setFileIn(payload)),
+    setFilesIn: (payload) => dispatch(setFilesIn(payload)),
     readData: (payload) => dispatch(readData(payload)),
   };
 };
