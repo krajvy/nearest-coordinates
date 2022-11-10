@@ -1,6 +1,6 @@
 describe('Help expander test', () => {
   it('Will expand after Show help clicked and will close after Hide help clicked', () => {
-    cy.visitProject();
+    cy.visit('/');
 
     const openButtonPath = '.cyHelp button.cyHelpBtnOpen';
     const closeButtonPath = '.cyHelp button.cyHelpBtnClose';
