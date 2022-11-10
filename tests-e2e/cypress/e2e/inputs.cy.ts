@@ -17,7 +17,7 @@ describe('Input coordinates and files test', () => {
     '[data-label="Azimuth"] .cyOutputTableRowAzimuth';
 
   beforeEach(() => {
-    cy.visitProject();
+    cy.visit('/');
   });
 
   it('Should log an error when no input coordinates and no files are given', () => {

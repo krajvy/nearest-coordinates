@@ -11,7 +11,7 @@ describe('Map operations', () => {
   const outputTableRowCheckerPath = '[data-label="Map"] input';
 
   beforeEach(() => {
-    cy.visitProject();
+    cy.visit('/');
 
     cy.get(inputCoordnatesPath).type('50.0427275,14.5305269');
 
