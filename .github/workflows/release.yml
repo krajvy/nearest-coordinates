@@ -30,8 +30,8 @@ jobs:
       - name: Get directories paths
         id: dirs
         run: |
-          echo "::set-output name=npm-cache-dir::$(npm config get cache)"
-          echo "::set-output name=node-modules-dir::**/node_modules"
+          echo "npm-cache-dir=$(npm config get cache)" >> $GITHUB_OUTPUT
+          echo "node-modules-dir=**/node_modules" >> $GITHUB_OUTPUT
 
       - name: Cache NPM packages
         uses: actions/cache@v2
