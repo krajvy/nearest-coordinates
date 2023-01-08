@@ -22,7 +22,7 @@ jobs:
           echo "node-modules-dir=**/node_modules" >> $GITHUB_OUTPUT
 
       - name: Cache NPM packages
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: npm-cache # use this to check for `cache-hit` ==> if: steps.npm-cache.outputs.cache-hit != 'true'
         with:
           path: |
