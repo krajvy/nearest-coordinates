@@ -34,7 +34,7 @@ jobs:
           echo "node-modules-dir=**/node_modules" >> $GITHUB_OUTPUT
 
       - name: Cache NPM packages
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: npm-cache # use this to check for `cache-hit` ==> if: steps.npm-cache.outputs.cache-hit != 'true'
         with:
           path: |
@@ -50,7 +50,7 @@ jobs:
         run: npm run build
 
       - name: Deploy to branch gh-pages
-        uses: JamesIves/github-pages-deploy-action@4.1.1
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
           folder: build
