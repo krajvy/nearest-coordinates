@@ -8,13 +8,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Commit Message Linter
         if: github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
-        uses: wagoid/commitlint-github-action@v5
+        uses: wagoid/commitlint-github-action@v6
         # https://github.com/wagoid/commitlint-github-action
         # https://commitlint.js.org/#/reference-configuration
         # https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/config-conventional
