@@ -43,25 +43,25 @@
     ]
   },
   "dependencies": {
-    "@testing-library/jest-dom": "^6.5.0",
-    "@testing-library/react": "^16.0.1",
-    "@testing-library/user-event": "^14.4.3",
-    "leaflet": "^1.9.3",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-leaflet": "^4.2.0",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "leaflet": "^1.9.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-leaflet": "^4.2.1",
     "react-loadingmask": "^4.0.6",
-    "react-redux": "^9.1.2",
+    "react-redux": "^9.2.0",
     "react-scripts": "^5.0.1",
     "redux": "^5.0.1",
-    "styled-components": "^6.1.13"
+    "styled-components": "^6.3.12"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.1.0",
+    "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^9.10.0",
-    "eslint": "^9.10.0",
-    "eslint-plugin-react": "^7.36.1",
-    "globals": "^15.9.0",
-    "prettier": "^3.3.3"
+    "eslint": "^9.39.4",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^15.15.0",
+    "prettier": "^3.8.1"
   }
 }
