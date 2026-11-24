@@ -7,21 +7,15 @@
   "scripts": {
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "start": "cd .. && npm start"
+    "start": "cd .. && npm run dev"
   },
   "engines": {
-    "node": "^20",
-    "npm": "^10"
+    "node": "^24",
+    "npm": "^11"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.5",
-    "@eslint/js": "^9.10.0",
-    "@typescript-eslint/eslint-plugin": "^8.58.0",
-    "@typescript-eslint/parser": "^8.58.0",
-    "cypress": "^13.17.0",
-    "eslint": "^9.39.4",
-    "globals": "^15.15.0",
+    "cypress": "^16.3.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
+    "typescript": "^7.0.2"
   }
 }

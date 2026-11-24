@@ -7,10 +7,11 @@ describe('Input coordinates and files test', () => {
 
   const DELAY = 1000;
 
-  const inputCoordnatesPath = 'input.cyCoordinatesIn';
+  const inputCoordinatesPath = 'input.cyCoordinatesIn';
   const inputFilesPath = 'input.cyFilesIn';
   const buttonReadDataPath = 'input.cyReadData';
   const outputTableRowPath = 'tr.cyOutputTableRow';
+  const filesTablePath = 'table.cyFilesTable';
   const outputTableRowCoordinatesPath = '[data-label="Coordinates"]';
   const outputTableRowDistancePath = '[data-label="Distance"]';
   const outputTableRowAzimuthPath =
@@ -23,38 +24,76 @@ describe('Input coordinates and files test', () => {
   it('Should log an error when no input coordinates and no files are given', () => {
     cy.get(buttonReadDataPath).click();
 
-    cy.wait(DELAY).then(() => {
-      expect(windowErrorSpy).to.be.calledOnce;
-    });
+    cy.get(inputCoordinatesPath).should('have.value', '');
+    cy.get(inputCoordinatesPath).invoke('prop', 'validity').should('have.property', 'valid', false);
+    cy.get(inputCoordinatesPath).invoke('prop', 'validationMessage').should('equal', 'Please fill out this field.');
+
+    cy.get(inputFilesPath).invoke('prop', 'validity').should('have.property', 'valid', false);
+    cy.get(inputFilesPath).invoke('prop', 'validationMessage').should('equal', 'Please select one or more files.');
+
+    cy.get(outputTableRowPath).should('not.exist');
+  });
+
+  it('Should log an error when incorrect input coordinates and no files are given', () => {
+    cy.get(inputCoordinatesPath).type('this is no coordinates');
+
+    cy.get(buttonReadDataPath).click();
+
+    cy.get(inputCoordinatesPath).should('have.value', 'this is no coordinates');
+    cy.get(inputCoordinatesPath).invoke('prop', 'validity').should('have.property', 'valid', false);
+    cy.get(inputCoordinatesPath).invoke('prop', 'validationMessage').should('equal', 'Please match the requested format.');
+
+    cy.get(inputFilesPath).invoke('prop', 'validity').should('have.property', 'valid', false);
+    cy.get(inputFilesPath).invoke('prop', 'validationMessage').should('equal', 'Please select one or more files.');
 
     cy.get(outputTableRowPath).should('not.exist');
   });
 
   it('Should log an error when input coordinates are OK and no files given', () => {
-    cy.get(inputCoordnatesPath).type('50.0427275,14.5305269');
+    cy.get(inputCoordinatesPath).type('50.0427275,14.5305269');
 
     cy.get(buttonReadDataPath).click();
 
-    cy.wait(DELAY).then(() => {
-      expect(windowErrorSpy).to.be.calledOnce;
-    });
+    cy.get(inputCoordinatesPath).should('have.value', '50.0427275,14.5305269');
+    cy.get(inputCoordinatesPath).invoke('prop', 'validity').should('have.property', 'valid', true);
+
+    cy.get(inputFilesPath).invoke('prop', 'validity').should('have.property', 'valid', false);
+    cy.get(inputFilesPath).invoke('prop', 'validationMessage').should('equal', 'Please select one or more files.');
 
     cy.get(outputTableRowPath).should('not.exist');
   });
 
-  it('Should log an error when no input coordinates given and file is OK', () => {
+  it('Should log an error when no input coordinates and file is OK', () => {
     cy.get(inputFilesPath).selectFile('cypress/fixtures/inputFile1.txt');
 
     cy.get(buttonReadDataPath).click();
 
-    cy.wait(DELAY).then(() => {
-      expect(windowErrorSpy).to.be.calledOnce;
-    });
+    cy.get(inputCoordinatesPath).should('have.value', '');
+    cy.get(inputCoordinatesPath).invoke('prop', 'validity').should('have.property', 'valid', false);
+    cy.get(inputCoordinatesPath).invoke('prop', 'validationMessage').should('equal', 'Please fill out this field.');
+
+    cy.get(inputFilesPath).invoke('prop', 'validity').should('have.property', 'valid', true);
 
     cy.get(outputTableRowPath).should('not.exist');
   });
 
-  it('Should log an error when no input coordinates given and files are OK', () => {
+  it('Should log an error when incorrect input coordinates and file is OK', () => {
+    cy.get(inputFilesPath).selectFile('cypress/fixtures/inputFile1.txt');
+
+    cy.get(inputCoordinatesPath).type('this is no coordinates');
+
+    cy.get(buttonReadDataPath).click();
+
+    cy.get(inputCoordinatesPath).should('have.value', 'this is no coordinates');
+    cy.get(inputCoordinatesPath).invoke('prop', 'validity').should('have.property', 'valid', false);
+    cy.get(inputCoordinatesPath).invoke('prop', 'validationMessage').should('equal', 'Please match the requested format.');
+
+    cy.get(inputFilesPath).invoke('prop', 'validity').should('have.property', 'valid', true);
+
+    cy.get(outputTableRowPath).should('not.exist');
+  });
+
+  it('Should log an error when no input coordinates and files are OK', () => {
     cy.get(inputFilesPath).selectFile([
       'cypress/fixtures/inputFile1.txt',
       'cypress/fixtures/inputFile2.txt',
@@ -62,27 +101,102 @@ describe('Input coordinates and files test', () => {
 
     cy.get(buttonReadDataPath).click();
 
-    cy.wait(DELAY).then(() => {
-      expect(windowErrorSpy).to.be.calledOnce;
-    });
+    cy.get(inputCoordinatesPath).should('have.value', '');
+    cy.get(inputCoordinatesPath).invoke('prop', 'validity').should('have.property', 'valid', false);
+    cy.get(inputCoordinatesPath).invoke('prop', 'validationMessage').should('equal', 'Please fill out this field.');
+
+    cy.get(inputFilesPath).invoke('prop', 'validity').should('have.property', 'valid', true);
 
     cy.get(outputTableRowPath).should('not.exist');
   });
 
-  it('Should log an error when input coordinates are OK and input file is wrong', () => {
-    cy.get(inputCoordnatesPath).type('50.0427275,14.5305269');
+  it('Should log an error when incorrect input coordinates and files are OK', () => {
+    cy.get(inputFilesPath).selectFile([
+      'cypress/fixtures/inputFile1.txt',
+      'cypress/fixtures/inputFile2.txt',
+    ]);
+
+    cy.get(inputCoordinatesPath).type('this is no coordinates');
+
+    cy.get(buttonReadDataPath).click();
+
+    cy.get(inputCoordinatesPath).should('have.value', 'this is no coordinates');
+    cy.get(inputCoordinatesPath).invoke('prop', 'validity').should('have.property', 'valid', false);
+    cy.get(inputCoordinatesPath).invoke('prop', 'validationMessage').should('equal', 'Please match the requested format.');
+
+    cy.get(inputFilesPath).invoke('prop', 'validity').should('have.property', 'valid', true);
+
+    cy.get(outputTableRowPath).should('not.exist');
+  });
+
+  it('Should log an error when no input coordinates and input file is wrong', () => {
+    cy.get(inputFilesPath).selectFile('cypress/fixtures/logo.png');
+
+    cy.get(buttonReadDataPath).click();
+
+    cy.get(inputCoordinatesPath).should('have.value', '');
+    cy.get(inputCoordinatesPath).invoke('prop', 'validity').should('have.property', 'valid', false);
+    cy.get(inputCoordinatesPath).invoke('prop', 'validationMessage').should('equal', 'Please fill out this field.');
+
+    cy.get(inputFilesPath).invoke('prop', 'validity').should('have.property', 'valid', true);
+
+    cy.get(outputTableRowPath).should('not.exist');
+  });
+
+  it('Should log an error when incorrect input coordinates and input file is wrong', () => {
+    cy.get(inputCoordinatesPath).type('this is no coordinates');
 
     cy.get(inputFilesPath).selectFile('cypress/fixtures/logo.png');
 
     cy.get(buttonReadDataPath).click();
 
+    cy.get(inputCoordinatesPath).should('have.value', 'this is no coordinates');
+    cy.get(inputCoordinatesPath).invoke('prop', 'validity').should('have.property', 'valid', false);
+    cy.get(inputCoordinatesPath).invoke('prop', 'validationMessage').should('equal', 'Please match the requested format.');
+
+    cy.get(inputFilesPath).invoke('prop', 'validity').should('have.property', 'valid', true);
+
+    cy.get(outputTableRowPath).should('not.exist');
+  });
+
+  it('Should log an error when input coordinates are OK and input file is wrong', () => {
+    cy.get(inputCoordinatesPath).type('50.0427275,14.5305269');
+
+    cy.get(inputFilesPath).selectFile('cypress/fixtures/logo.png');
+
+    cy.get(buttonReadDataPath).click();
+
+    cy.get(inputCoordinatesPath).should('have.value', '');
+    cy.get(inputCoordinatesPath).invoke('prop', 'validity').should('have.property', 'valid', false);
+
+    cy.get(inputFilesPath).invoke('prop', 'validity').should('have.property', 'valid', false);
+
+    cy.get(outputTableRowPath).should('not.exist');
+
     cy.wait(DELAY).then(() => {
-      expect(windowErrorSpy).to.be.calledOnce;
+      expect(windowErrorSpy).to.be.calledTwice;
     });
   });
 
-  it('Should log an error when input coordinates are OK and one of input files is OK and other is wrong', () => {
-    cy.get(inputCoordnatesPath).type('50.0427275,14.5305269');
+  it('Should log an error when no input coordinates and one of input files is OK and other is wrong', () => {
+    cy.get(inputFilesPath).selectFile([
+      'cypress/fixtures/inputFile1.txt',
+      'cypress/fixtures/logo.png',
+    ]);
+
+    cy.get(buttonReadDataPath).click();
+
+    cy.get(inputCoordinatesPath).should('have.value', '');
+    cy.get(inputCoordinatesPath).invoke('prop', 'validity').should('have.property', 'valid', false);
+    cy.get(inputCoordinatesPath).invoke('prop', 'validationMessage').should('equal', 'Please fill out this field.');
+
+    cy.get(inputFilesPath).invoke('prop', 'validity').should('have.property', 'valid', true);
+
+    cy.get(outputTableRowPath).should('not.exist');
+  });
+
+  it('Should log an error when incorrect input coordinates and one of input files is OK and other is wrong', () => {
+    cy.get(inputCoordinatesPath).type('this is no coordinates');
 
     cy.get(inputFilesPath).selectFile([
       'cypress/fixtures/inputFile1.txt',
@@ -91,8 +205,34 @@ describe('Input coordinates and files test', () => {
 
     cy.get(buttonReadDataPath).click();
 
+    cy.get(inputCoordinatesPath).should('have.value', 'this is no coordinates');
+    cy.get(inputCoordinatesPath).invoke('prop', 'validity').should('have.property', 'valid', false);
+    cy.get(inputCoordinatesPath).invoke('prop', 'validationMessage').should('equal', 'Please match the requested format.');
+
+    cy.get(inputFilesPath).invoke('prop', 'validity').should('have.property', 'valid', true);
+
+    cy.get(outputTableRowPath).should('not.exist');
+  });
+
+  it('Should log an error when input coordinates are OK and one of input files is OK and other is wrong', () => {
+    cy.get(inputCoordinatesPath).type('50.0427275,14.5305269');
+
+    cy.get(inputFilesPath).selectFile([
+      'cypress/fixtures/inputFile1.txt',
+      'cypress/fixtures/logo.png',
+    ]);
+
+    cy.get(buttonReadDataPath).click();
+
+    cy.get(inputCoordinatesPath).should('have.value', '');
+    cy.get(inputCoordinatesPath).invoke('prop', 'validity').should('have.property', 'valid', false);
+
+    cy.get(inputFilesPath).invoke('prop', 'validity').should('have.property', 'valid', false);
+
+    cy.get(outputTableRowPath).should('not.exist');
+
     cy.wait(DELAY).then(() => {
-      expect(windowErrorSpy).to.be.calledOnce;
+      expect(windowErrorSpy).to.be.calledTwice;
     });
   });
 
@@ -119,12 +259,32 @@ describe('Input coordinates and files test', () => {
         azimuth: '346',
       },
     ];
+    const inputFileName = 'inputFile1.txt';
 
-    cy.get(inputCoordnatesPath).type('50.0427275,14.5305269');
+    cy.get(inputCoordinatesPath).type('50.0427275,14.5305269');
 
-    cy.get(inputFilesPath).selectFile('cypress/fixtures/inputFile1.txt');
+    cy.get(inputFilesPath).selectFile(`cypress/fixtures/${inputFileName}`);
 
     cy.get(buttonReadDataPath).click();
+
+    cy.get(inputCoordinatesPath).should('have.value', '50.0427275,14.5305269');
+    cy.get(inputCoordinatesPath).invoke('prop', 'validity').should('have.property', 'valid', true);
+
+    cy.get(inputFilesPath).invoke('prop', 'validity').should('have.property', 'valid', true);
+
+    cy.get(filesTablePath)
+      .should('exist')
+      .should('be.visible')
+      .should('have.length', 1)
+      .should((tableRows) => {
+        tableRows.each((pos, row) => {
+          console.log(row);
+          const fileName = cy.$$(`td`, row).first();
+
+          expect(fileName).to.be.visible;
+          expect(fileName).to.have.text(inputFileName);
+        });
+      });
 
     cy.get(outputTableRowPath)
       .should('exist')
@@ -145,11 +305,8 @@ describe('Input coordinates and files test', () => {
           expect(azimuth).to.have.text(fixtureFile1Data[pos].azimuth + ' °');
         });
       });
-
-    cy.wait(DELAY).then(() => {
-      expect(windowErrorSpy).not.to.be.called;
-    });
   });
+
   it('Should view a table with data when input coordinates is OK and input files are OK', () => {
     const fixtureFile1Data = [
       {
@@ -213,15 +370,32 @@ describe('Input coordinates and files test', () => {
         azimuth: '346',
       },
     ];
+    const inputFileNames = ['inputFile1.txt', 'inputFile2.txt'];
 
-    cy.get(inputCoordnatesPath).type('50.0427275,14.5305269');
+    cy.get(inputCoordinatesPath).type('50.0427275,14.5305269');
 
-    cy.get(inputFilesPath).selectFile([
-      'cypress/fixtures/inputFile1.txt',
-      'cypress/fixtures/inputFile2.txt',
-    ]);
+    cy.get(inputFilesPath).selectFile(inputFileNames.map((fileName) => `cypress/fixtures/${fileName}`));
 
     cy.get(buttonReadDataPath).click();
+
+    cy.get(inputCoordinatesPath).should('have.value', '50.0427275,14.5305269');
+    cy.get(inputCoordinatesPath).invoke('prop', 'validity').should('have.property', 'valid', true);
+
+    cy.get(inputFilesPath).invoke('prop', 'validity').should('have.property', 'valid', true);
+
+    cy.get(filesTablePath)
+      .should('exist')
+      .should('be.visible')
+      .should('have.length', 1)
+      .should((tableRows) => {
+        tableRows.each((pos, row) => {
+          console.log(row);
+          const fileName = cy.$$(`td`, row).first();
+
+          expect(fileName).to.be.visible;
+          expect(fileName).to.have.text(inputFileNames[pos]);
+        });
+      });
 
     cy.get(outputTableRowPath)
       .should('exist')
@@ -242,9 +416,5 @@ describe('Input coordinates and files test', () => {
           expect(azimuth).to.have.text(fixtureFile1Data[pos].azimuth + ' °');
         });
       });
-
-    cy.wait(DELAY).then(() => {
-      expect(windowErrorSpy).not.to.be.called;
-    });
   });
 });

@@ -1,50 +1,28 @@
-import react from 'eslint-plugin-react';
-import globals from 'globals';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-import js from '@eslint/js';
-import { FlatCompat } from '@eslint/eslintrc';
+import js from '@eslint/js'
+import globals from 'globals'
+import reactHooks from 'eslint-plugin-react-hooks'
+import reactRefresh from 'eslint-plugin-react-refresh'
+import tseslint from 'typescript-eslint'
+import { defineConfig, globalIgnores } from 'eslint/config'
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-  allConfig: js.configs.all,
-});
-
-export default [
-  ...compat.extends('plugin:react/recommended', 'standard', 'prettier'),
+export default defineConfig([
+  globalIgnores(['dist', 'tests-e2e']),
   {
-    plugins: {
-      react,
-    },
-
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      js.configs.recommended,
+      tseslint.configs.recommended,
+      reactHooks.configs.flat.recommended,
+      reactRefresh.configs.vite,
+    ],
     languageOptions: {
-      globals: {
-        ...globals.browser,
-      },
-
-      ecmaVersion: 13,
-      sourceType: 'module',
-
-      parserOptions: {
-        ecmaFeatures: {
-          jsx: true,
-        },
-      },
+      ecmaVersion: 2020,
+      globals: globals.browser,
     },
-
-    settings: {
-      react: {
-        version: 'detect',
-      },
-    },
-
     rules: {
       'comma-dangle': ['warn', 'always-multiline'],
       'linebreak-style': ['error', 'unix'],
       semi: ['error', 'always'],
     },
   },
-];
+])

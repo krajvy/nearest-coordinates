@@ -8,12 +8,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - name: Use Node.js 20
-        uses: actions/setup-node@v4
+      - name: Use Node.js 24
+        uses: actions/setup-node@v7
         with:
-          node-version: '20'
+          node-version: '24'
 
       - name: Get directories paths
         id: dirs
@@ -22,7 +22,7 @@ jobs:
           echo "node-modules-dir=**/node_modules" >> $GITHUB_OUTPUT
 
       - name: Cache NPM packages
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         id: npm-cache # use this to check for `cache-hit` ==> if: steps.npm-cache.outputs.cache-hit != 'true'
         with:
           path: |
@@ -34,8 +34,8 @@ jobs:
         if: ${{ steps.npm-cache.outputs.cache-hit != 'true' }}
         run: exit 1
 
-      - name: Run prettier check
-        run: npm run format-check
+      - name: Run lint check
+        run: npm run lint
 
       - name: NPM tests
-        run: npm run test-all
+        run: npm run test
