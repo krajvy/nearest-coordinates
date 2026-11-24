@@ -36,7 +36,26 @@ describe('Map operations', () => {
 
     cy.get(buttonMapShowPath).should('not.be.disabled');
 
-    cy.get(buttonMapHidePath).should('not.be.disabled');
+    cy.get(buttonMapHidePath).should('be.disabled');
+  });
+
+  it('Should display error when distance is under 1', () => {
+    cy.get(inputMapRangePath).clear().type('{selectall}-1');
+
+    cy.get(buttonMapRangeCheckPath).click();
+
+    cy.get(inputMapRangePath).invoke('prop', 'validity').should('have.property', 'valid', false);
+    cy.get(inputMapRangePath).invoke('prop', 'validationMessage').should('equal', 'Value must be greater than or equal to 1.');
+
+    cy.get(outputTableRowPath).should((tableRows) => {
+      tableRows.each((pos, row) => {
+        const checker = cy.$$(outputTableRowCheckerPath, row);
+
+        expect(checker).to.be.visible;
+
+        expect(checker).not.to.be.checked;
+      });
+    });
   });
 
   it('Should check places in certain distance from input coordinates', () => {
@@ -98,13 +117,21 @@ describe('Map operations', () => {
   });
 
   it('Should show map with input coordinates and selected points from table and then hide the map', () => {
-    cy.get(inputMapRangePath).clear().type('{selectall}120');
+    cy.get(inputMapRangePath).clear().type('{selectall}117');
 
     cy.get(buttonMapRangeCheckPath).click();
 
     cy.get(outputMapContainerPath).should('not.exist');
 
+    cy.get(buttonMapShowPath).should('not.be.disabled');
+
+    cy.get(buttonMapHidePath).should('be.disabled');
+
     cy.get(buttonMapShowPath).click();
+
+    cy.get(buttonMapShowPath).should('be.disabled');
+
+    cy.get(buttonMapHidePath).should('not.be.disabled');
 
     cy.get(outputMapContainerPath).should('exist').should('be.visible');
 
@@ -113,6 +140,10 @@ describe('Map operations', () => {
       .should('have.length', 4);
 
     cy.get(buttonMapHidePath).click();
+
+    cy.get(buttonMapShowPath).should('not.be.disabled');
+
+    cy.get(buttonMapHidePath).should('be.disabled');
 
     cy.get(outputMapContainerPath).should('not.exist');
   });
